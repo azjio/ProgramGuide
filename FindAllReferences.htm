@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>FindAllReferences</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">FindAllReferences</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Поиск всех вхождений выделенного слова в окне редактора.</p><br />
+<img src='img/FindAllReferences.png' border="0"><br /><br />
+
+FindAllReferences - инструмент для IDE PureBasic. Предназначен для поиска какого либо элемента кода (процедуры, ключевого слова, константы и т.д.). Выводит список строк в которых найден элемент кода. Клик по элементу списка сопровождается прыжком к указанной строке. Позволяет быстро анализировать код и перемещаться по нему. В верхней части окна имеется раскрывающийся список для выбора готовых <b>регулярных выражений</b> из двух десятков, а также позволяет ввести собственное регулярное выражение.<br />
+В заголовке списка имеется особая строка (сверху) содержащая номер строки откуда был вызван инструмент. Это позволяет вернуться в начальную позицию, то есть перемещаться между основным редактируемым участком кода и другими просматриваемыми участками кода.<br /><br />
+
+Если язык программирования отличается от встроенного (PureBasic) то в ini-файле можно задать свои регулярные выражения.<br /><br />
+
+По поводу авторства, я лишь один из 6-ти участников вкладывающих усилие в проект. Несмотря на это проект имеет 3 ветви, ещё Scintilla от Mesa и многопотоковый от Dadlick. Особенности форка от Dadlick - повторный вызов с открытием в том же окне, но недостаток - дополнительная колонка с именем функции где найдено ключевое слово, это может быть медленным для крупных исходников кода 6700 строк - 7 сек, против пол-секунды. Особенности Scintilla от Mesa - подсветка кода, но этот исходник по итогу требует dll от Scintilla и функционал требует доводки - нет первой строки от места вызова, повторный вызов начинает мерцать курсор, нет опционального показа номеров строк, выделение искомого не такое яркое.
+
+
+<h4 class='blue'>Использование в SciTE</h4>
+Чтобы использовать инструмент в SciTE откройте файл <font class="path">AutoIt\SciTE\Properties\au3.properties</font> и найдите там перечисление инструментов. На их основе создаём свой. Важно указать правильно номер инструмента, который в ниже в конфиге указан как 35. Для вашего случая это может быть другой номер.<br /><br />
+
+<p class="codebox">
+# 35 FindAllReferencesSciTE<br />
+command.35.$(au3)="$(SciteDefaultHome)\FindAllReferences.exe" SciTE SciTEWindow "$(CurrentWord)"<br />
+command.name.35.$(au3)=FindAllReferences<br />
+command.shortcut.35.$(au3)=Ctrl+Shift+X<br />
+command.subsystem.35.$(au3)=2<br />
+command.save.before.35.$(au3)=2<br />
+command.replace.selection.35.$(au3)=0<br />
+command.quiet.35.$(au3)=1<br />
+</p>
+
+<font class="bor">$(SciteDefaultHome)</font> это папка где находится SciTE.exe, здесь можно указать прямой путь.<br />
+Параметры <font class="bor">SciTE SciTEWindow "$(CurrentWord)"</font> соответственно "текст в заголовке окна", "класс окна", "текущее слово".<br />
+FindAllReferences - имя пункта отображаемое в меню Tools редактора SciTE<br />
+Ctrl+Shift+X - горячая клавиша<br /><br />
+
+Файл FindAllReferencesSciTE.ini, в нём регулярные выражения для AutoIt3-кода, которые будут использоваться взамен встроенных регулярных выражений по умолчанию для PureBasic. Имя конфига должно быть FindAllReferences.ini и находиться он должен рядом с программой.<br /><br />
+
+
+
+
+<h4 class='blue'>Использование в Notepad++</h4>
+
+Чтобы использовать инструмент в Notepad++ откройте файл <font class="path">%APPDATA%\Notepad++\shortcuts.xml</font> и добавьте ниже приведённую строку.<br /><br />
+
+<p class="comline">
+&lt;Command name="FindAllReferences" Ctrl="yes" Alt="no" Shift="yes" Key="68"&gt;&quot;$(NPP_DIRECTORY)\Tools\FindAllReferences.exe&quot; Notepad++ Notepad++ &quot;$(CURRENT_WORD)&quot;&lt;/Command&gt;
+</p><br /><br />
+
+$(NPP_DIRECTORY) это папка где находится notepad++.exe, здесь можно указать прямой путь.<br />
+Параметры Notepad++ Notepad++ "$(CURRENT_WORD)" соответственно "текст в заголовке окна", "класс окна", "текущее слово".<br />
+FindAllReferences - имя пункта отображаемое в меню "Запуск" редактора Notepad++<br />
+Ctrl="yes" Alt="no" Shift="yes" Key="68" - это горячая клавиша Ctrl+Shift+D<br /><br />
+
+Файл FindAllReferencesNPP.ini, в нём универсальные регулярные выражения для разных языков, которые будут использоваться взамен встроенных регулярных выражений по умолчанию для PureBasic. Имя конфига должно быть FindAllReferences.ini и находиться он должен рядом с программой.
+
+<br /><br /><br /><br />
+</body></html>

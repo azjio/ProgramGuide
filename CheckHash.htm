@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>CheckHash</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p><font class="funcname" size="+1">CheckHash</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Сравнить для файла используя хеш, просто получить хеш.</p><br />
+<img src='img/CheckHash.png' border="0"><br /><br />
+<p class="section">Взаимосвязанные</p>
+<a href="Check_md5.htm">Check_md5</a><br /><br /><br />
+
+
+Изначально программа была написана на AutoIt3 с тремя вкладками, но теперь часто используемый функционал переписан на PureBasic с добавлением выбора хеша.
+
+
+<h4 class='blue'>Как пользоваться</h4>
+<ol>
+<li>Кинуть файл в первое поле для "Файл 1". Далее кинуть второй файл во второе поле "Файл 2". При каждом броске создаются хеши, и если в обоих полях есть хеши, то они сравниваются.</li>
+<li>Если нужно сравнить файл с хешем, то в одно поле вставить хеш, а в другое кинуть файл и нажать "Сравнить".</li>
+<li>Кнопка MD5 предназначена для смены типа хеша.</li>
+<li>Галка "Очищать 'Файл 2' при вставке в 'Файл 1'" удобна когда сравниваются разные файлы и следующее сравнение очищает поля 2-го файла, что исключает путаницу.</li>
+<li>Также есть кнопки "Открыть файл" и "Копировать хеш".</li>
+<li>Если файлы одинаковые то шрифт полей хеша становятся зелёными, если разные - то красные.</li>
+<li>Строка состояния показывает соотношение размеров файлов. Если размеры разные, то файлы конечно же не могут быть одинаковыми.</li>
+</ol>
+
+
+
+<h4 class='blue'>Настройки ini-файла</h4>
+<div style ="margin-left: 20px;">
+<font class='key1'>width</font> <font class="red">=</font> <font  class="purple">560</font> - <font class="comm">ширина окна</font><br />
+<font class='key1'>height</font> <font class="red">=</font> <font  class="purple">248</font> - <font class="comm">высота окна</font><br />
+<font class='key1'>HashType</font> <font class="red">=</font> <font  class="purple">1</font> - <font class="comm">тип хеша</font><br />
+<font class='key1'>checkbox</font> <font class="red">=</font> <font  class="purple">0</font> - <font class="comm">Галка "Очищать 'Файл 2' при вставке в 'Файл 1'"</font><br />
+<font class="comm">; белая тема, цвет в RGB</font><br />
+<font class='key1'>Red</font> <font class="red">=</font> <font  class="hex">EE0000</font> - <font class="comm">красный текст хеша, когда различие</font><br />
+<font class='key1'>Green</font> <font class="red">=</font> <font  class="hex">007700</font> - <font class="comm">зелёный текст хеша, когда совпадение</font><br />
+<font class='key1'>Blue</font> <font class="red">=</font> <font  class="hex">000099</font> - <font class="comm">синий цвет для имён файлов</font><br />
+<font class='key1'>Default</font> <font class="red">=</font> <font  class="hex">000000</font> - <font class="comm">сброс красного/зелёного в дефолтный цвет</font><br />
+<font class="comm">; чёрная тема в Linux</font><br />
+<font class='key1'>Red</font> <font class="red">=</font> <font  class="hex">FF8080</font> - <font class="comm">красный текст хеша, когда различие</font><br />
+<font class='key1'>Green</font> <font class="red">=</font> <font  class="hex">007700</font> - <font class="comm">зелёный текст хеша, когда совпадение</font><br />
+<font class='key1'>Blue</font> <font class="red">=</font> <font  class="hex">8888FF</font> - <font class="comm">синий цвет для имён файлов</font><br />
+<font class='key1'>Default</font> <font class="red">=</font> <font  class="hex">AAAAAA</font> - <font class="comm">сброс красного/зелёного в дефолтный цвет</font><br />
+<!-- <font class='key1'>000</font> <font class="red">=</font> <font  class="hex">000</font> - <font class="comm">111</font><br /> -->
+</div>
+
+
+<br /><br /><br /><br /><br />
+
+
+<p><font class="funcname" size="+1">CheckHashList</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Проверяет хеши файлов по списку CheckHashList.txt (или другой), ранее созданному с помощью самой программы.</p><br />
+<img src='img/CheckHashList.png' border="0"><br /><br />
+
+
+Изначально программа была написана на AutoIt3 с тремя вкладками, но теперь часто используемый функционал переписан на PureBasic с добавлением выбора хеша.<br /><br />
+
+Первый запуск сопровождается предложением открыть папку и создать хеши для всех файлов в папке (если auto = 1), указав тип 1 (MD5) или другой.<br />
+Второй и последующие запуски при наличии файла CheckHashList.txt, проверяются файлы в соответствии с их хешами (если auto = 1). Если не соответствует, то эти файлы выводятся в окно программы. Кнопкой "Сохранить" подтверждаются новые хеши и в следующий раз уже не выводятся.<br />
+Можно добавить в автозагрузку, чтобы следить за изменениями в исполняемых файлах.<br /><br />
+
+
+<h4 class='blue'>Кнопки</h4>
+"Новый" - Создать новый файл-список хешей<br />
+"Обзор" - открыть файл-список хешей для проверки. Также файл можно кинуть в окно программы.<br />
+"Сохранить" - если при проверке появились файлы не соответствующие хешам, то кнопкой сохранения обновляются строки в файле-списке.<br /><br />
+
+<h4 class='blue'>Формат списка</h4>
+
+
+Начальные данные списка<br />
+1 - тип MD5 и т.д. 1-5<br />
+1 - автопроверка, пока не используется. Возможно при старте при 0 не будет происходить чтение списка и будет кнопка "Открыть список".<br />
+1 - тихий режим, используется частично. 1 - при пустом списке несоответствий нет окна, иначе при 0 пустое окно.<br />
+9 - разделитель в списке, по умолчанию табуляция (Chr(9)), указывается код символа.<br />
+C:\....\  - путь<br />
+Далее список с относительными путями (хеш путь размер, разделённый табуляцией). Строки начинающиеся с ";" игнорируются (Комментарии). Чтобы изменить путь перед ним надо поставить точку, например ".C:\....\", без кавычек. Точка сигнализирует что далее указывается путь (хеш не начинается с точки).<br />
+Входные параметры - первые 5 строк проверяются на валидность, если в них будет отличное от разрешённого, то список игнорируется.<br /><br />
+
+<h4 class='blue'>Ошибки, которые выдаёт анализатор списка</h4>
+"Сбой строки" - отсутствует разделитель. Строка должна состоять из 3-х элементов: хеш, путь, размер.<br />
+"не существует" - в списке есть файл, который возможно удалён.<br />
+"размер" - размер файла не соответствует, поэтому нет необходимости проверять хеш, так как файлы уже разные.<br />
+"хеш" - файлы одинакового размера, но с разными хешами. То есть файлы разные по содержанию.<br /><br />
+
+<h4 class='blue'>Анализатор входных данных, первые 5 строк</h4>
+"Тип хеша неверный" - допустимы в диапазоне 1-5.<br />
+"auto неверный" - допустимы 0 и 1.<br />
+"silentl неверный" - (тихий) допустимы 0 и 1.<br />
+"Путь не существует" - нет смысла проверять файлы несуществующего пути.<br /><br />
+
+
+<h4 class='blue'>Настройки ini-файла (CheckHashList.ini)</h4>
+<div style ="margin-left: 20px;">
+<font class='key1'>width</font> <font class="red">=</font> <font  class="purple">660</font> - <font class="comm">ширина окна</font><br />
+<font class='key1'>height</font> <font class="red">=</font> <font  class="purple">248</font> - <font class="comm">высота окна</font><br />
+<font class='key1'>auto</font> <font class="red">=</font> <font  class="purple">0</font> - <font class="comm">проверять CheckHashList.txt при запуске, 0 - не проверять.</font><br />
+<font class='key1'>BlackTheme</font> <font class="red">=</font> <font  class="purple">0</font> - <font class="comm">включает чёрную тему</font><br />
+<font class='key1'>HashType</font> <font class="red">=</font> <font  class="purple">1</font> - <font class="comm">тип хеша по умолчанию при генерации файла списка.</font><br />
+</div>
+
+
+
+<br /><br /><br /><br /><br /><br />
+</body>
+</html>

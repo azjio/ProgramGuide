@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Create_fstab</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">Create_fstab</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Создаёт fstab для подключения дисков.</p><br />
+<img src='img/Create_fstab.png' border="0"><br /><br />
+
+<h4 class='blue'>Параметры ini-файла</h4>
+
+<div class="codebox">
+<span class='blue'><b>[set]</b></span> <font class="comm">; секция настроек</font><br />
+<span class='key1'>FontSize</span><span class="red">=</span><span class="purple">10</span> <font class="comm">; размер шрифта (размер шрифта кнопки увеличен на +3 относительно остальных)</font><br />
+<span class='key1'>Font1</span><span class="red">=</span><span class="vstr">DejaVu Sans Mono Book</span> <font class="comm">; имя шрифта списка</font><br />
+<span class='key1'>Font2</span><span class="red">=</span><span class="vstr">Noto Sans Regular</span> <font class="comm">; имя шрифта кнопок и флажков</font><br />
+<span class='key1'>Comments</span><span class="red">=</span><span class="purple">1</span> <font class="comm">; флаг (0/1) комментариев, добавляет над каждой строкой информацию о диске</font><br />
+<span class='key1'>mountpoint</span><span class="red">=</span><span class="vstr">/media/</span> <font class="comm">; папка куда будут монтироваться диски</font><br />
+<span class='key1'>ForcedMount</span><span class="red">=</span><span class="purple">1</span> <font class="comm">; флаг (0/1) принудительно использует mountpoint из ini-файла, иначе примонтированные используют свои точки монтирования</font><br />
+<span class='key1'>MountLabel</span><span class="red">=</span><span class="purple">1</span> <font class="comm">; флаг (0/1) использует метку в качестве папки монтирования</font><br />
+<span class='key1'>LCaseLabel</span><span class="red">=</span><span class="purple">1</span> <font class="comm">; флаг (0/1) принудительно переводит метку используемую для монтирования в нижний регистр</font><br />
+<br />
+
+
+<span class='blue'><b>[perm]</b></span> <font class="comm">; Раздел флагов монтирования для разных ФС</font><br />
+<span class='key1'>ntfs</span><span class="red">=</span><span class="vstr">rw,suid,dev,exec,auto,user,async</span> <font class="comm">; для ntfs по умолчанию</font><br />
+<span class='key1'>; ntfs</span><span class="red">=</span><span class="vstr">defaults,gid=46</span> <font class="comm">; другой вариант, закомментирован, применял ранее в убунту</font><br />
+<span class='key1'>root</span><span class="red">=</span><span class="vstr">rw,relatime</span><br />
+<span class='key1'>ext4</span><span class="red">=</span><span class="vstr">defaults</span><br />
+</div>
+
+
+<br /><br /><br /><br />
+</body></html>

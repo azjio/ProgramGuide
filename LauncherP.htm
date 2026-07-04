@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Launcher</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">Launcher</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Оболочка для запуска программ.</p><br />
+<p class="funcdesc">Лаунчер с дополнительной поддержкой цвета кнопок (фон, кайма, шрифт).</p><br />
+<img src='img/Launcher-OWNER.png' border="0"><br /><br />
+<p class="funcdesc">Лаунчер с дополнительной поддержкой координат кнопок.</p><br />
+<img src='img/LauncherXYWH.png' border="0"><br /><br />
+<p class="funcdesc">LauncherCL с передачей ком-строки, удобен для редактора или пункта меню. Если необходимо передать файл одной из запускаемых программ.</p><br />
+<img src='img/LauncherComLine.png' border="0"><br /><br />
+<p class="section">Взаимосвязанные</p>
+<a href="LauncherCLE.htm">LauncherCLE</a><br />
+<a href="Launcher.htm">Launcher</a> (устаревшая версия).<br />
+
+<br /><br /><br />
+<hr><br />
+<h1>Работа с программой</h1>
+<br />
+<p><font class="funcname" size="+1">Кратко: сформировать ini-файл.</font></p>
+<br />
+
+
+<h4 class='blue'>Создание</h4>
+
+Все кнопки задаются в ini-файле<br />
+
+<h4 class='blue'>Параметры ini-файла</h4>
+
+<div class="codebox">
+<span class='blue'><b>[gui]</b></span><br />
+<span class='key1'>Title</span><span class="red">=</span><span class="vstr">Launcher</span> - <font class="comm">Заголовок окна</font></font><br />
+<span class='key1'>icon</span><span class="red">=</span><span class="vstr">launcher.ico</span> - <font class="comm">иконка окна</font><br />
+<span class='key1'>FormX</span><span class="red">=</span><span class="purple">10</span> - <font class="comm">x-координата окна, если не указаны обе координаты, то по центру</font></font><br />
+<span class='key1'>FormY</span><span class="red">=</span><span class="purple">10</span> - <font class="comm">y-координата окна, если не указаны обе координаты, то по центру</font></font><br />
+<span class='key1'>FormWidth</span><span class="red">=</span><span class="purple">430</span> - <font class="comm">Ширина окна</font><br />
+<span class='key1'>FormHeight</span><span class="red">=</span><span class="purple">310</span> - <font class="comm">Высота окна</font><br />
+<span class='key1'>FormStyle</span><span class="red">=</span><span class="purple">2156396544</span> - <font class="comm">стиль окна, обычно заголовка. 13107200 - без кнопки "Свернуть", 13107204 - узкий заголовок - панель инструментов, 2156396544 - без заголовка</font><br />
+<span class='key1'>Picture </span><span class="red">=</span><span class="vstr"> Launcher.bmp</span> - <font class="comm">картинка</font><br />
+<span class='key1'>GuiBkColor</span><span class="red">=</span><span class="hex">3F3F3F</span> - <font class="comm">Цвет фона если картинка не найдена</font><br />
+<span class='key1'>AreaX</span><span class="red">=</span><span class="purple">90</span> - <font class="comm">x-координата заданной области для кнопок</font><br />
+<span class='key1'>AreaY</span><span class="red">=</span><span class="purple">70</span> - <font class="comm">y-координата области</font><br />
+<span class='key1'>AreaWidth</span><span class="red">=</span><span class="purple">320</span> - <font class="comm">ширина области</font><br />
+<span class='key1'>AreaHeight</span><span class="red">=</span><span class="purple">220</span> - <font class="comm">высота области</font><br />
+<span class='key1'>Margin</span><span class="red">=</span><span class="purple">5</span> - <font class="comm">промежутки между кнопок</font><br />
+<span class='key1'>Columns</span><span class="red">=</span><span class="purple">2</span> - <font class="comm">число колонок, вертикальных рядов</font><br />
+<span class='key1'>FontName</span><span class="red">=</span><span class="vstr">Consolas</span> - <font class="comm">название шрифта</font><br />
+<span class='key1'>FontSize</span><span class="red">=</span><span class="purple">14</span> - <font class="comm">размер шрифта</font><br />
+<span class='key1'>FontStyle</span><span class="red">=</span><span class="purple">256</span> - <font class="comm">стиль шрифта</font><br />
+<span class='key1'>LargeIcon </span><span class="red">=</span><span class="purple"> 1</span> - <font class="comm">Размер иконки, если 1 то 32, если 0, то 16</font><br />
+<span class='key1'>BtnAlign</span><span class="red">=</span><span class="purple">256</span> - <font class="comm">Выравнивание текста на кнопке (по умолчанию по центру, 256 - слева, 512 - справа, 8192 - многостроковый, 1 - выбранная). Для многострокового тильда "~" используется в качестве переноса строки и заменяется на CRLF.</font><br />
+<span class='key1'>BtnMinW</span><span class="red">=</span> - <font class="comm">минимальная ширина кнопки</font><br />
+<span class='key1'>BtnMinH</span><span class="red">=</span> - <font class="comm">минимальная высота кнопки</font><br />
+<span class='key1'>BtnColor</span><span class="red">=</span> - <font class="comm">пока не используется (цвет кнопки)</font><br />
+<span class='key1'>Wow64</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">отключает перенаправление в SysWOW64 для 32-битной программы на ОС x64</font><br />
+<span class='key1'>Esc</span><span class="red">=</span><span class="purple">1</span> - <font class="comm"> добавляет хоткей Esc для закрытия программы.</font><br />
+<span class='key1'>TipStyle</span><span class="red">=</span><span class="purple">1</span> - <font class="comm"> задаёт стиль всплывающей подсказки. Может быть суммой флагов 1, 2, 64, где 1 - включает заголовок и иконку, 2 - показывает exe и arg, 64 - мультяшный вид подсказки.</font><br />
+<span class='key1'>TipWidth</span><span class="red">=</span><span class="purple">220</span> - <font class="comm"> ширина всплывающей подсказки.</font><br />
+<span class='key1'>TipTime</span><span class="red">=</span><span class="purple">15</span> - <font class="comm"> время отображения всплывающей подсказки.</font><br />
+<span class='key1'>CRLF</span><span class="red">=</span><span class="purple">~</span> - <font class="comm"> символ переноса используемый в параметрах warntext, hint, в названии кнопки при включенном флаге "многострочный текст". Например  "warntext=текст~подсказки" будет 2 строки.</font><br />
+<span class='key1'>TestSize</span><span class="red">=</span><span class="purple">0</span> - <font class="comm"> отключает проверку, при которой окно уменьшается под размер экрана если оно больше экрана. Возможно этот параметр будет удалён.</font><br />
+<br />
+<font class="comm">; Параметры для дополнительной версии</font><br />
+<span class='key1'>PicResize </span><span class="red">=</span><span class="vstr"> 1</span> - <font class="comm"> принудительное масштабирование картинки (0 -  без маштабир., 1 - принудительное по DPI, 2 - принудительное всегда, 3 - только если размер окна и картинки не совпадают)</font><br />
+ <!-- <span class='key1'>F1 </span><span class="red">=</span><span class="purple"> 0</span> - <font class="comm">полностью исключает вывод тестовых данных по клавише F1</font><br /> -->
+ <span class='key1'>LargeIcon2 </span><span class="red">=</span><span class="purple"> 1</span> - <font class="comm">тоже что LargeIcon, но для кнопок с координатами</font><br />
+<span class='key1'>BorderW</span><span class="red">=</span><span class="purple">2</span> - <font class="comm"> толщина линии активного элемента. 0 - отключает функционал рисования рамки</font><br />
+<span class='key1'>BorderColor</span><span class="red">=</span><span class="purple">FF9900</span> - <font class="comm"> цвет линии активного элемента.</font><br />
+</div><br />
+Если данные области Area не указаны, то по умолчанию вся площадь окна.<br />
+Если FormX и FormY не указана или оба равны 0, то применяется центрирование окна.<br />
+Если не задан Picture, то применяется GuiBkColor, если и он не указан, то стандартное серое окно.<br />
+Если FontName не указан, то никакие настройки шрифта не применяются.<br />
+Если указан минимальный размер кнопки (чтобы вместился текст) и размер кнопок вычислен меньше минимального, то область Area или окно будет увеличено, а кнопки создаются с минимальным указанным размером.<br />
+
+<h4 class='blue'>Кнопки</h4>
+
+<div class="codebox">
+<span class='blue'><b>[6]</b></span> - <font class="comm">название секции не имеет значения, главное чтобы не повторялись</font><br />
+<span class='key1'>name</span><span class="red">=</span><span class="vstr">Calc</span> - <font class="comm">Название программы - отображается на кнопке</font><br />
+<span class='key1'>hint</span><span class="red">=</span><span class="vstr">Run Calc</span> - <font class="comm">Подсказка при наведении мыши</font><br />
+<span class='key1'>exe</span><span class="red">=</span><span class="vstr">calc.exe</span> - <font class="comm">Исполняемый файл, полный путь или относительный</font><br />
+<span class='key1'>arg</span><span class="red">=</span><span class="vstr">\k</span> - <font class="comm">аргументы/параметры для исполняемого файла</font><br />
+<span class='key1'>hotkey</span><span class="red">=</span><span class="vstr">Alt + q</span> - <font class="comm">Горячая клавиша. Если использована, то добавиться в контекстное меню, вызываемое правым кликом мыши.</font><br />
+<span class='key1'>icon</span><span class="red">=</span><span class="vstr">calc.exe</span> - <font class="comm">иконка, полный путь или относительный</font><br />
+<span class='key1'>url</span><span class="red">=</span><span class="vstr">https://...</span> - <font class="comm">если указана ссылка, то клик правой кнопки мыши на кнопке открывает ссылку, иначе открывает исполняемый файл (exe=) в проводнике. Можно указать файл из текущей папки или прямой путь (C:\...). Смотрите ниже подробнее комбинации с Ctrl + Shift</font><br />
+<span class='key1'>Admin </span><span class="red">=</span><span class="purple"> 1</span> - <font class="comm">Запускает программу от админа</font><br />
+<span class='key1'>exit </span><span class="red">=</span><span class="purple"> 1</span> - <font class="comm">Закрывает лаунчер после нажатия кнопки, запуская перед этим программу</font><br />
+<span class='key1'>hide </span><span class="red">=</span><span class="purple"> 1</span> - <font class="comm">Скрывает процесс, полезно для запуска консольных программ</font><br />
+<span class='key1'>warn</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">Показать сообщение с требованием подтверждения операции, если кнопка опасна (перезагрузка и т.д.)</font><br />
+<span class='key1'>warntext</span><span class="red">=</span><span class="purple">моя подсказка</span> - <font class="comm"> при использовании warn задаёт свой текст диалога предупреждения перед запуском. При этом указать warn=2</font><br />
+<span class='key1'>BitsHide</span><span class="red">=</span><span class="purple">64</span> - <font class="comm"> Значения 32 или 64 делают игнор кнопок если Launcher запущен на этой ОС. Это позволяет указать разные версии исполняемых файлов для разных ОС</font><br />
+<span class='key1'>color</span><span class="red">=</span><span class="hex">550000</span> - <font class="comm">Цвет фона кнопки для Launcher-OWNER</font><br />
+<br />
+<span class='blue'><b>[7]</b></span> <br />
+<span class='key1'>name</span><span class="red">=</span><span class="vstr">Выход</span><br />
+<span class='key1'>exe</span><span class="red">=</span><span class="vstr">Exit</span> - <font class="comm">особый случай, если Exit, то закрывает окно ничего не запуская</font><br />
+<br />
+<span class='blue'><b>[8]</b></span><br />
+<span class='key1'>bhide</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">создаёт пустое пространство по размеру кнопки, чтобы визуально разделить кнопки между собой.</font><br />
+</div>
+
+<h4 class='blue'>Ком-строка</h4>
+Можно передать программе ini-файл, чтобы открыть копию программы с другим конфигурационным файлом. Указывается имя файла или относительный путь, относительно текущей папки программы.
+
+<h4 class='blue'>Различные сборки</h4>
+<span class='bor'>Launcher.exe</span> - поддерживает только *.bmp-файлы в качестве фона и имеет минимальный размер исполняемого файла. Этот вариант идеален без использования фона.<br />
+<span class='bor'>Launcher_Uni.exe</span> - тоже что LauncherXYWH-UDLR_Uni, но поддерживает только *.bmp-файлы в качестве фона и имеет минимальный размер исполняемого файла. Этот вариант идеален без использования фона.<br />
+<!-- <span class='bor'>LauncherGif.exe</span> - поддерживает *.gif-файлы в качестве фона, размер исполняемого файла увеличен на 7 кб (также поддерживает *.bmp). Идеален при использовании фона по критерию размера, если картинка имеет менее 256 цветов. Такие картинки могут иметь размер менее их jpg варианта и с более высоким качеством.<br /> -->
+<!-- <span class='bor'>LauncherJPG.exe</span> - поддерживает *.jpg-файлы в качестве фона, размер исполняемого файла увеличен на 120 кб (также поддерживает *.bmp). Этот вариант идеален при использовании фона по критерию размера, если в качестве фона используется полноцветная картинка, например фото природы, так как сумма размера исполняемого файла и файла картинки является минимальной.<br /> -->
+<span class='bor'>Launcher-OWNER.exe</span> - Поддерживает цвет кнопок (цвет фона, каймы, шрифта).<br />
+<span class='bor'>LauncherXYWH-UDLR_Uni.exe</span> - поддерживает координаты кнопки, например <span class='key1'>xywh</span><span class="red">=</span><span class="purple">5,5,155,40</span>. Позволяет сделать отдельные кнопки, например как кнопки переключения вкладок, при этом загружая иной конфиг. Также можно сделать кнопки с указанием автора сборника или информационная кнопка, указывающая как пользоваться сборником. Аббревиатура UDLR означает выбор кнопок стрелками клавиатуры и Enter. Uni - означает поддержка jpg, gif, png, tga в качестве фона<br />
+
+<h4 class='blue'>Стиль шрифта FontStyle поддерживает флаги:</h4>
+256 - жирный<br />
+512 - курсив<br />
+4 - подчёркнутый<br />
+8 - перечёркнутый<br />
+16 - наилучшее качество<br />
+просто суммировать флаги, например 264 (256+8) включит соответствующее.<br />
+
+
+<h4 class='blue'>Автовычисление</h4>
+Можно указать только минимальный размер кнопок и число колонок, при этом размер окна вычисляется автоматически, чтобы кнопки уместились.
+<div class="codebox">
+BtnMinW=200<br />
+BtnMinH=44<br />
+Columns=2<br />
+</div>
+Важно учесть, что задавая область кнопок "Area", её размер условный, например при вычислении 10 кнопок на высоте области 335 получим высоту кнопки 33,5 пиксел, но так как пиксел не делится на десятые доли, то размер кнопки будет 33 пиксел, умножаем на 10 кнопок и получаем область кнопок 330, а не 335, конечно с учётом отступом, но они опущены, чтобы показать пример того, что размер области кнопок не будет соответствовать действительности, поэтому когда отступ под кнопками или справа от кнопок не соответствует действительности и выглядит несимметрично, то учитывайте эту погрешность и самостоятельно определяйте правильный размер окна и области кнопок. Если у вас 20 кнопок по высоте и изменение размера кнопки на 1 пиксел провоцирует изменение области кнопок на 20 пикселов Вычислить самостоятельно область кнопок так: высоту кнопки (28) прибавить отступ (2), умножить на число кнопок (20) и прибавить ещё отступ (2) получим высоту области 602, т.е.  (28 + 2) * 20 + 2 = 602. Можно было бы делать округление и получить 33 пиксел, потом 37 пиксел вместо 36, но тогда кнопки бы скакали по размерам и по отступам в пределах пиксела и если отступ то 2, то 3 пиксела, это будет выглядеть неприглядно.<br />
+
+
+<h4 class='blue'>Поиск</h4>
+Используйте Ctrl+F или пункт меню, чтобы быстро найти кнопку по тексту, кнопка будет подсвечена и активирована, достаточно нажать Enter. Вводить достаточно часть слова и даже одну букву, текст проверяется что он есть в названии кнопки без учёта регистра. Если найдено 2 и более кнопок, то выводится сообщения о найденных кнопках и можно указать более точный запрос, при этом первая найденная станет активной. Если ничего не найдено, то сбрасывается активность какой либо кнопки.<br />
+
+
+<h4 class='blue'>Прочее</h4>
+К действию по правой кнопки мыши добавлены иные события при удерживании Ctrl и Shift.<br />
+<span class='bor'>Ctrl</span> - открыть в проводнике<br />
+<span class='bor'>Shift</span> - выдаёт диалоговое окно "Инфа кнопки" с отображением данных для этой кнопки, которые указываются в ini-файле. Это позволит увидеть ссылку, исполняемый файл, параметры запуска и т.д.<br />
+<span class='bor'>Ctrl + Shift</span> - открывает Readme.txt в папке исполняемого файла, если он там есть. Это можно было бы в параметре указать, так как это мог бы быть скриншот.
+<br /><br />
+
+Переменная %%P в параметрах "exe", "arg" заменяется на x86 или x64 взависимости от того на какой ОС запущен лаунчер. Это позволяет запускать exe-файлы взависимости от битности ОС. Определяется по наличию папка SysWow64. А также передаёт переменную окружения %P%. Для примера можно из лаунчера запустить bat-файл с таким содержанием:
+<div class="codebox">
+echo %P%<br />
+pause
+</div>
+
+<br /><br /><br /><br />
+</body></html>

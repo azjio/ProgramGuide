@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Compare_strings</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">AutoIt3</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">Compare_strings</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Сравнение двух файлов по строкам.</p><br />
+<img src='au3/Compare_strings.png' border="0"><br /><br />
+<p class="section">Взаимосвязанные</p>
+<a href="Compare_stringsP.htm">Compare_strings</a>
+<br /><br />
+
+<h1>Как использовать программу</h1>
+
+<br />
+<h4 class='blue'>Режим сравнения "Уникальные строки 2-го файла, которых нет в первом"</h4>
+
+<table class="param"  cellspacing="0" cellpadding="3">
+<tr><th>Файл 1</th><th>Файл 2</th><th>Результат</th></tr>
+<tr><td><b class="bor">Крупа</b></td><td>Орахис</td><td>Орахис</td></tr>
+<tr><td>Рис</td><td><b class="bor"><s>Сахар</s></b></td><td>Соль</td></tr>
+<tr><td><b class="bor">Сахар</b></td><td>Соль</td><td>&nbsp;</td></tr>
+<tr><td>Гречка</td><td><b class="bor"><s>Крупа</s></b></td><td>&nbsp;</td></tr>
+</table>
+  
+<br />
+<h4 class='blue'>Режим сравнения "Одинаковые строки в 2-х файлах"</h4>
+
+<table class="param"  cellspacing="0" cellpadding="3">
+<tr><th>Файл 1</th><th>Файл 2</th><th>Результат</th></tr>
+<tr><td><b class="navyblue">Крупа</b></td><td><s>Орахис</s></td><td>Крупа</td></tr>
+<tr><td>Рис</td><td><b class="navyblue">Сахар</b></td><td>Сахар</td></tr>
+<tr><td><b class="navyblue">Сахар</b></td><td><s>Соль</s></td><td>&nbsp;</td></tr>
+<tr><td>Гречка</td><td><b class="navyblue">Крупа</b></td><td>&nbsp;</td></tr>
+</table>
+  
+<br />
+<h4 class='blue'>Режим сравнения "Уникальные строки одного файла, удаляет повторы"</h4>
+
+<table class="param"  cellspacing="0" cellpadding="3">
+<tr><th>Файл 1</th><th>Результат</th></tr>
+<tr><td><b class="bor">Крупа</b></td><td>Крупа</td></tr>
+<tr><td>Рис</td><td>Рис</td></tr>
+<tr><td><b class="bor"><s>Крупа</s></b></td><td>Сахар</td></tr>
+<tr><td><b class="bor">Сахар</b></td><td>Гречка</td></tr>
+<tr><td>Гречка</td><td>&nbsp;</td></tr>
+<tr><td><b class="bor"><s>Сахар</s></b></td><td>&nbsp;</td></tr>
+<tr><td><b class="bor"><s>Крупа</s></b></td><td>&nbsp;</td></tr>
+</table>
+  
+<br />
+<h4 class='blue'>Режим сравнения "Подсчёт уникальных строк одного файла"</h4>
+
+<table class="param"  cellspacing="0" cellpadding="3">
+<tr><th>Файл 1</th><th>Результат</th></tr>
+<tr><td><b class="bor">Крупа</b></td><td>3 Крупа</td></tr>
+<tr><td>Рис</td><td>1 Рис</td></tr>
+<tr><td><b class="bor"><s>Крупа</s></b></td><td>2 Сахар</td></tr>
+<tr><td><b class="bor">Сахар</b></td><td>1 Гречка</td></tr>
+<tr><td>Гречка</td><td>&nbsp;</td></tr>
+<tr><td><b class="bor"><s>Сахар</s></b></td><td>&nbsp;</td></tr>
+<tr><td><b class="bor"><s>Крупа</s></b></td><td>&nbsp;</td></tr>
+</table>
+  
+<br />
+<h4 class='blue'>Разделитель при чтении : "&lt; Перенос строки &gt;"</h4>
+
+<p>Этот режим по умолчанию. Строки обрабатываются как обычно, каждая строка является элементом сравнения.</p>
+  
+<br />
+<h4 class='blue'>Разделитель при чтении : "&lt; Любой пробельный символ &gt;"</h4>
+
+<p>В этом режиме элементом является слово. Разделителем элементов является пробел, табуляция, перенос строки. Например, можно узнать сколько раз повторяется каждое слово в тексте.</p>
+  
+<br />
+<h4 class='blue'>Разделитель при чтении : "Введите ваш разделитель"</h4>
+
+<p>Этот выбор позволяет обрабатывать иные списки. Например, в строке "сахар|гречка|крупа|рис|соль" разделителем является символ вертикальная черта "|".</p>
+  
+<br />
+<h4 class='blue'>Разделитель в результатах :</h4>
+
+<p>Устанавливает разделитель в выходных данных, то есть разделитель между элементами.</p>
+  
+<br />
+<h4 class='blue'>Учитывать регистр</h4>
+
+<p>По умолчанию регистр не учитывается, это полезно для обработки списка файлов. При установки галочки регистр учитывается так как в этом случае сравнение происходит в бинарном режиме.</p>
+  
+<br />
+<h4 class='blue'>Другие элементы интерфейса</h4>
+
+<p>Данные для обработки можно получить, открыв файлы или из буфера обмена. Кнопка между полями ввода позволяет поменять списки местами, чтобы выполнить противоположное сравнение. Результат операции всегда открывается в блокноте. Каждая операция создаёт новый файл в папке TEMP. При закрытии программы вы можете удалить все результаты сравнения.</p>
+
+<br /><br /><br /><br />
+</body></html>

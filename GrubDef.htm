@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>GrubDef</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">GrubDef</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Запускает выбранную ОС методом установки пункта по умолчанию в Grub2. Для этого создаётся файл доступный загрузчиком Grub2 из всех ОС, а команда source импортирует текст файла в конфигурационный файл grub.cfg.</p><br />
+<img src='img/GrubDef.png' border="0"><br /><br />
+
+
+Перед пунктами меню надо вставить вот такой код (в файл grub.cfg)<br />
+<br />
+<div class="codebox">
+search --no-floppy --fs-uuid --set=partfile UUID_где_файл<br />
+source ${partfile}/b/bootdefitem/def</div><br />
+<br />
+<br />
+
+
+<h4 class='blue'>ini-файл</h4>
+
+<div class="codebox">
+<span class='blue'><b>[set]</b></span> - <font class="comm">установки</font><br />
+<span class='key1'>widthBtn</span><span class="red">=</span><span class="hex">200</span> - <font class="comm">ширина кнопки</font><br />
+<span class='key1'>heightBtn</span><span class="red">=</span><span class="hex">50</span> - <font class="comm">высота кнопки</font><br />
+<span class='key1'>AlignsLeft</span><span class="red">=</span><span class="hex">1</span> - <font class="comm">выравнивание текста на кнопке влево</font><br />
+<span class='key1'>path</span><span class="red">=</span><span class="hex">C:\b\bootdefitem\def</span> - <font class="comm">путь где будет флаг в файле def</font><br />
+<span class='key1'>shutdown</span><span class="red">=</span><span class="hex">shutdown.exe</span> - <font class="comm">утилита для перезагрузки</font><br />
+<span class='key1'>arg</span><span class="red">=</span><span class="hex">-r -t 0</span> - <font class="comm">аргументы для утилиты перезагрузки</font><br />
+<span class='key1'>reboot</span><span class="red">=</span><span class="hex">0</span> - <font class="comm">флаг по умолчанию в GUI, отмечен - 1</font><br />
+<span class='key1'>confirmation</span><span class="red">=</span><span class="hex">0</span> - <font class="comm">выдавать ли сообщение о перезагрузке</font><br />
+<span class='key1'>forcelang</span><span class="red">=</span><span class="hex">0</span> - <font class="comm">принудительно включить язык 1 (английский) или 2 (русский), 0 - автоматически. Если рядом Lang.txt, то берётся из него, игнорируя другое.</font><br />
+<br /><br />
+
+<span class='blue'><b>[item]</b></span> - <font class="comm">пункты в меню Grub2, где 0 это верхний пункт, а "Mint" отображаемое имя на кнопке (повторить из меню Grub2)</font><br />
+<span class='key1'>0</span><span class="red">=</span><span class="hex">Mint</span><br />
+<span class='key1'>1</span><span class="red">=</span><span class="hex">CachyOS</span><br />
+<span class='key1'>2</span><span class="red">=</span><span class="hex">Windows11</span><br />
+<span class='key1'>3</span><span class="red">=</span><span class="hex">Fedora</span> - <font class="comm">для этого пункта надо добавлять в grub.cfg ещё одно условие и для последующих тоже (в идеале бы цикл сделать).</font><br />
+<!-- <span class='key1'>222</span><span class="red">=</span><span class="hex">222</span> - <font class="comm">333</font><br /> -->
+</div><br />
+
+
+<br /><br /><br /><br />
+</body></html>

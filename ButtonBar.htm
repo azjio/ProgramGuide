@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>ButtonBar</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">AutoIt3</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">ButtonBar</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Панель кнопок для запуска программ.</p><br />
+<img src='au3/ButtonBar.png' border="0"> 
+<img src='au3/ButtonBar.gif' border="0"><br /><br />
+
+Достаточно перетащить на панель ярлык, файл, папку и она появляется на панели и сохраняется в ButtonBar.ini. Левая часть панели предназначена для перетаскивания панели и имеет контекстное меню с пунктами "выход", "поверх всех окон". Поддерживаются все форматы файлов, папки (с поддержкой иконок), обработка ярлыков. Если иконка не соответствует действительности, то удалите символ "-" перед номером иконки. Контекстное меню кнопки имеет пункты "Удалить" и "Открыть файл в проводнике". Также можно перетаскивать кнопки, меняя последовательность.<br /><br />
+
+В WinXP панель можно создать средствами OS, в Win7 такой возможности нет.<br /><br />
+
+Опция USB позволяет запускать утилиты независимо от буквы диска. Буква диска автоматически заменяется на букву диска, с которого запущена утилита ButtonBar.
+При включении автоскрытия панель выпадает взависимости от указанного края.<br /><br />
+
+Если отключена опция "Поверх всех окон", тогда используйте горячую клавишу, чтобы скрыть/показать панель. Укажите в ButtonBar.ini параметр HotKey=Alt+1 и это будет горячей клавишей для скрытия и отображение панели кнопок. Это не работает в режиме "автоскрытие".<br />
+Панель автоматически расширяется по мере заполнения, запоминает позицию.<br /><br />
+
+<h4>Описание ini-файла</h4>
+<div class="codebox">
+<font class='blue'>[ButtonBar]</font> ; <font class="comm">секция параметров ButtonBar</font><br />
+<font class='key1'>xpos</font> <font class="red">=</font> <font  class="purple">518</font> - <font class="comm">Координаты панели</font><br />
+<font class='key1'>ypos</font> <font class="red">=</font> <font  class="purple">1</font> - <font class="comm">--//--</font><br />
+<font class='key1'>Topmost</font> <font class="red">=</font> <font  class="purple">1</font> - <font class="comm">Поверх всех окон</font><br />
+<font class='key1'>Color</font> <font class="red">=</font> <font  class="purple">3f3f3f</font> - <font class="comm">цвет фона панели</font><br />
+<font class='key1'>Vertical</font> <font class="red">=</font> <font  class="purple">0</font> - <font class="comm">вертикально, иначе горизонтально</font><br />
+<font class='key1'>IconSize</font> <font class="red">=</font> <font  class="purple">0</font> - <font class="comm">Размер иконки 16 или 32</font><br />
+<font class='key1'>AutoHide</font> <font class="red">=</font> <font  class="purple">0</font> - <font class="comm">автоскрытие</font><br />
+<font class='key1'>Delay</font> <font class="red">=</font> <font  class="purple">800</font> - <font class="comm">Задержка пропадания панели при автоскрытии</font><br />
+<font class='key1'>DisplayChange</font> <font class="red">=</font> <font  class="purple">1</font> - <font class="comm">Реагировать на изменения размера экрана</font><br />
+<font class='key1'>HotKey</font> <font class="red">=</font> <font  class="purple">0</font> - <font class="comm">Горячая клавиша показа панели без автоскрытия</font><br />
+<font class='key1'>usb</font> <font class="red">=</font> <font  class="purple">0</font> - <font class="comm">Путь к программам с USB-диска</font><br />
+<font class='key1'>OpenToExplorer</font> <font class="red">=</font> <font  class="purple">Explorer.exe /select,</font> - <font class="comm">ком.строка для открытия папки файла</font><br />
+<br />
+<font class='blue'>[Имя программы]</font> ; <font class="comm">секция параметров кнопки-программы</font><br />
+<font class='key1'>wrk </font><font class="red">=</font> ; <font class="comm">путь к рабочей папке (в 99% случаях папка исполняемого файла) (необязательный параметр)</font><br />
+<font class='key1'>exe </font><font class="red">=</font> ; <font class="comm">путь к исполняемому файлу</font><br />
+<font class='key1'>arg </font><font class="red">=</font> ; <font class="comm">параметры запуска</font><br />
+<font class='key1'>ico </font><font class="red">=</font> ; <font class="comm">файл иконки (ico, dll)</font><br />
+<font class='key1'>nmr </font><font class="red">=</font> ; <font class="comm">номер иконки, в случае dll (библиотеки иконок)</font><br />
+<font class='key1'>dsc </font><font class="red">=</font> ; <font class="comm">Описание программы (всплывающая подсказка кнопки)</font><br />
+
+</div>
+
+<br /><br /><br /><br />
+</body></html>

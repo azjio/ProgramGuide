@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>CreationGuiPB</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">CreationGuiPB</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Создание GUI для PureBasic.</p><br />
+
+<img src='img/CreationGuiPB.png' border="0"><br /><br />
+<br />
+<h4 class='blue'>Работа с программой (основное)</h4>
+<ul>
+<li>Кликнуть на элемент в списке справа (повторить несколько раз). Переместить элементы мышкой или стрелками.</li>
+<li>Открыть меню (треугольник вниз) и выбрать одну из задач над текущим элементом (переименовать, добавить константы).</li>
+<li>Сохранить результаты в код.</li>
+<li>Открыть полученный код и запустить.</li>
+</ul>
+<h4 class='blue'>Работа с программой (подробнее)</h4>
+<ul>
+<li>Позиционирование помогает выравнивать элементы относительно предыдущего. Сдвиг задаётся полями x=+, y=+. Также можно перетаскивать элементы мышкой и двигать их клавишами стрелками: вниз, вверх, вправо, влево на один пиксел.</li>
+<li>Поле "Размер" позволяет задать точный размер. также размер можно задавать ползунками вертикальный и горизонтальный, а также клавишами стрелками: вниз, вверх, вправо, влево на один пиксел, удерживая Ctrl</li>
+<li>Если окно уже существует и требуется доработать код - добавить новые элементы, то можно двигать окно поверх исходного окна соединив левый верхний угол обоих окон. При этом включить флажок "Прозрачность", чтобы видеть элементы исходного окна. Если снять флажок, то включиться полная прозрачность только клиентской области предназначенной для элементов. В режиме полупрозрачности можно регулятором задать требуемый уровень прозрачности.</li>
+<li>Если окно магнитится неправильно, то попробуйте изменять отступ delta в ini-файле. Если это не помогло, то отключить магнетизм magnet=0 и использовать стрелки: вниз, вверх, вправо, влево, удерживая Ctrl и Shift, при этом окно сдвигается на один пиксел в заданном направлении.</li>
+<li>При сохранении созданного интерфейса окна в файл создаётся рабочий код, который может быть запущен для теста. Если внутренняя структура кода не устраивает, то можно создать шаблон и при сохранении выбирать его. При этом в шаблоне заменяются переменные %c (константы или глобальные), %g (гаджеты), %e (события) на соответствующие блоки кода. При отмене выбора шаблона код сохранится с использованием внутреннего шаблона.</li>
+<li>При использовании pb_any=1 в качестве идентификаторов будет использоваться #PB_Any, а результат возвращается в переменные. При этом создаётся список глобальных переменных, а не перечисление констант</li>
+<li>ini-файл позволяет задать собственные имена констант/переменных, позволяет определить список констант для каждого элемента, в том числе WinAPI и в дальнейшем выбирать через пункт меню "Флаги F3". Также можно задать начальные размеры для каждого элемента, а потом переопределить их через пункт меню "Запомнить размеры" на сеанс работы.</li>
+<li>Если необходимо создать редкие элементы, которых нет в списке, то можно кликнуть любой элемент, позиционировать его и потом скопировать координаты и размер, кликнув на строку в поле xywh:</li>
+<li>Если список гаджетов содержит много редко используемых элементов и мешает среди них найти нужное, то использовать "hide=20,21,13,23,24,25,26" в ini-файле, чтобы скрыть эти гаджеты по номерам, учитывая что гаджеты 0,11,15,16 скрыты принудительно.</li>
+</ul>
+
+<h4 class='blue'>Параметры в файле CreationGuiPB.ini</h4>
+
+<div class="codebox">
+<span class='blue'><b>[Set]</b></span><br />
+<span class='key1'>width</span><span class="red">=</span><span class="purple">800</span> - <font class="comm">Ширина окна</font><br />
+<span class='key1'>height</span><span class="red">=</span><span class="purple">600</span> - <font class="comm">Высота окна</font><br />
+<!-- <span class='key1'>wm</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">Флаг развёрнутости окна на весь экран (пока отсутствует)</font><br /> -->
+<span class='key1'>pb_any</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">Использовать #PB_Any в гаджетах. Вместо констант генерируются глобальные переменные</font><br />
+<span class='key1'>template</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">Открыть шаблон при сохранении, с переменными %c, %g, %e</font><br />
+<span class='key1'>autopos</span><span class="red">=</span><span class="vstr">1</span> - <font class="comm">автоматически позиционировать элемент</font><br />
+<span class='key1'>magnet</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">Магнитить окно к окнам (кроме проводника)</font><br />
+<span class='key1'>delta</span><span class="red">=</span><span class="purple">5</span> - <font class="comm">Поправка при магнетизме из-за неправильного возврата координат окна</font><br />
+<span class='key1'>xp</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">отступ x</font><br />
+<span class='key1'>yp</span><span class="red">=</span><span class="purple">5</span> - <font class="comm">отступ y</font><br />
+<span class='key1'>we</span><span class="red">=</span><span class="purple">100</span> - <font class="comm">ширина элемента, чтобы задать</font><br />
+<span class='key1'>he</span><span class="red">=</span><span class="purple">27</span> - <font class="comm">высота элемента, чтобы задать</font><br />
+<span class='key1'>stylewb</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">флаг стиля 0 - белый, 1 - чёрный</font><br />
+<span class='key1'>hide</span><span class="red">=</span><span class="purple">20,21,13,23,24,25,26</span> - <font class="comm">Номера гаджетов, которые игнорируются, не добавляются в список. Принудительно игнорируются 0,11,15,16 (Unknown, Container, ScrollBar, ScrollArea)</font><br />
+
+
+<br />
+<span class='blue'><b>[colorW]</b></span> - <font class="comm">таблица цветов элеменетов окна для белой темы</font><br />
+<span class='key1'>bg</span><span class="red">=</span><span class="vstr">F0</span> - <font class="comm">общий цвет фона окна и для элементов чекбокс, радиокнопка, надпись</font><br />
+<span class='key1'>br</span><span class="red">=</span><span class="vstr">0</span> - <font class="comm">цвет границы окна</font><br />
+<span class='key1'>txt</span><span class="red">=</span><span class="vstr">0</span> - <font class="comm">цвет текста</font><br />
+<font class="comm">Префикс field повторяет те же цвета, только для полей ввода, редакторов, списков. Обычно это белый цвет фона.</font><br />
+<span class='blue'><b>[colorB]</b></span> - <font class="comm">тоже что [colorW], только для чёрной темы</font><br />
+<font class="comm">Здесь повторяются те же параметры, что и в секции [colorW], только цвета другие, для чёрной темы</font><br />
+
+<br />
+<span class='blue'><b>[flags]</b></span><br />
+<span class='key1'>0</span><span class="red">=</span><span class="vstr">#PB_Button_Right,#PB_Button_Left,#PB_Button_Default,#PB_Button_MultiLine,#PB_Button_Toggle</span> - <font class="comm">флаги для элемента номер 0</font><br />
+<font class="comm">далее список для всех остальных элементов</font><br />
+
+<br />
+<span class='blue'><b>[const]</b></span><br />
+<span class='key1'>btn</span> - <font class="comm">имя константы/переменной для кнопки</font><br />
+<font class="comm">далее список для всех элементов</font><br />
+
+<br />
+<span class='blue'><b>[width]</b></span><br />
+<span class='key1'>70</span> - <font class="comm">ширина кнопки</font><br />
+<font class="comm">далее список для всех элементов</font><br />
+
+<br />
+<span class='blue'><b>[height]</b></span><br />
+<span class='key1'>27</span> - <font class="comm">высота кнопки</font><br />
+<font class="comm">далее список для всех элементов</font><br />
+</div>
+<br />
+
+
+<h4 class='blue'>Linux-версия</h4>
+В Linux-версии утилиты удалён функционал "Захват окна". Также создание Scintilla заменено на TextGadget, чтобы не вносить в исполняемый файл движок Scintilla размером 2 Мб. Возможно тоже самое произойдёт с WebGadget, так как он может вызывать ошибку.<br /><br />
+Перетаскивание элементов окна происходит по другому, при выборе элемента нужно кликнуть мимо элемента и элемент примагнитится к курсору и будет перемещаться вместе с ним. Для некоторых элементов не происходит выбор, поэтому их нужно перемещать сразу после первого добавления. В следующих версиях для такого случая будет использоваться метод выбора элемента из списка, либо элементы заменятся искусственной графикой имитирующей реальный элемент.
+
+
+<br /><br /><br /><br />
+</body></html>

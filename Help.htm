@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Help</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">Help</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Вызов справки с поиском выделенного слова.</p><br />
+
+
+для вызова используем команду<br />
+<p class="comline">
+<font class="blue">Help.exe</font> WORD <font class="red">[</font>ext<font class="red">=</font>Default <font class="red">[</font>flag<font class="red">=</font><font class="purple">0</font> <font class="red">[</font>Path Title<font class="red">]]]</font></p><br />
+Help.exe %WORD (этот вариант позволит использовать буфер обмена, если слово из нелатинских букв и использование секции <font class="blue">[Default]</font>)<br />
+Help.exe %WORD pb<br />
+Help.exe %WORD pb flag<br />
+Help.exe %WORD pb 0 "C:\Program Files\Purebasic\PureBasic.chm" "HTML Help"<br /><br />
+
+flag <font class="red">[</font><font class="purple">-1</font>, <font class="purple">0</font>, <font class="purple">1</font>, <font class="purple">2</font><font class="red">]</font><br />
+<font class="purple">-1</font> - выбирает вкладку 2 "Поиск"<br />
+<font class="purple">0</font> - выбирает вкладку 1 "Указатель"<br />
+<font class="purple">1</font> - отладчик только путей ini-файл и файла справки CHM<br />
+<font class="purple">2</font> - полный отладчик, сообщать, что не найдены окна и элементы окна<br />
+flag + 10 добавляет режим поиска<br /><br />
+
+Если указаны параметры "Path" и "Title", то не читает ini-файл<br />
+Если указано только "WORD", то в ini-файле будет прочитана секция [Default]<br />
+Если без параметров или  "WORD" будет пустым, то предложит использовать текст из буфера обмена. Полезно для русских слов (или любых нелатинских), которые IDE не определяет как слова.<br /><br />
+
+Для AkelPad<br />
+<p class="comline">
+AkelPad.Exec('"%a\\AkelFiles\\Tools\\Help\\Help.exe" ' + sSelText + ' js');
+</p><br /><br />
+
+Для Notepad++ в shortcuts.xml<br />
+<p class="comline">
+&lt;Command name="Help" Ctrl="no" Alt="no" Shift="no" Key="112"&gt;&quot;$(NPP_DIRECTORY)\Tools\Help\Help.exe&quot; &quot;$(CURRENT_WORD)&quot; $(EXT_PART)&lt;/Command&gt;
+</p><br /><br />
+
+То есть надо передать файлу выделенное слово и расширение файла. Все эти значения можно получить скриптом с текущего документа.<br /><br />
+
+Если посмотреть структуру ini-файла (обязательно UTF-8), то понятно, что там имя секции это расширение указываемое в параметре запуска, а в секции путь и заголовок. Заголовок нужно, чтобы не открывать справку повторно, а развернуть если свёрнута. Автоматизация заключается во вставке слова на вкладке "Указатель", не зависимо от того какой элемент окна активный, утилитка сама переключится на вкладку указатель, вставит слово и кликнет кнопку "Вывести". Такой подход более полезный, так как ключевые слова указаны в указателе, но доступ через внутреннюю структуру файлов справки наоборот вызывает проблему, так как имена файлов далеко не соответствуют названию ключевых слов.<br /><br />
+
+<p><B class='blue'>ini-файл</b></p>
+<p class="codebox">
+<font class="blue">[Default]</font> - <font class="comm">секция по умолчанию<br />
+<font class="key1">PathCHM</font><font class="red">=</font><font class="vstr">"..\..\NppHelp.chm"</font><br />
+<font class="key1">TitleCHM</font><font class="red">=</font><font class="vstr">"Справка Notepad++"</font><br />
+<font class="key1">Exact_match</font><font class="red">=</font><font class="purple">1</font><br /><br />
+
+<font class="blue">[js]</font> - <font class="comm">секция для файла типа js<br />
+<font class="key1">PathCHM</font><font class="red">=</font><font class="vstr">"..\..\Help\JS.chm"</font> ; <font class="comm">путь к справке</font><br />
+<font class="key1">TitleCHM</font><font class="red">=</font><font class="vstr">"Справка по JavaScript  (09.09.2019)"</font> ; <font class="comm">Заголовок окна справки</font><br />
+<font class="key1">Exact_match</font><font class="red">=</font><font class="purple">1</font> ; <font class="comm">точное совпадение в заголовке окна, иначе совпадение от начала строки</font><br /><br />
+
+<font class="blue">[au3]</font> - <font class="comm">секция для файла типа au3<br />
+<font class="key1">PathCHM</font><font class="red">=</font><font class="vstr">"C:\Program Files\AutoIt3\AutoIt.chm"</font> - <br />
+<font class="key1">TitleCHM</font><font class="red">=</font><font class="vstr">"Справка AutoIt"</font><br />
+<font class="key1">Exact_match</font><font class="red">=</font><font class="purple">1</font><br />
+
+</p>
+
+
+<br /><br /><br /><br />
+</body></html>

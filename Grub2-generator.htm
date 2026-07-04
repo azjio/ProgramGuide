@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Grub2-generator</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">Grub2-generator</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Редактор конфигурационного файла Grub2.</p><br />
+<img src='img/Grub2-generator.png' border="0"><br /><br />
+
+
+<h1>Работа с программой</h1>
+
+
+<h4 class='blue'>Назначение</h4>
+
+Иногда нужно быстро создать меню Grub2, добавив пункты LiveCD, поиск загрузчиков и OS: Windows, Linux, Grub4Dos, syslic и т.д. Для этого приходится искать готовые шаблоны в интернете, вставлять их в конфиг. Некоторые из этих задач решает утилита, вставляет заготовленные в папке template фрагменты кода, анализирует код и предоставляет его в виде фрагментов кода, которые можно исправлять, перемещать, добавлять, удалять и т.д.<br />
+
+<h4 class='blue'>Работа с программой кратко</h4>
+
+<ol>
+<li>Запустить программу, в Linux откроется /boot/grub/grub.cfg, в Windows откроется grub.cfg рядом с программой.</li>
+<li>Добавить/удалить/переместить фрагменты кода.</li>
+<li>Сохранить в новый или тот же файл.</li>
+</ol>
+
+<h4 class='blue'>Основное</h4>
+
+При старте формируется внутренний массив данных, который отображается в интерфейсе программы в виде списка пунктов. Справа поле просмотра класса и ниже окно просмотра пункта или фрагмента кода. После изменения необходимо применить или точнее сохранить новые данные во внутренний список. Сохранение в конфиг делает последовательное соединение фрагментов кода в один файл. При этом оригинал не совпадает с сохранённым, потому что используется собственное форматирование: нет лишних строк между пунктами, имя в двойных и одинарных кавычках приводится к одному виду - двойные кавычки.<br />
+
+<h4 class='blue'>Кнопки</h4>
+<img src="icons/folder.gif" width="" height="" alt=""> <b><span class='bor'>Открыть</span></b> - открывает файл *.cfg<br />
+<img src="icons/Save.gif" width="" height="" alt=""> <b><span class='bor'>Сохранить</span></b> - сохранение в выбранный файл, по умолчанию предлагая в оригинал.<br />
+<img src="icons/re.gif" width="" height="" alt=""> <b><span class='bor'>Переоткрыть</span></b> - открывает ранее открытый файл *.cfg снова, в случае неправильного изменения пунктов.<br />
+<img src="icons/Backup.gif" width="" height="" alt=""> <b><span class='bor'>Бэкап</span></b> - создаёт копию открытого файла рядом в папке backup.<br />
+<img src="icons/Set.gif" width="" height="" alt=""> <b><span class='bor'>Настройки</span></b> - открывает меню файлов для открытия (указаны в ini-файле).<br />
+<img src="icons/menu.gif" width="" height="" alt=""> <b><span class='bor'>Меню</span></b> - меню пунктов. Нужно выбрать пункт, чтобы воспользоваться или вызвать конт. меню прямо на самих пунктах списка.<br />
+
+<h4 class='blue'>Пункты меню</h4>
+<img src="icons/plus.gif" width="" height="" alt=""> <b><span class='bor'>Добавить</span></b> - добавление фрагмента из файла в папке template<br />
+<img src="icons/Del.gif" width="" height="" alt=""> <b><span class='bor'>Удалить</span></b> - удаление пункта и его содержимого<br />
+<img src="icons/Copy.gif" width="" height="" alt=""> <b><span class='bor'>Дублировать</span></b> - делает копию выбранного пункта, чтобы вносить другие параметры загрузки, полезно при тестах<br />
+<img src="icons/Rename.gif" width="" height="" alt=""> <b><span class='bor'>Переименовать</span></b> - Изменяет название пункта<br />
+<img src="icons/Backup.gif" width="" height="" alt=""> <b><span class='bor'>Сохранить как шаблон</span></b> - Создаёт файл в папке "template" на основе текущих данных пункта, который впоследствии можно открыть кнопкой "Добавить"<br />
+
+<h4 class='blue'>Кнопки</h4>
+<img src="icons/toLeft.gif" width="" height="" alt=""> <b><span class='bor'>Сохранить пункт</span></b> - после изменение данных пункта использовать сохранение пункта в дерево<br />
+<img src="icons/Find.gif" width="" height="" alt=""> <b><span class='bor'>Поиск</span></b> - Выполняет поиск текста<br />
+<img src="icons/Replace.gif" width="" height="" alt=""> <b><span class='bor'>Замена</span></b> - Выполняет замену текста<br />
+<img src="icons/plusplus.gif" width="" height="" alt=""> <b><span class='bor'>Классы</span></b> - автоматически прописывает классы в соответствии с таблицей в ini-файле, заменяя оригинальные.<br />
+<img src="icons/info.gif" width="" height="" alt=""> <b><span class='bor'>Инфо</span></b> - Показывает информацию о дисках (UUID и т.д.)<br />
+
+<h4 class='blue'>Кнопка <img src="icons/5.gif" width="" height="" alt=""> (заполнить классы)</h4>
+
+Эта кнопка проверяет, есть ли в строке "--class", если есть то пропускает, иначе добавляет класс, но при этом проверяет, есть ли в имени некое слово идентифицирующее определённую ОС, например если в имени присутствует слово "Knoppix" (независимо от регистра), то этому пункту будет добавлен класс "--class knoppix". Список проверяемых классов можно увидеть в ini-файле (слева класс, справа искомое имя), проверяется сверху в низ и при первом совпадении добавляет первое попавшееся, поэтому приоритет можно установить самостоятельно. Но добавление класса имеет смысл только если в теме оформления (/boot/grub/themes/icons) есть png-значки с соответствующими именами. Также проверяется класс в submenu и по необходимости добавляется "--class folder"<br /><br />
+
+<h4 class='blue'>Кнопка <img src="icons/12.gif" width="" height="" alt=""> (информация)</h4>
+Открывает окно с двумя кнопками <b><span class='bor'>lsblk</span></b> и <b><span class='bor'>blkid</span></b> и выполняет вывод команды lsblk. При этом в ini-файл можно добавить:<br />
+<div class="codebox">
+<span class='blue'><b>[info]</b></span><br />
+<span class='key1'>lsblk</span><span class="red">=</span><span class="vstr">-T -t -n -o name,UUID,MOUNTPOINT,FSTYPE,LABEL,SIZE -I8</span><br />
+<span class='key1'>blkid</span><span class="red">=</span><br />
+<span class='key1'>inxi</span><span class="red">=</span><span class="vstr">-D</span><br />
+<span class='key1'>df</span><span class="red">=</span><span class="vstr">-h</span><br />
+<span class='key1'>fdisk</span><span class="red">=</span><span class="vstr">-l</span><br />
+<span class='key1'>mount</span><span class="red">=</span>
+</div>
+
+и появится несколько кнопок по числу команд в секции <span class='blue'><b>[info]</b></span> взамен кнопок по умолчанию. Первая кнопка будет выполнятся по умолчанию при открытии окна. Это позволяет задать свой конфиг вывода информации.<br />
+Также в интернете можно найти другие команды, например:
+<div class="codebox">
+inxi -G
+</div>
+и записать их как ini-файл
+<div class="codebox">
+inxi=-G
+</div>
+Например эта команда выводит информацию о видеокарте.
+
+
+
+<h4 class='blue'>ini-файл</h4>
+ini-файл содержит классы, размер окна и код символа разделителя, здесь можно экспериментировать с шестнадцатеричными числами: 20 - пробел, 25A0 - квадратики, смотрите код в таблице символов, есть в обоих OS: Windows, Linux.
+<br /><br />
+
+<h4 class='blue'>Командная строка</h4>
+Так как программа сама открывает файл /boot/grub/grub.cfg, то достаточно используя настройки контекстного меню файлового менеджера можно добавить пункт запуска программы, что позволяет указать запуск от root или открыть папку как root и в ней открыть программу из конт. меню файла.
+
+
+
+<br /><br /><br /><br /><br /><br />
+</body>
+</html>

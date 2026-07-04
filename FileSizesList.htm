@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>FileSizesList</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">FileSizesList</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Показывает дерево размеров файлов и папок. Полезно для выявления затраченного места на диске</p><br />
+<img src='img/FileSizesListW.png' border="0"><br /><br />
+<img src='img/FileSizesListL.png' border="0">
+<p class="section">Взаимосвязанные</p>
+<a href="Create_list_files.htm">Create_list_files</a><br />
+<a href="Find_GUI.htm">Find_GUI</a> - Linux<br /><br />
+
+
+Программа принимает путь к папке, как входной параметр, поэтому необходимо добавить эту программу в контекстное меню файлового менеджера с передачей пути.
+Если запущено без параметров, то предлагается выбрать путь вручную через диалог выбора папки.<br /><br />
+
+Программа выводит древовидную структуру папок и файлов, добавляя в начало каждого пункта размер файла/папки. Выполняется сортировка по размеру в пределах папки, но в пределах одного уровня папки всегда выше файлов, даже если файл больше размером.<br /><br />
+
+Для Windows добавить в контекстное меню можно также с помощью моей утилиты <a href="SubMenuWin7_10.htm">SubMenuWin7_10</a><br /><br />
+
+Пункты меню:<br />
+<img src="icons/folder.gif" width="" height="" alt=""> <b><span class='bor'>Открыть в папке</span></b> - открывает папку, в которой находится выделенный элемент и выделяет его<br />
+<img src="icons/Prog.gif" width="" height="" alt=""> <b><span class='bor'>Открыть в программе</span></b> - открывает в ассоциированной программе<br />
+<img src="icons/Copy.gif" width="" height="" alt=""> <b><span class='bor'>Копировать путь</span></b> - копирует полный путь к выделенному элементу<br />
+<img src="icons/Sort.gif" width="" height="" alt=""> <b><span class='bor'>Переключить сортировку</span></b> - переключает между двумя режимами - сортировка по размеру и по имени. Результаты не кеширует, поэтому переключение каждый раз сортирует и тратится время для большого количества файлов.<br />
+<img src="icons/CheckBox.gif" width="" height="" alt=""> <b><span class='bor'>Показать/скрыть флажки</span></b> - позволяет групповое удаление элементов с помощью установки флажков<br />
+<img src="icons/Restart.gif" width="" height="" alt=""> <b><span class='bor'>Новое сканирование</span></b> - Запускает выбор и сканирование другой папки<br />
+<img src="icons/Save.gif" width="" height="" alt=""> <b><span class='bor'>Сохранить список</span></b> - сохраняет форматированный список. Смотрите раздел <font class='blue'>[List]</font> в ini-файле<br />
+<img src="icons/Expand.gif" width="" height="" alt=""> <b><span class='bor'>Развернуть все</span></b> - разворачивает выделенное дерево. В отличии от горячих клавиш действует на всё дерево.<br />
+<img src="icons/Collapse.gif" width="" height="" alt=""> <b><span class='bor'>Свернуть все</span></b> - сворачивает выделенное дерево. В отличии от горячих клавиш действует на всё дерево.<br />
+<img src="icons/file.gif" width="" height="" alt=""> <b><span class='bor'>Открыть ini-файл</span></b> - для настройки последующих запусков<br />
+<img src="icons/Del.gif" width="" height="" alt=""> <b><span class='bor'>Удалить</span></b> - удаляет выбранный файл<br />
+<img src="icons/Del.gif" width="" height="" alt=""> <b><span class='bor'>Удалить отмеченные</span></b> - удаляет отмеченные флажком файлы<br />
+<img src="icons/flag.gif" width="" height="" alt=""> <b><span class='bor'>Снять все галки</span></b> - снимает флажки<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4 class='blue'>Настройки в ini-файле</h4>
+<div class="codebox">
+<font class='blue'>[Set]</font> - <font class="comm">секция параметров</font><br />
+<font class='key1'>width</font> <font class="red">=</font> <font  class="purple">500</font> - <font class="comm">ширина окна, сохраняемая автоматически при выходе из программы</font><br />
+<font class='key1'>height</font> <font class="red">=</font> <font  class="purple">600</font> - <font class="comm">высота окна, сохраняемая автоматически при выходе из программы</font><br />
+<font class='key1'>registry</font> <font class="red">=</font> <font  class="purple">1</font> - <font class="comm">спрашивать прописку в реестр при запуске без параметров, если 0, то не спрашивать (Windows)</font><br />
+<font class='key1'>checkbox</font> <font class="red">=</font> <font  class="purple">0</font> - <font class="comm">если 1, то отображать чекбоксы (галки/флажки), в меню появляется 2 пункта - "удалить отмеченное" и "снять все галки"</font><br />
+<font class='key1'>itemdel</font> <font class="red">=</font> <font  class="purple">0</font> - <font class="comm">флаг удаления, если 1, то вместо того чтобы указать "* Удалено", пункт удаляется из списка.</font><br />
+<font class='key1'>sort</font> <font class="red">=</font> <font  class="purple">1</font> - <font class="comm">Сортирует по размеру, иначе как в проводнике.</font><br />
+<font class='key1'>forcelang</font> <font class="red">=</font> <font  class="purple">1</font> - <font class="comm">принудительно язык, 1 - англ, 2 - русский, 0 - автоматически.</font><br />
+<font class='key1'>icon</font> <font class="red">=</font> <font  class="purple">500</font> - <font class="comm">число файлов и папок, при котором отображать ассоциативные иконки. Не рекомендуется больше 3000, так как это увеличивает время построения списка в 2 раза. Чтобы совсем отключить icon = 0 (Windows)</font><br />
+<font class='key1'>recycle</font> <font class="red">=</font> <font  class="purple">1</font> - <font class="comm">флаг чтобы удалить в корзину, иначе 0, чтобы удалить безвозвратно</font><br />
+<font class='key1'>warning</font> <font class="red">=</font> <font  class="purple">1</font> - <font class="comm"> (отключено) выдавать предупреждение при удалении одного файла/папки или отмеченных, иначе 0 не предупреждать. Причём при удалении в корзину (recycle = 1) одного файла/папки предупреждение не выдаётся, так как легко можно восстановить из корзины.</font><br />
+<font class='key1'>fm</font> <font class="red">=</font> <font  class="vstr">nemo</font> - <font class="comm">Файловый менеджер для открытия папок и файлов (Linux)</font><br /><br />
+
+<font class='blue'>[List]</font> - <font class="comm">секция параметров экспортируемого списка файлов</font><br />
+<font class='key1'>tofile</font> <font class="red">=</font> <font  class="purple">1</font> - <font class="comm">сохранить в файл или буфер обмена</font><br />
+<font class='key1'>flag</font> <font class="red">=</font> <font  class="purple">14</font> - <font class="comm">(2+4+8) комбинация флагов:<br />
+&nbsp; &nbsp; 0 - по умолчанию.<br />
+&nbsp; &nbsp; 1 - отступ меньше на 1.<br />
+&nbsp; &nbsp; 2 - без первой строки, где указывается путь исследуемой папки.<br />
+&nbsp; &nbsp; 4 - если список без папок, то не добавляет префикс к файлам.<br />
+&nbsp; &nbsp; 8 - показывать размер</font><br />
+<font class='key1'>flag2</font> <font class="red">=</font> <font  class="purple">6</font> - <font class="comm">тоже что предыдущий, но для режима "без сортировки по размеру"</font><br />
+<font class='key1'>Depth</font> <font class="red">=</font> <font  class="vstr">&#9474;\t</font> - <font class="comm">элемент отступа глубины вложенности, где \t это табуляция</font><br />
+<font class='key1'>Folder</font> <font class="red">=</font> <font  class="vstr">&#9500;&#9472;&#128447; </font> - <font class="comm">значок папки, можно выбрать тут https://unicodes.jessetane.com/?search = triangle<br />
+; Folder = &#9500;&#9472;&#128447; <br />
+; Folder = &#9500;&#9472;&#9698;<br />
+; Folder = &#9500;&#9472;&#128449;</font><br />
+<font class='key1'>File</font> <font class="red">=</font> <font  class="vstr">&#9500;&#9472;</font> - <font class="comm">значок файла</font><br />
+</div>
+<br />
+<h4 class='blue'>Пример форматированного списка</h4>
+При сохранении списка задайте настройки в секции <font class='blue'>[List]</font>, как отображать значки папок и отступы<br /><br />
+<span style="font-family:Consolas, 'Courier New'!important;">
+&#9500;&#9472;&#128447; i386-pc<br />
+&#9474;&nbsp;&#9500;&#9472;core.img<br />
+&#9500;&#9472;&#128447; fonts<br />
+&#9474;&nbsp;&#9500;&#9472;unicode.pf2<br />
+&#9500;&#9472;unicode.pf2<br />
+&#9500;&#9472;grub.cfg</span>
+
+<h4 class='blue'>Заимствования</h4>
+Значимую часть кода (рекурсивное создание структур файловой системы) предоставил Пётр здесь: <a target="_blank" href="http://purebasic.mybb.ru/viewtopic.php?id=810#p8227">purebasic.mybb.ru</a>
+
+
+<br /><br /><br /><br />
+</body></html>

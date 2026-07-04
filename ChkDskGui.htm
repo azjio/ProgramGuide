@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>ChkDskGui</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">ChkDskGui</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Проверка диска на ошибки.</p>
+GUI оболочка для консольной системной утилиты chkdsk.exe, но с удобством выбора дисков и флагов проверки.<br /><br />
+<img src='img/ChkDskGui.png' border="0"><br /><br />
+
+
+
+
+
+
+
+
+
+<h1>Работа с программой</h1>
+
+<p>Кратко: отметить диски, нажать "Старт".</p>
+
+<h4 class='blue'>Проверка в несколько потоков</h4>
+
+<p>Так как несколько физических дисков можно проверять одновременно, то диски например [0:1] и [0:2] принадлежат одному физическому и их можно отметить оба и запустить проверку. Далее отметить  [1:1] и [1:2] и запустить ещё проверку проверку не дожидаясь окончания первой, и так далее. Это может быть флешка как один физический. Но не нужно запускать [0:1] и [0:2] в разных потоках, так как головка у диска одна и процесс будет длительней, так как вместо равномерного движения головки она будет скакать с одного логического диска на другой.</p>
+
+<h4 class='blue'>Строка состояния</h4>
+
+Отображает как выглядит командная строка. При отсутствии GUI просто нажать Win+R, ввести эту команду и выполнится тоже самое. Хотя она закроется после выполнения и нужно добавить паузу, чтобы посмотреть результаты.<br />
+
+<h4 class='blue'>Проверка текущей системы</h4>
+
+Если компьютер медленно работает с жёстким диском или зависает допустим при выходе из браузера FF или даёт синий экран, но при этом позволяет загрузится, то можно не используя LiveCD принудительно активировать проверку дисков на запуске Windows. Для этого отметить диски и нажать выбрать в меню "Реестр -> Проверка выбранных при загрузке ОС", после импорта выдаётся сообщение какие данные добавились в реестр. Кстати строка будет содержать как раз таки не отмеченные диски, то есть диски, которые нужно игнорировать при проверке. Реестр требует права администратора. Также эта опция удобна не только для системного диска, но и в случае если система предупреждает что не удаётся отключить диск. Учитывайте, что если сделать импорт данных из под LiveCD в гостевой реестр, то порядок дисков может быть другим, поэтому нужно отметить буквы дисков какие они были бы в вашей системе.<br /><br />
+
+Чтобы посмотреть результаты проверки проходившей при запуске Windows выберите в контекстном меню "Реестр -> eventvwr.exe (лог проверки)", откроется "Просмотр событий", нажать "Журналы Windows" -> "Приложения", выбрать окно событий, нажать Ctrl+F, в окно поиска ввести "Wininit" (оно в буфере обмена при выполнении команды), кликнуть на строке, внизу кликнуть на область данных и скопировать (Ctrl+A, Ctrl+V) в блокнот для просмотра, так как в программе окошко просмотра маленькое.<br />
+<p class="comline"><span class='blue'>autocheck autochk</span> <span class='bor'>/p /K:CDE *</span></p>
+Здесь ключи имеют следующее значение:<br />
+<span class='bor'>/p</span> - принудительная проверка. Без этого ключа проверка будет происходить если система сама поставила флаг сбоя. Обычно флаг сбоя проявляется если вставить флешку и ОС предлагает проверить её перед открытием.<br />
+<span class='bor'>/K:CDE</span> - здесь <span class='bor'>/K</span> определяет игнорирование перечисленных дисков, в данном случае дисков C:\, D:\, E:\<br />
+<span class='bor'>*</span> - звёздочка указывает что нужно проверять все диски, но кроме указанных в ключе <span class='bor'>/K</span><br />
+
+
+<h4 class='blue'>Список дисков</h4>
+
+Список дисков выведен максимально подробно, чтобы проще идентифицировать. Поддерживаются только файловые системы, которые поддерживает chkdsk.exe (Linux ни разу не увидит). При этом утилита захватывает типы дисков: Fixed (жёсткий диск) и Removable (Съёмное устройство, флешка), то есть игнорирует Ramdisk (виртуал в памяти), CDRom (неисправляемые), Network (удалённые). Работает сортировка по колонкам.<br />
+Если вместо данных у диска прочерк "---", то нарушена файловая система. Этот диск также можно проверить, но причиной сбоя может быть плохой контакт в шлейфах (питания и данных) жёсткого диска, соответственно нужно устранить плохой контакт, если ошибки не устраняются.
+
+
+<h4 class='blue'>ini-файл</h4>
+
+В комплекте ini-файл для возможности сохранения или использования некоторых параметров. Если этого не нужно, то удалить файл и программа не будет пытаться его создавать и запускается с опциями по умолчанию.
+
+
+<h4 class='blue'>Проверка без GUI</h4>
+
+Командную строку можно получить в буфер обмена кликнув строку состояния, выбрав перед этим диск (не галкой). А также в контекстном меню выбрать пункт "Копировать ком-строку", в этом случае диски нужно отметить галкой. Рекомендуется короткая ком-строка, так как длинная обрезается в поле окна "Выполнить".<br />
+Вызвать Win+R, вставить строку:
+<p class="comline">cmd.exe /c (@<span class='blue'>Echo</span> off <span class='bor'>&amp;</span> <span class='blue'>Title</span> проверка диска <span class='bor'>&amp;</span> <span class='blue'>Color</span> 1e <span class='bor'>&amp;</span> chkdsk.exe <b class='navyblue'>C:</b> /F /X <span class='bor'>&amp;</span> <span class='blue'>set</span> /p Ok=^&gt;^&gt;)</p>
+Здесь cmd.exe передаётся команда, где амперсанд (<span class='bor'>&amp;</span>) является разделителем строк-команд.<br /><br />
+В cmd-файле это выглядело бы так:<br />
+<p class="comline">
+@<span class='blue'>Echo</span> off<br />
+<span class='blue'>Title</span> проверка диска<br />
+<span class='blue'>Color</span> 1e<br />
+chkdsk.exe <b class='navyblue'>C:</b> /F /X<br />
+<span class='blue'>set</span> /p Ok=^&gt;^&gt;</p>
+<br />
+Предпоследние 2 команды наиболее важные, собственно проверка в нашем случае диска C: и пауза, иначе окно закроется при завершении проверки и невозможно будет отследить результаты.<br />
+Используйте в меню пункт "Для bat-файла", чтобы получить данные в кодировке Windows-1251, при этом данные проверки будут выводить наибольшую информацию.<br /><br />
+
+
+<h4 class='blue'>Поддержка ком-строки</h4>
+Поддержка ком-строки добавлена всвязи с удобством выбрать ChkDskGui из контекстного меню диска в файловом менеджере и этот диск будет выделен в списке. Для этого в реестр нужно добавить следующие данные, указав свой путь и экранируя наклонную черту:
+<p class="comline">
+Windows Registry Editor Version 5.00<br />
+<br />
+<span class='blue'>[HKEY_CLASSES_ROOT\Drive\shell\ChkDskGui]</span><br />
+<span class='red'>@=</span>"ChkDskGui"<br />
+"Icon"<span class='red'>=</span>"\"C:\\папка\\ChkDskGui.exe\""<br /><br />
+
+<span class='blue'>[HKEY_CLASSES_ROOT\Drive\shell\ChkDskGui\command]</span><br />
+<span class='red'>@=</span>"\"C:\\папка\\ChkDskGui.exe\" \"%1\""<br /></p>
+<br />
+Эта команда будет выглядеть как ChkDskGui.exe С:\<br />
+Теперь добавление в меню дисков есть в меню программы.<br /><br />
+
+
+<h4 class='blue'>Описание ini-файла</h4>
+<div class="codebox">
+<font class='blue'>[set]</font> ; <font class="comm">секция параметров</font><br />
+<font class='key1'>StartDisk</font> <font class="red">=</font> <font  class="purple">2</font> ; <font class="comm">Номер диска от которого начать отсчёт. 2 означает начать с C:\ пропуская A:\ и B:\</font><br />
+<font class='key1'>FontSize</font> <font class="red">=</font> <font  class="purple">10</font> ; <font class="comm">Размер шрифта везде (7 - 15 -&gt; 9), к кнопка добавляется +3</font><br />
+<font class='key1'>Color</font> <font class="red">=</font> <font  class="purple">f0</font> ; <font class="comm">Цвет консоли</font><br />
+<font class='key1'>Font1</font> <font class="red">=</font> <font  class="purple">Consolas</font> ; <font class="comm">Шрифт в списке дисков</font><br />
+<font class='key1'>Font2</font> <font class="red">=</font> <font  class="purple">Segoe UI</font> ; <font class="comm">Шрифт остальное (чекбоксы, кнопки)</font><br />
+<font class='key1'>WinW</font> <font class="red">=</font> <font  class="purple">692</font> ; <font class="comm">Ширина окна (480 - 630 -> 480)
+</font><br />
+<font class='key1'>WinH</font> <font class="red">=</font> <font  class="purple">238</font> ; <font class="comm">Высота окна (160 - 480 -> 210)
+</font><br />
+<font class='key1'>WinM</font> <font class="red">=</font> <font  class="purple">0</font> ; <font class="comm">развернуть на весь экран</font><br />
+<font class='key1'>WinX</font> <font class="red">=</font> <font  class="purple">572</font> ; <font class="comm">X-координата окна</font><br />
+<font class='key1'>WinY</font> <font class="red">=</font> <font  class="purple">0</font> ; <font class="comm">Y-координата окна</font><br />
+<font class='key1'>SortOrder</font> <font class="red">=</font> <font  class="purple">1</font> ; <font class="comm">Порядок сортировки "1" - возрастание, "-1" - убывание</font><br />
+<font class='key1'>indexSort</font> <font class="red">=</font> <font  class="purple">1</font> ; <font class="comm">Индекс колонки, по которой будет сортировка списка дисков</font><br />
+<font class='key1'>align</font> <font class="red">=</font> <font  class="purple">0</font> ; <font class="comm">Выравнивание окна. Если 1, то размер окна подстраивается под содержимое списка (увеличивается высота при вставке диска и ширина)</font><br />
+<font class='key1'>; ignore</font> <font class="red">=</font> <font  class="purple">ABFGHI</font> ; <font class="comm">игнорирование дисков, по умолчанию закоментировано (отключено). Укажите буквы дисков, которые нужно убрать из списка, например диски картридера.</font><br />
+</div>
+Встроена защита, нельзя указать данные, которые выходят из ограничивающего диапазона. Если всё же выходят, то стрелкой указан чем он заменяется. Если неверное имя шрифта, то используется системный, если не указан, то Consolas и Segoe UI.
+</p>
+<br />
+
+Если ini отсутствует, то настройки по умолчанию (0, 9, 480, 210, 1e, Consolas, Segoe UI).<br />
+Зачем системной утилите настройки? Ну всё же удобнее для тех кто плохо видит может увеличить шрифт. Если много дисков, то удобнее сделать больше размер окна в высоту, чтобы не приходилось прокручивать. Шрифты в принципе моноширинный уже не обязателен, так как список поддерживает колонки и выравнивать шрифтом нет необходимости. Если удалить ini программа не будет пытаться его создавать и запускается с опциями по умолчанию.<br /><br /><br />
+
+<h4 class='blue'>Настройка цвета консоли</h4>
+Первая цифра - цвет фона, вторая -цвет текста
+<br /><br />
+<table class="param" cellspacing="0" cellpadding="3">
+<tr><td colspan=2>Тёмные тона</td></tr>
+<tr><td width="90%" style="background-color:#000000;"></td><td width="10%">0</td></tr>
+<tr><td style="background-color:#000080;"></td><td>1</td></tr>
+<tr><td style="background-color:#007C00;"></td><td>2</td></tr>
+<tr><td style="background-color:#007C7C;"></td><td>3</td></tr>
+<tr><td style="background-color:#7C0000;"></td><td>4</td></tr>
+<tr><td style="background-color:#7E007E;"></td><td>5</td></tr>
+<tr><td style="background-color:#7C7C00;"></td><td>6</td></tr>
+<tr><td style="background-color:#BBBBBB;"></td><td>7</td></tr>
+<tr><td style="background-color:#797979;"></td><td>8</td></tr>
+
+<tr><td colspan=2>Светлые тона</td></tr>
+<tr><td style="background-color:#0000FB;"></td><td>9</td></tr>
+<tr><td style="background-color:#00F400;"></td><td>a</td></tr>
+<tr><td style="background-color:#00FAFA;"></td><td>b</td></tr>
+<tr><td style="background-color:#FB0000;"></td><td>c</td></tr>
+<tr><td style="background-color:#FF00FF;"></td><td>d</td></tr>
+<tr><td style="background-color:#FFFF00;"></td><td>e</td></tr>
+<tr><td style="background-color:#FFFFFF;"></td><td>f</td></tr>
+</table>
+
+<br />
+Светлые можно использовать на фоне тёмных и наоборот
+<br /><br />
+
+<table class="param" cellspacing="0" cellpadding="3">
+<tr>
+<td width="33%" style="background-color:#000000;"></td>
+<td width="33%" style="background-color:#000000;"></td>
+<td width="33%" style="background-color:#000000;"></td>
+</tr>
+
+<tr>
+<td style="background-color:#000000;color:#FFFFFF;">0f 0f 0f 0f</td>
+<td style="background-color:#000000;color:#BBBBBB;">07 07 07 07</td>
+<td style="background-color:#000000;color:#00F400;">0a 0a 0a 0a</td>
+</tr>
+
+<tr>
+<td style="background-color:#000080;color:#FFFF00;">1e 1e 1e 1e</td>
+<td style="background-color:#000080;color:#00FAFA;">1b 1b 1b 1b</td>
+<td style="background-color:#007C7C;color:#00FAFA;">3b 3b 3b 3b</td>
+</tr>
+
+<tr>
+<td style="background-color:#007C00;color:#FFFF00;">2e 2e 2e 2e</td>
+<td style="background-color:#BBBBBB;color:#000000;">70 70 70 70</td>
+<td style="background-color:#FFFFFF;color:#000000;">f0 f0 f0 f0</td>
+</tr>
+</table>
+
+<br />
+<h4 class='blue'>Ключи (параметры запуска Windows 10)</h4>
+
+<p class="comline"><span class='blue'>CHKDSK</span> <span class='red'>[</span>том<span class='red'>[[</span>путь<span class='red'>]</span>имя_файла<span class='red'>]]]</span> <span class='red'>[</span>/F<span class='red'>]</span> <span class='red'>[</span>/V<span class='red'>]</span> <span class='red'>[</span>/R<span class='red'>]</span> <span class='red'>[</span>/X<span class='red'>]</span> <span class='red'>[</span>/I<span class='red'>]</span> <span class='red'>[</span>/C<span class='red'>]</span> <span class='red'>[</span>/L<span class='red'>[</span>:размер<span class='red'>]]</span> <span class='red'>[</span>/B<span class='red'>]</span> <span class='red'>[</span>/scan<span class='red'>]</span> <span class='red'>[</span>/spotfix<span class='red'>]</span></p>
+
+
+<span class='bor'>том</span> - Буква диска (с двоеточием после нее), точка подключения или имя тома.<br />
+<span class='bor'>имя_файла</span> - Файлы, проверяемые на наличие фрагментации (только FAT/FAT32).<br />
+<span class='bor'>/F</span> - Исправляет ошибки на диске.<br />
+<span class='bor'>/V</span> - Для FAT/FAT32: выводит полный путь и имя каждого файла на диске. Для NTFS: выводит сообщения об очистке (при их наличии).<br />
+<span class='bor'>/R</span> - Ищет поврежденные сектора и восстанавливает уцелевшую информацию (требует <span class='bor'>/F</span>, когда не указан параметр <span class='bor'>/scan</span>).<br />
+<span class='bor'>/L</span>:size - Только для NTFS:  задает размер файла журнала (в КБ). Если размер не указан, выводится текущее значение.<br />
+<span class='bor'>/X</span> - Предварительно отключает том (при необходимости). Все открытые дескрипторы для этого тома станут недопустимы (требует <span class='bor'>/F</span>)<br />
+<span class='bor'>/I</span> - Только для NTFS: выполняет менее строгую проверку элементов индекса.<br />
+<span class='bor'>/C</span> - Только для NTFS: пропускает проверку циклов внутри структуры папок.<br />
+<span class='bor'>/B</span> - Только для NTFS: повторно оценивает поврежденные кластеры в томе (требует <span class='bor'>/R</span>).<br />
+<span class='bor'>/scan</span> - Только для NTFS: выполняет оперативное сканирование тома<br />
+<span class='bor'>/forceofflinefix</span> - Только для NTFS (необходимо использовать со "<span class='bor'>/scan</span>"): обходит восстановление в подключенном состоянии; все найденные неполадки добавляются в очередь для восстановления в автономном режиме (т. е. "<span class='blue'>chkdsk</span> <span class='bor'>/spotfix</span>").<br />
+<span class='bor'>/perf</span> - Только для NTFS (необходимо использовать со "<span class='bor'>/scan</span>") использует больше системных ресурсов для скорейшего выполнения сканирования. Это может отрицательно повлиять на производительность других задач, выполняемых в системе.<br />
+<span class='bor'>/spotfix</span> - Только для NTFS: точечно исправляет ошибки в томе<br />
+<span class='bor'>/sdcleanup</span> - Только для NTFS: собирает ненужные данные дескриптора безопасности в качестве мусора (требует <span class='bor'>/F</span>).<br />
+<span class='bor'>/offlinescanandfix</span> - Запускает автономную проверку и исправление тома.<br />
+<span class='bor'>/freeorphanedchains</span> Только для FAT/FAT32/exFAT: освобождает потерянные цепочки кластеров вместо восстановления их содержимого.<br />
+<span class='bor'>/markclean</span> - Только для FAT/FAT32/exFAT: помечает том как чистый, если не были обнаружены повреждения, даже если параметр <span class='bor'>/F</span> не задан.<br />
+<br />
+Параметр <span class='bor'>/I</span> или <span class='bor'>/C</span> сокращает время выполнения <span class='blue'>Chkdsk</span> за счет пропуска некоторых проверок тома.<br /><br />
+<br />
+
+
+
+<br /><br /><br /><br />
+</body></html>

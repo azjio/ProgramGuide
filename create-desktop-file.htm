@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>create-desktop-file</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">create-desktop-file</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Программа для создания ярлыков, он же desktop-файл, он же "кнопка запуска".</p><br />
+<img src='img/create-desktop-file.png' border="0"><br /><br />
+
+<h4 class='blue'>Назначение</h4>
+Простое создание desktop-файлов в автозагрузке или на рабочем столе.
+
+<h4 class='blue'>Использование</h4>
+1. Перетащить и бросить desktop-файл с рабочего стола в окно программы, выбрать место "автозагрузка", нажать создать.<br />
+2. Тоже самое, но самостоятельно заполнить поля.<br />
+3. Некоторые поля поддерживают перенос в них файлов, такие как "Иконка", "Исполняемый файл"
+
+
+<h4 class='blue'>Описание ini-файла</h4>
+<div class="codebox">
+<font class='blue'>[set]</font> ; <font class="comm">секция параметров окна</font><br />
+<font class='key1'>WinHeight</font> <font class="red">=</font> <font  class="purple">450</font> ; <font class="comm">Высота окна</font><br />
+<font class='key1'>WinWidth</font> <font class="red">=</font> <font  class="purple">450</font> ; <font class="comm">Ширина окна</font><br />
+<font class='key1'>FontHeight</font> <font class="red">=</font> <font  class="purple">35</font> ; <font class="comm">Высота поля (пока перестала работать, так как вычисляется по размеру окна)</font><br />
+<br />
+<font class='blue'>[Categories]</font> ; <font class="comm">список категорий для выбора, куда будет помещён ярлык (названия категорий зависит от DE)</font><br />
+<font class='key1'>Development</font> <font class="red">=</font> ; <font class="comm">Разработка</font><br />
+<font class='key1'>Game</font> <font class="red">=</font> ; <font class="comm">Игры</font><br />
+<font class='key1'>AudioVideo</font> <font class="red">=</font> ; <font class="comm">Аудио, Видео</font><br />
+<!-- <font class='key1'>Administration</font> <font class="red">=</font> ; <font class="comm">Администрация</font><br /> -->
+; <font class="comm">и т.д.</font><br />
+<br />
+<font class='blue'>[Path]</font> ; <font class="comm">список путей для выбора, куда можно сохранить ярлык</font><br />
+<font class='key1'>~/.local/share/applications</font> <font class="red">=</font> ; <font class="comm">Папка приложений</font><br />
+<font class='key1'>~/.config/autostart</font> <font class="red">=</font> ; <font class="comm">Папка автозагрузки</font><br />
+<font class='key1'>~/Рабочий стол</font> <font class="red">=</font> ; <font class="comm">Папка "Рабочий стол"</font><br />
+<br />
+<font class='blue'>[Field]</font> ; <font class="comm">секция дополнительных полей, которые появятся в окне программы</font><br />
+<font class='key1'>Comment[ru]</font> <font class="red">=</font> <font  class="purple">Комментарий[ru]</font> ; <font class="comm">Поле комментариев для русского языка</font><br />
+<font class='key1'>GenericName</font> <font class="red">=</font> <font  class="purple">GenericName</font> ; <font class="comm">Поле  имени</font>
+</div>
+
+<br /><br /><br /><br />
+</body></html>

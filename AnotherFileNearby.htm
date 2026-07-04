@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>AnotherFileNearby</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">AnotherFileNearby</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Создать новый файл рядом.</p><br />
+
+
+Команда для запуска операции
+<p class="comline"><font class="blue">AnotherFileNearby.exe</font> "file" <font class="red">[</font>mode <font class="red">[</font>NamePart <font class="red">[</font>Folder<font class="red">]]]</font></p>
+
+
+
+<h4 class='blue'>Параметры</h4>
+
+<font class="bor">file</font> - (в кавычках) файл, для которого сделать копию/бэкап/пустышку<br />
+<font class="bor">mode</font> - Флаг, может быть комбинацией следующих параметров<br />
+&nbsp; &nbsp; <font class="purple">1</font> - собственное имя файла указанное в  %NamePart, иначе имя исходного файла.<br />
+&nbsp; &nbsp; &nbsp; &nbsp; Индекс увеличивается пока не будет найден несуществующий файл<br />
+&nbsp; &nbsp; <font class="purple">2</font> - выдаёт диалог для изменения имени, предварительно вычисленного<br />
+&nbsp; &nbsp; <font class="purple">4</font> - создаёт новый пустой файл, иначе копирует текущий<br />
+&nbsp; &nbsp; <font class="purple">8</font> - не открывать файл при создании копии, но выдавать сообщение об успешности<br />
+&nbsp; &nbsp; <font class="purple">16</font> - время к имени файла (формат NamePart_2023.04.21-15.20.09)<br />
+<font class="bor">NamePart</font> это часть имени. Если флаг содержит 1 то это имя файла, иначе это разделитель между именем исходника и счётчиком<br />
+<font class="bor">Folder</font> - относительный путь, чтобы сделать бэкап в отдельной папке. Если путь абсолютный, то копии будут создаваться все в одной папке.<br /><br />
+
+<h4 class='blue'>Использование в PureBasic</h4>
+
+Старая версия (бэкапирование)<br />
+<p class="comline"><font class="blue">AnotherFileNearby.exe</font> "%FILE" 8 "" "Old"</p>
+Новый рядом, пустой (для теста функции, с запросом имени)<br />
+<p class="comline"><font class="blue">AnotherFileNearby.exe</font> "%FILE" 7 ""</p>
+Новая копия (для эксперимента с копией исходника)<br />
+<p class="comline"><font class="blue">AnotherFileNearby.exe</font> "%FILE"</p>
+Бэкап<br />
+<p class="comline"><font class="blue">AnotherFileNearby.exe</font> "%FILE" 8 "" "C:\Users\username\AppData\Roaming\PureBasic\бэкап\"</p>
+
+
+
+
+<h4 class='blue'>Использование в AkelPad</h4>
+
+<p class="codebox"><font class="html">&quot;AnotherFileNearby&quot;</font> <font class="s5"><b>Icon</b></font><font class="s8">(</font><font class="key1">&quot;%a\AkelFiles\Tools\AnotherFileNearby.exe&quot;</font><font class="s8">)</font>
+<br /><font class="s8">{</font>
+<br />&nbsp; &nbsp; <font class="html">    &quot;Новая копия&quot;</font> <font class="s5"><b>Exec</b></font><font class="s8">(</font><font class="key1">`&quot;%a\AkelFiles\Tools\AnotherFileNearby.exe&quot;</font><font class="clr6"> <i>&quot;%f&quot;</i></font><font class="s8">`)</font> <font class="s5"><b>Icon</b></font><font class="s8">(</font><font class="key1">&quot;%a\AkelFiles\Tools\AnotherFileNearby.exe&quot;</font><font class="s8">)</font>
+<br />&nbsp; &nbsp; <font class="html">    &quot;Новый рядом, пустой&quot;</font> <font class="s5"><b>Exec</b></font><font class="s8">(</font><font class="key1">`&quot;%a\AkelFiles\Tools\AnotherFileNearby.exe&quot;</font><font class="clr6"> <i>&quot;%f&quot;</i> </font><font class="purple">7</font><font class="clr6"> <i>&quot;&quot;</i></font><font class="s8">`)</font> <font class="s5"><b>Icon</b></font><font class="s8">(</font><font class="key1">&quot;%a\AkelFiles\Tools\AnotherFileNearby.exe&quot;</font><font class="s8">)</font>
+<br />&nbsp; &nbsp; <font class="html">    &quot;Старая версия&quot;</font> <font class="s5"><b>Exec</b></font><font class="s8">(</font><font class="key1">`&quot;%a\AkelFiles\Tools\AnotherFileNearby.exe&quot;</font><font class="clr6"> <i>&quot;%f&quot;</i> </font><font class="purple">8</font><font class="clr6"> <i>&quot;&quot;</i> <i>&quot;Old&quot;</i></font><font class="s8">`)</font> <font class="s5"><b>Icon</b></font><font class="s8">(</font><font class="key1">&quot;%a\AkelFiles\Tools\AnotherFileNearby.exe&quot;</font><font class="s8">)</font>
+<br />&nbsp; &nbsp; <font class="html">    &quot;Бэкап с датой&quot;</font> <font class="s5"><b>Exec</b></font><font class="s8">(</font><font class="key1">`&quot;%a\AkelFiles\Tools\AnotherFileNearby.exe&quot;</font><font class="clr6"> <i>&quot;%f&quot;</i> </font><font class="purple">24</font><font class="clr6"> <i>&quot;_&quot;</i> <i>&quot;Backup&quot;</i></font><font class="s8">`)</font> <font class="s5"><b>Icon</b></font><font class="s8">(</font><font class="key1">&quot;%a\AkelFiles\Tools\AnotherFileNearby.exe&quot;</font><font class="s8">)</font>
+<br /><font class="s8">}</font></p>
+
+<h4 class='blue'>Использование в SciTE</h4>
+Чтобы использовать инструмент в SciTE откройте файл <font class="path">AutoIt\SciTE\Properties\au3.properties</font> и найдите там перечисление инструментов. На их основе создаём свой. Важно указать правильно номер инструмента, который в ниже в конфиге указан как 35. Это может быть другой номер.<br /><br />
+
+<p class="codebox">
+<font class="s2"># 35 AnotherFileNearby</font><br />
+command.35.$(au3)="<font class="bor">$(SciteDefaultHome)</font>\Tools\AnotherFileNearby.exe" "<font class="bor">$(FilePath)</font>"<br />
+command.name.35.$(au3)=AnotherFileNearby<br />
+command.shortcut.35.$(au3)=Ctrl+Shift+N<br />
+command.subsystem.35.$(au3)=2<br />
+command.save.before.35.$(au3)=2<br />
+command.replace.selection.35.$(au3)=0<br />
+command.quiet.35.$(au3)=1<br />
+</p>
+
+<font class="bor">$(SciteDefaultHome)</font> это папка где находится SciTE.exe, здесь можно указать прямой путь.<br />
+Параметр <font class="bor">$(FilePath)</font> - путь к отрытому файлу.<br />
+AnotherFileNearby - имя пункта отображаемое в меню Tools редактора SciTE<br />
+Ctrl+Shift+N - горячая клавиша<br /><br />
+
+
+
+<h4 class='blue'>Использование в Notepad++</h4>
+
+Чтобы использовать инструмент в Notepad++ откройте файл <font class="path">%APPDATA%\Notepad++\shortcuts.xml</font> и добавьте ниже приведённую строку.<br /><br />
+
+
+<p class="comline">
+<font class="s5">&lt;Command name=</font>"AnotherFileNearby" Ctrl="yes" Alt="no" Shift="yes" Key="68"<font class="s5">&gt;</font>&quot;<font class="bor">$(NPP_DIRECTORY)</font>\Tools\AnotherFileNearby.exe&quot; &quot;<font class="bor">$(FULL_CURRENT_PATH)</font>&quot;<font class="s5">&lt;/Command&gt;</font>
+</p><br /><br />
+
+<font class="bor">$(NPP_DIRECTORY)</font> это папка где находится notepad++.exe, здесь можно указать прямой путь.<br />
+Параметр <font class="bor">$(FULL_CURRENT_PATH)</font> - путь к отрытому файлу.<br />
+AnotherFileNearby - имя пункта отображаемое в меню "Запуск" редактора Notepad++<br />
+Ctrl="yes" Alt="no" Shift="yes" Key="68" - это горячая клавиша Ctrl+Shift+D<br /><br />
+
+<br /><br /><br /><br />
+</body></html>

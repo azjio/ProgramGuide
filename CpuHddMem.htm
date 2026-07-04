@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>CpuHddMem</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">CpuHddMem</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Индикация загрузки процессора, жёсткого диска и памяти на иконке в трее.</p><br />
+<img src='img/CpuHddMem.png' border="0"><br /><br />
+
+
+<br />
+<p>Запустить. В трее появится иконка с 3-мя индикаторами: слева процессор, посредине жёсткий диск, справа память ОЗУ</p>
+<br />
+
+<h4 class='blue'>Параметры ini-файла</h4>
+
+<div class="codebox">
+<span class='key1'>background</span><span class="red">=</span><span class="hex">2</span> ; <font class="comm">цвет фона</font><br />
+<span class='key1'>color_cpu</span><span class="red">=</span><span class="hex">09F</span> ; <font class="comm">цвет индикатора процессора</font><br />
+<span class='key1'>color_mem</span><span class="red">=</span><span class="hex">F00</span> ; <font class="comm">цвет индикатора памяти</font><br />
+<span class='key1'>color_hdd</span><span class="red">=</span><span class="hex">F90</span> ; <font class="comm">цвет индикатора жёсткого диска</font><br />
+ <span class='key1'>timer</span><span class="red">=</span><span class="purple">2000</span> ; <font class="comm">интервал между запросами данных в миллисекундах, минимальное 500, ниже не принимается.</font>
+</div><br />
+Веб цвета вычисляются следующим правилом 09F = 0099FF, 2 = 222222, 3F = 3F3F3F.
+
+
+<h4 class='blue'>Подсказка</h4>
+Кликните на иконке, чтобы появилась обновляемая подсказка. Закрыть её можно вторым кликом или на кнопке "Закрыть" в подсказке.
+
+
+<h4 class='blue'>Вычисления</h4>
+Показания загруженности процессора и жёсткого диска вычисляются в среднем. Пиковые значения могут значительно превышать, используется порог, выше которого значения определяются как 100%. 
+
+
+<h4 class='blue'>Практика</h4>
+Полезно программистам следить за состоянием нагрузки на процессор, чтобы отследить неправильный цикл без дела нагружающий процессор.<br />
+Может быть полезным для пользователя следить за потребляемой памятью при запуске монструозных приложений, например браузера Firefox + Gimp + ещё что нибудь.<br />
+При выключении в спящий режим закрывая программы (Firefox и т.д.) следить, чтобы датчики процессора и жёсткого диска упали близко к 0, дабы не кешировать эти процессы в файл гибернации будучи не успевая выгрузится.
+
+
+
+
+
+
+
+
+
+<br /><br /><br /><br /><br /><br />
+</body>
+</html>

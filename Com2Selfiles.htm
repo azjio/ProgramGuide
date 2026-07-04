@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Com2Selfiles</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">Com2Selfiles</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Получает список выделенных файлов из активного окна эксплорера.</p>
+<p class="section">Взаимосвязанные</p>
+<a href="pkm_dll.htm">pkm_dll</a>
+
+
+<br />
+<br />
+<h1>Работа с программой</h1>
+<br />
+<p><font class="funcname">Кратко: сформировать ini-файл, задать горячую клавишу, пользоваться.</font></p>
+<br />
+
+<h4 class='blue'>Параметры ini-файла</h4>
+
+<div class="codebox">
+<span class='blue'><b>[default]</b></span> ; <font class="comm">секция настроек</font><br />
+<span class='key1'>Path</span><span class="red">=</span><span class="vstr">pkm.bat</span> ; <font class="comm">любой исполняемый файл, абсолютный путь, относительный от папки EXE и имя файла с поиском в %Path% или в папке EXE</font><br />
+<span class='key1'>Arg</span><span class="red">=</span><span class="vstr">/i</span> ; <font class="comm">дополнительные аргументы, кроме путей к выделенным файлам. Аргумент вставляется перед файлами.</font><br />
+<span class='key1'>ModeWorkDir</span><span class="red">=</span><span class="purple">1</span> ; <font class="comm">определяет рабочую папку. 0 - рабочая папка там где выбранные файлы, 1 - рабочая папка исполняемого файла</font><br />
+<span class='key1'>Select</span><span class="red">=</span><span class="purple">1</span> ; <font class="comm">что выбрать. 1 - файлы, 2 - папки, 3 - файлы и папки. Остальные будут игнорироваться.</font><br />
+<span class='key1'>Separator</span><span class="red">=</span><span class="purple">|</span> ; <font class="comm">задаёт разделитель между файлами. Например в батнике можно задать разделитель в цикле, чтобы не использовать пробел, являющийся частью имени файла. Тогда %1 является вся строка с файлами.</font><br />
+<span class='key1'>Quotes</span><span class="red">=</span><span class="vstr">"</span> ; <font class="comm">задаёт символ вокруг строки файлов, чтобы bat-файл воспринимал строку как 1 параметр, не разделяя на пробелы. Но иногда нужен вывод без них.</font><br />
+<span class='key1'>Charset</span><span class="red">=</span><span class="purple">0</span> ; <font class="comm">Кодировка файла 24 - Ascii, 25 - UTF-16 с BOM, что либо иное - UTF-8 с BOM.</font><br />
+<span class='key1'>Clear</span><span class="red">=</span><span class="purple">0</span> ; <font class="comm"> (по умолчанию 1) для ручного копирования файлов в ФМ, в эксплорере лучше 0.</font><br />
+<span class='key1'>CtrlIns</span><span class="red">=</span><span class="purple">1</span> ; <font class="comm"> (по умолчанию 1) 1= Ctrl + Insert, 0 = Ctrl + C (выбор способа эмуляции копирования списка файлов в буфер обмена., например Ctrl + Insert в Xplorer создаёт вкладку и надо использовать только Ctrl + C, в тоже время Ctrl + C зависит от раскладки клавиатуры русс/англ, а Ctrl + Insert - нет).</font><br />
+<span class='key1'>Time</span><span class="red">=</span><span class="purple">200</span> ; <font class="comm"> в миллисекундах, между 30-500. Время между эмуляцией Ctrl+Ins и началом сбора файлов. Чем больше файлов, тем больше промежуток. В проводнике хватало 30, в Xplorer 250. Если список получен в буфер обмена, но не обработан, значит увеличить время ожидания, функция сбора файлов не смогла открыть буфер обмена, так как он ещё формировался предыдущим вызовом.</font><br />
+<span class='key1'>Class2</span><span class="red">=</span><span class="vstr">TTOTAL_CMD,CabinetWClass</span> ; <font class="comm">Дополнительные классы окна для захвата выделенных файлов, чтобы использовать другие файловые менеджеры. Перечисление классов через запятую без пробелов.</font><br />
+<span class='key1'>Debug</span><span class="red">=</span><span class="purple">0</span> ; <font class="comm">режим отладки или вывода. 1, 2, 4, 8, 16, 32.<br />
+&nbsp; &nbsp; 1 и 4 выдают сообщение, причём  4 выдаёт только имена, а 1 исполняемый файл и рабочий каталог.<br />
+&nbsp; &nbsp; 2 и 8 - буфер обмена, но 8 выдаёт только имена, а 2 исполняемый файл и рабочий каталог. Причём если в сообщении нажать ОК, то выполнится команда, получается контроль файлов и согласие выполнения, а вариант с буфером обмена не запускает исполняемый файл поэтому этот вариант можно использовать чтобы получить имена в буфер обмена для использования списка файлов на форуме и т.д.<br />
+&nbsp; &nbsp; 16 - при 1 и 2 создаёт список файлов без путей. 1 и 2 выдаёт многострочный список вне зависимости от разделителя и кавычек.<br />
+&nbsp; &nbsp; 32 - сохраняет список файлов в файле %TEMP%\Com2Selfiles.txt (зависит от имени исполняемого файла)<br />
+&nbsp; &nbsp; 64 - пустая ком-строка для запуска программ, которым нежелательно передавать ком-строку, полезно совместно с флагом 32.</font><br /><br />
+
+
+</div><br />
+
+
+
+<h4 class='blue'>Установка</h4>
+<ol>
+<li>Установить программу TrueLounchBar версии 6.6.9 (бесплатная для СССР) и добавить горячую клавишу на запуск Com2Selfiles.exe.</li>
+<li>Настроить ini-файл.</li>
+</ol>
+
+
+<h4 class='blue'>Использование</h4>
+<ol>
+<li>Выделить несколько файлов, вызвать горячую клавишу для запуска Com2Selfiles.exe.</li>
+<li>Выполняется файл, указанный в "Path = "</li>
+<li>Файлы передаются исполняемому файлу в виде ком-строки.</li>
+<li>Повторить выше описанное, чтобы создать для любых других программ. Создать новую папку с новыми параметрами ini-файла с новой горячей клавишей.</li>
+</ol>
+
+
+<h4 class='blue'>Командная строка</h4>
+<ol>
+<li>В ком-строке передаётся имя секции ini-файла (без квадратных скобок).</li>
+<li>Без ком-строки используется секция <font class='blue'>[default]</font></li>
+<li>Если имя секции не существует в ini-файле, программа завершается ничего не делая.</li>
+</ol>
+
+Программу можно использовать для получения списка файлов включив <span class='key1'>Debug</span><span class="red">=</span><span class="purple">8</span> или 8+16=24 чтобы имена были без путей.<br /><br />
+
+При использовании <span class='key1'>Debug</span><span class="red">=</span><span class="purple">4</span> можно контролировать имена файлов получив сообщение перед запуском, чтобы знать, что передаётся необходимый набор файлов.<br /><br />
+
+Параметр <span class='key1'>Debug</span><span class="red">=</span><span class="purple">32</span> полезен для программ умеющих работать со списком файлов. То есть создаётся файл со списком выделенных файлов и передаётся запускаемой программе.<br /><br />
+
+
+<br /><br /><br /><br />
+</body></html>

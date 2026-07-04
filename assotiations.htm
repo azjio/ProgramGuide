@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>assotiations</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">AutoIt3</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">assotiations</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Ассоциатор программ (WinXP или LiveCD).</p><br />
+<img src='au3/assotiations.png' border="0"><br /><br />
+<p class="section">Взаимосвязанные</p>
+<a href="ContMenuFilesP.htm">ContMenuFiles</a><br />
+<a href="ContMenuFiles.htm">ContMenuFiles</a><br />
+<a href="Recovery_associative_icons.htm">Recovery_associative_icons</a><br /><br />
+
+Порядок использования программы.<br />
+
+1. Сначала делаем бэкап всех ассоциаций (или контрольную точку восстановления)<br />
+2. Кидаем программу в диалоговое окно. Если ассоциации не определились автоматически, то в раскрывающемся списке выбираем тип программы, то есть для плеера нужно выбрать "Видео", для текстовых файлов - "текст". После выбора типа жмём "Инфо" чтобы посмотреть информацию об ассоциированных расширениях для этого типа. Например, чтоб ассоциировать видеофайлы с zplayer, нужно выбрать в списке "Видео" и кинуть в окно программы zplayer или ярлык zplayer'a. Если в строке состояния появился текст "Bидeo-фaйлы accoцииpoвaны c zplayer.exe", значит ассоциация прошла успешно.<br />
+3. Кидайте любой файл в утилиту, чтобы открыть каталог ассоциированной программы.<br />
+4. Если не работает функционал "перетащить и бросить", то используйте кнопку "Открыть", но перед этим рекомендуется скопировать путь в буфер обмена. Например если вы используете нестандартную папку, не "Program Files", то чтобы не открывать её каждый раз через диалог выбора, просто скопируйте адрес в адресной строке.<br />
+Также если вы копируете путь к EXE-файлу из свойств ярлыка или копируете полный путь к ярлыку, это автоматически будет использовано.<br /><br /><br />
+
+
+При регистрации аудио файлов выполняется снос следующих веток реестра:
+<pre class="comline">
+RegDelete("HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.<расширение_файла>, "ProgID")<br />
+RegDelete("HKCR\<class>\shell\open\DropTarget")
+</pre>
+так как это создавало проблему для ассоциаций в WinXP.
+
+<br /><br /><br /><br />
+</body></html>

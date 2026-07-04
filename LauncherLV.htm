@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>LauncherLV</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">LauncherLV</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Запускалка программ в виде ListView.</p><br />
+<img src='img/LauncherLV.png' border="0"><br /><br />
+<p class="section">Взаимосвязанные</p>
+<a href="LauncherP.htm">LauncherPB</a><br />
+<a href="LauncherCLE.htm">LauncherCLE</a><br />
+<a href="Launcher.htm">Launcher</a> (устаревшая версия).<br />
+
+<br /><br /><br />
+<hr><br />
+<h1>Работа с программой</h1>
+
+Как пользоваться программой:
+<ol>
+<li>Запустить программу и перетащить ярлыки или exe-файлы в окно программы.</li>
+<li>Клик на пункте запускает исполняемый файл.</li>
+<li>В левой части окна пристуствуют категории, по которым можно распределить программы.</li>
+</ol>
+
+А теперь детали:
+<ol>
+
+
+
+<li>Меню кнопки <img src="icons/Menu2.gif" width="" height="" alt="">
+<ul>
+<li><img src="icons/Save.gif" width="" height="" alt=""> <b><span class='bor'>Сохранить изменения</span></b> - Сохраняет программы в ini-файл.</li>
+<li><img src="icons/set.gif" width="" height="" alt=""> <b><span class='bor'>Настройки</span></b> - Открывает LLVSetting.exe - конфигуратор ini-файла.</li>
+<li><img src="icons/set.gif" width="" height="" alt=""> <b><span class='bor'>Открыть ini-файл</span></b> - Открывает в редакторе для ручной правки.</li>
+<li><img src="icons/Export.gif" width="" height="" alt=""> <b><span class='bor'>Экспорт в ярлыки</span></b> - Преобразует данные в ярлыки, в указанную папку. В Windows10 и ниже это позваоляет создать из папки панель - раскрывающееся меню на панели задач.</li>
+<li><img src="icons/Importicon.gif" width="" height="" alt=""> <b><span class='bor'>Импорт программ из меню Пуск</span></b> - Преобразует ярлыки из меню Пуск в раздел Programs. Берётся из папки пользователя и из папки для всех пользователей.</li>
+<li><img src="icons/rc.gif" width="" height="" alt=""> <b><span class='bor'>Сохранить значки в DLL</span></b> - Создаёт icons.dll, чтобы увеличить скорость запуска программы. После выполнения требуется сохранить конфиг Ctrl+S. В ini-файл добавятся icon = icons.dll и IndexIcon = номер иконки.</li>
+<li><img src="icons/Startup.gif" width="" height="" alt=""> <b><span class='bor'>Добавить/удалить в автозагрузку</span></b> - Создаёт ярлык в главном меню Пуск в папке автозагрузки и программа запускается при старте ОС.</li>
+<li><img src="icons/Help.gif" width="" height="" alt=""> <b><span class='bor'>Справка</span></b> - Открывает файл LauncherLV.chm. Этот пункт скрыт, если файла нет.</li>
+</ul></li>
+
+<li>Меню списка программ (после изменений требуется сохранение ini-файла)
+<ul>
+<li><img src="icons/Add.gif" width="" height="" alt=""> <b><span class='bor'>Добавить файл(ы)</span></b> - Кроме перетащить и бросить можно использовать диалог открытия файлов.</li>
+<li><img src="icons/Add.gif" width="" height="" alt=""> <b><span class='bor'>Добавить в Избранное</span></b> - Дополнительно добавляет пункт в категорию Избранное.</li>
+<li><img src="icons/Del.gif" width="" height="" alt=""> <b><span class='bor'>Удалить</span></b> - Удаляет пункт.</li>
+<li><img src="icons/Del.gif" width="" height="" alt=""> <b><span class='bor'>Удалить по расширению</span></b> - Удаляет пункты с указанным расширением в указанной категории.</li>
+<li><img src="icons/rename-.gif" width="" height="" alt=""> <b><span class='bor'>Переименовать</span></b> - Переименовывает.</li>
+<li><img src="icons/rename-.gif" width="" height="" alt=""> <b><span class='bor'>Изменить параметры запуска</span></b> - Для просмотра или изменения параметра запуска программы.</li>
+<li><img src="icons/bg.gif" width="" height="" alt=""> <b><span class='bor'>Изменить цвет фона пункта</span></b> - Работает для отдельного пункта.</li>
+<li><img src="icons/fg.gif" width="" height="" alt=""> <b><span class='bor'>Изменить цвет текста пункта</span></b> - Работает для отдельного пункта.</li>
+<li><img src="icons/Changeicon.gif" width="" height="" alt=""> <b><span class='bor'>Изменить значок</span></b> - Открывает диалог выбора файла (dll) и далее диалог выбора значков. Сохраняет в icon и IndexIcon.</li>
+<li><img src="icons/info.gif" width="" height="" alt=""> <b><span class='bor'>Информация пункта</span></b> - Показывает данные путь, параметры.</li>
+<li><img src="icons/Folder.gif" width="" height="" alt=""> <b><span class='bor'>Открыть в папке</span></b> - Открывает папке с исполняемым файлом и выделяет сам файл.</li>
+<li><img src="icons/Prog.gif" width="" height="" alt=""> <b><span class='bor'>Задать приложение файлам</span></b> - перемещает значение path= в argument=, а в path= вставляется заказное приложение для указанных расширений файла.</li>
+</ul></li>
+
+<li>Меню категорий (после изменений требуется сохранение ini-файла)
+<ul>
+<li><img src="icons/Add.gif" width="" height="" alt=""> <b><span class='bor'>Добавить категорию</span></b> - Добавляется категория, в которую можно добавить программы.</li>
+<li><img src="icons/Del.gif" width="" height="" alt=""> <b><span class='bor'>Удалить категорию</span></b> - Удаляет категорию, а во всех пунктах очищается привязка к этой категории.</li>
+<li><img src="icons/rename-.gif" width="" height="" alt=""> <b><span class='bor'>Переименовать</span></b> - Переименовывает.</li>
+<li><img src="icons/Changeicon.gif" width="" height="" alt=""> <b><span class='bor'>Изменить значок</span></b> - Открывает диалог выбора файла (dll) и далее диалог выбора значков.</li>
+</ul></li>
+
+<li>Меню трея по ПКМ
+<ul>
+<li><img src="icons/Prog.gif" width="" height="" alt=""> <b><span class='bor'>Показать окно</span></b> - Показывает окно ранее скрытое.</li>
+<li><img src="icons/Exit.gif" width="" height="" alt=""> <b><span class='bor'>Выход</span></b> - Завершает программу.</li>
+</ul></li>
+
+<li>Меню трея по ЛКМ
+<ul>
+<li><img src="icons/Folder.gif" width="" height="" alt=""> <b><span class='bor'>Папки</span></b> - Если разрешено меню программ, то по левому клику отображается оно, иначе меню ПКМ.</li>
+</ul></li>
+
+</ol>
+
+
+<h4 class='blue'>Параметры ком-строки</h4>
+Первый параметр - путь к конфигурационному файлу<br />
+Второй параметр - флаг, который может быть комбинацией значений:<br />
+1 - принудительно инвертировать разрядность текущей ОС (x64 или x86), чтобы проверить какие программы будут отображаться на другой битности ОС<br />
+2 - принудительно инвертировать WinPE, чтобы проверить какие программы будут отображаться на другом типе ОС<br />
+4 - принудительно включить версия ОС Windows 7. Так как большинсто ставят новые версии 10/11, то проверка отображения на младших версиях<br />
+Эти флаги используются для теста если в параметре hide в программах задан флаг скрывающий эти программы.<br />
+
+
+
+<h4 class='blue'>Параметры ini-файла</h4>
+
+<div class="codebox">
+<span class='blue'><b>[Main]</b></span>- <font class="comm">основные настройки поведения</font><br />
+<span class='key1'>win_width</span><span class="red">=</span><span class="purple">400</span> - <font class="comm">Ширина окна</font><br />
+<span class='key1'>win_height</span><span class="red">=</span><span class="purple">400</span> - <font class="comm">Высота окна</font><br />
+<span class='key1'>split_1</span><span class="red">=</span><span class="purple">200</span> - <font class="comm">Положение разделителя между списками категорий и программ</font><br />
+<span class='key1'>sel_category</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">Выбранная категория при старте.</font><br />
+<span class='key1'>min_to_tray</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">При сворачивании окна оно скрывается и программа остаётся в трее</font><br />
+<span class='key1'>close_to_tray</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">При закрытии окна оно скрывается и программа остаётся в трее, иначе стандартный выход из программы (удобно настраивать и тестить при =0)</font><br />
+<span class='key1'>run_to_tray</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">Если 1, то при запуске программы автоматически скрывает окно и программа висит в трее готовая для выбора программ из меню трея</font><br />
+<span class='key1'>aft_run</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">Что делать после запуска программы: 0 - ничего, 1 - скрыть в трей, 2 - выход</font><br />
+<span class='key1'>double_click</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">Двойной клик для запуска файла</font><br />
+<span class='key1'>CreateTrayMenuProg</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">Создать меню программ в трее</font><br />
+<span class='key1'>mask</span><span class="red">=</span><span class="vstr">exe,lnk</span> - <font class="comm">При добавлении нескольких файлов или папок определяет список разрешённых файлов по расширению</font><br />
+<span class='key1'>masklnk</span><span class="red">=</span><span class="vstr">exe</span> - <font class="comm">При добавлении ярлыков определяет список разрешённых файлов, на который ссылается ярлык</font><br />
+<span class='key1'>AutoAddCtgr</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">Автоматически добавляет категории, если они указаны для программы, но не указана категория.</font><br />
+<span class='key1'>HotkeyShow</span><span class="red">=</span><span class="vstr">Ctrl+Space</span> - <font class="comm">Горячая клавиша показа окна.</font><br />
+<span class='key1'>font_size</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">Размер шрифта, если вне диапазона 9-22, то используется системный размер</font><br />
+<span class='key1'>font_name</span><span class="red">=</span><span class="vstr">Arial</span> - <font class="comm">Имя шрифта, работает только при заданном font_size в пределах 9-22</font><br />
+<span class='key1'>ThemeName</span><span class="red">=</span><span class="vstr">ColorBlack</span> - <font class="comm">Выбранная тема оформления, смотрите ниже.</font><br />
+<span class='key1'>single_instance</span><span class="red">=</span><span class="purple">0</span> - <font class="comm"> Если 0, то можно запустить программу несколько экземпляров, иначе только один экземпляр.</font><br />
+<span class='key1'>icon</span><span class="red">=</span><span class="vstr">icon.ico</span> - <font class="comm">Иконка программы, если не устраивает стандартная.</font><br />
+<span class='key1'>IndexIcon</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">Индекс иконки программы. Для "ico" всегда 0, для "exe" чаще всего 0, для dll уже выбор иконок в ресурсах.</font><br />
+<span class='key1'>sort</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">Сортировать программы в списке.</font><br />
+<!-- <span class='key1'>111</span><span class="red">=</span><span class="purple">333</span> - <font class="comm">222</font><br /> -->
+</div><br />
+
+
+<h4 class='blue'>Темы</h4>
+
+<div class="codebox">
+<span class='blue'><b>[ColorBlack]</b></span> - <font class="comm">Одна из тем оформления</font><br />
+<span class='key1'>color</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">Отключает Callback-функцию, которая подсвечивает пункты индивидуально</font><br />
+<span class='key1'>BlackTheme</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">Включает или отключает чёрную тему (некоторые дополнительные улучшения)</font><br />
+<span class='key1'>bgWin</span><span class="red">=</span><span class="hex">3f</span> - <font class="comm">Цвет фона окна</font><br />
+<span class='key1'>background</span><span class="red">=</span><span class="hex">222222</span> - <font class="comm">Цвет фона (формат: шестнадцатеричный RGB, веб цвета)</font><br />
+<span class='key1'>foreground</span><span class="red">=</span><span class="hex">aaaaaa</span> - <font class="comm">Цвет текста — // —</font><br />
+<span class='key1'>SelRectColor</span><span class="red">=</span><span class="hex">0078D4</span> - <font class="comm">Цвет границ прямоугольника выделенного пункта</font><br />
+<span class='key1'>SelBGColor</span><span class="red">=</span><span class="hex">1B374E</span> - <font class="comm">Цвет фона выделенного пункта</font><br />
+<span class='key1'>SelFGColor</span><span class="red">=</span><span class="hex">c</span> - <font class="comm">Цвет текста выделенного пункта</font><br />
+<span class='key1'>FavColor</span><span class="red">=</span><span class="hex">FF8080</span> - <font class="comm">Цвет текста пункта из Избранного</font><br />
+</div><br />
+Цвет может быть задан упрощённо, например "F" означает "FFFFFF", "3F" = "3F3F3F", "F95" = ""FF9955"<br />
+
+
+<h4 class='blue'>Категории</h4>
+
+<div class="codebox">
+<span class='blue'><b>[Category]</b></span> - <font class="comm">список категорий</font><br />
+<span class='key1'>Windows</span><span class="red">=</span> - <font class="comm">Имя категории и назначенная ей иконка.</font><br />
+<span class='key1'>Игры</span><span class="red">=</span><br />
+<span class='key1'>Интернет</span><span class="red">=</span><span class="vstr">Shell32.dll,13</span><br />
+<span class='key1'>Музыка</span><span class="red">=</span><span class="vstr">Shell32.dll,128</span><br />
+<span class='key1'>Офисные</span><span class="red">=</span><br />
+<span class='key1'>Системные</span><span class="red">=</span><br />
+</div><br />
+
+
+<h4 class='blue'>Кнопки</h4>
+
+<div class="codebox">
+<span class='blue'><b>[p6]</b></span> - <font class="comm">одна секция одна программа, с индексом, в данном случае 6. Генерируется автоматически без дубликатов.</font><br />
+<span class='key1'>name</span><span class="red">=</span><span class="vstr">Калькулятор</span> - <font class="comm">Имя программы. Берётся из имени файла</font><br />
+<span class='key1'>path</span><span class="red">=</span><span class="vstr">C:\Windows\System32\calc.exe</span> - <font class="comm">Полный путь к программе</font><br />
+<span class='key1'>argument</span><span class="red">=</span><span class="vstr">/s</span> - <font class="comm">Параметры запуска программы</font><br />
+<span class='key1'>category</span><span class="red">=</span><span class="vstr">Windows</span> - <font class="comm">Категория, должна быть в секции <span class='blue'><b>[Category]</b></span>, иначе программы затеряется и будет видна только во "Все" или при поиске.</font><br />
+<span class='key1'>favorites</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">1 означает отображать значок в избранном</font><br />
+<span class='key1'>bgcolor</span><span class="red">=</span><span class="hex">222222</span> - <font class="comm">Цвет фона пункта (RGB в веб-формате)</font><br />
+<span class='key1'>fgcolor</span><span class="red">=</span><span class="hex">AAAAAA</span> - <font class="comm">Цвет текста пункта (RGB в веб-формате)</font><br />
+<span class='key1'>icon</span><span class="red">=</span><span class="vstr">Shell32.dll</span> - <font class="comm">Файл с иконками</font><br />
+<span class='key1'>IndexIcon</span><span class="red">=</span><span class="purple">13</span> - <font class="comm">Индекс иконки в файле.</font><br />
+<span class='key1'>hide</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">Флаг определяет комбинацию сложением битовых флагов, в каких случаях скрывать программу.<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 - Не показывать программу (x64) в Windows-x86<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2 - Не показывать программу (x86) в Windows-x64 (вдруг есть две копии разной разрядности)<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4 - Не показывать в ниже 10-ки<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8 - Не показывать в WinPE (критерий - ОС на диске X:\)<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 16 - Не показывать программу от WinPE в обычной Windows (критерий - ОС на диске X:\)</font><br />
+
+
+<!-- <span class='key1'>description</span><span class="red">=</span><span class="purple">описание_программы</span> - <font class="comm">пока не работает, а надо ли.</font><br /> -->
+<!-- <span class='key1'>111</span><span class="red">=</span><span class="purple">333</span> - <font class="comm">222</font><br /> -->
+</div><br />
+
+
+<br /><br /><br /><br />
+</body></html>

@@ -1,0 +1,260 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>AutoCompletionIDE</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">AutoCompletionIDE</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Автозавершение, вставляет в редактор функции, ключевые слова, константы, фрагменты кода.</p><br />
+<img src='img/AutoCompletionIDE.png' border="0"><br /><br />
+
+
+<h1>Работа с программой</h1>
+
+
+<h4 class='blue'>Назначение</h4>
+
+Не всегда программист знает наизусть все имена функций, параметры функций (точнее в большинстве не знает, как и для остальных перечисленных моментов), не всегда может набрать их без ошибок (всегда с ошибками), не всегда может быстро набирать с той же скоростью как на родном языке (всегда скорость набора медленная). Здесь пригодится быстрый поиск имён по части слова и вставка в том числе конструкций кода. Просто предлагается список того чем заменить выделенный текст.<br />
+
+<h4 class='blue'>Основное</h4>
+
+<ol>
+<li>Выделить слово или установить курсор на слово (редакторы поддерживают автовыделение). Ввести  пару букв и выделить их.</li>
+<li>Вызвать горячую клавишу, заранее назначенную. Появится окно программы.</li>
+<li>Выбрать слово и нажать Enter (или правый клик). В режиме левого клика вставка производится кликом. Окно закрывается автоматически или по Esc.</li>
+</ol>
+
+<h4 class='blue'>Флажок</h4>
+
+Флажок переключает режим поиска между двумя наборами флагов указанных во второй и третьей строке lst-файла. Это позволяет сделать сокращённый поиск с меньшим количеством результатов при поиске от начала слова, или сделать поиск в любом месте выдавая много результатов. Учитывая различные правила имён функций, констант флаги поиска тоже являются индивидуальными для каждого списка.<br />
+
+<h4 class='blue'>Интернет</h4>
+
+Можно найти в интернете, то что находится в поле ввода. Кликая по спискам элемент списка вставляется в поле ввода. Нажать кнопки со стрелкой вниз чтобы показать меню. Это меню настраивается в ini-файле. Можно добавить сколько угодно пунктов меню.<br /><br />
+
+<h4 class='blue'>Кнопка "Найти"</h4>
+
+Нажатие тоже что <span class="shortcut">Enter</span> в поле ввода, чтобы найти новый текст.<br />
+Правый клик на кнопке вызывает меню с дополнительными полезными пунктами:<br />
+
+<ul>
+<li><font class="bor">Найденное в буфер обмена</font> - чтобы вставить в редактор и подсветить искомый текст.</li>
+<li><font class="bor">Открыть папку ini</font> - чтобы открыть папку фрагментов и добавить новые.</li>
+<li><font class="bor">Открыть ini</font> - изменить настройки</li>
+<li><font class="bor">Открыть lst</font> - изменить настройки списка</li>
+</ul>
+<br /><br />
+
+<h4 class='blue'>Поле ввода</h4>
+Поле ввода предназначено, чтобы ввести иное слово или дописать пару букв для более избирательного результата. Нажатием <span class="shortcut">Enter</span> (или кнопки "Найти") выполняется поиск и обновление списков новыми данными. В поле ввода не работают стрелки вправо/влево для перемещения курсора, так как они задействованы как горячие клавиши для переключения между списками, так как наибольший приоритет это выбрать стрелками нужный элемент для вставки.
+<br /><br />
+
+<h4 class='blue'>Быстрые клавиши окна</h4>
+<span class="shortcut">стрелка вверх/вниз</span> делает выбор по списку.<br />
+<span class="shortcut">стрелка вправо/влево</span> выбирает список с подсветкой активного списка.<br />
+<span class="shortcut">Enter</span> - вставка выбранного в редактор или поиск введённого в поле ввода.<br />
+<span class="shortcut">Esc</span> - выход, закрытие окна без каких либо действий.<br />
+<span class="shortcut">Ctrl + Q</span> переключает чекбокс и собственно активирует поиск в новом режиме.<br />
+<span class="shortcut">Ctrl + Enter</span> - фокус в поле ввода с возвращением начального выделенного текста в поле.<br />
+<span class="shortcut">Ctrl + Shiftl + Enter</span> - показать меню интернета.<br />
+
+<h4 class='blue'>Командная строка</h4>
+Принимаются 2 параметра слово и позиция от начала строки. Слово для поиска, а позиция, чтобы вставить перед словом отступы при вставке фрагментов кода или кальки. При отсутствии параметров захватывается выделенный текст в активном окне, а если ничего не выделено, то используется текст из буфера обмена. 
+
+
+<h4 class='blue'>Спецсимволы регулярного выражения</h4>
+Хотя эти символы ][{}()*+?.\\^$|=<># не используются при поиске, но всё же использование их вызывает ошибку, зависание с использованием процессора на максимуме, по причине неоптимальных регулярных выражений. В связи с этим добавлено предупреждение, вместо запрета, так как при правильном регулярном выражении можно получить ожидаемые результаты.<br /><br /><br />
+
+
+
+
+<h1>Списки</h1>
+
+<h4 class='blue'>7 строк</h4>
+1. файлы должны быть с расширением lst, рекомендуется UTF-8 с BOM<br />
+2. Первые 7 строк зарезервированы для настроек, например:<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font class="purple">Константы</font> - имя списка отображаемое над списком<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font class="purple">72</font> - флаги, указывающие поведение поиска, вставки<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font class="purple">64</font> - флаги альтернативного поиска, переключается чекбоксом<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font class="purple">FF00FF</font> - цвет текста в списке, сделать такой же как в IDE<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font class="purple">#PB_</font> - префикс, вставляется при вставке<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font class="purple">$</font> - суффикс, вставляется при вставке, может быть "_(" для WinAPI-функций<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font class="purple">~</font> - символ подмены CRLF, позволяет вставить многострочный текст, например в кальках<br />
+
+<h4 class='blue'>Флаги</h4>
+
+Флаг во второй строке имеет следующие значения:<br /><br />
+
+без флага - не учитывать регистр<br />
+без флага - поиск от начала<br />
+без флага - поиск как есть по всей строке<br />
+<font class="purple">1</font> - учитывать регистр<br />
+<font class="purple">2</font> - учитывать регистр, если первый символ в верхнем регистре<br />
+<font class="purple">4</font> - поиск в любом месте, иначе от начала<br />
+<font class="purple">8</font> - поиск с переводом первой буквы искомого в верхний регистр, т.е. из "компи" в "Компи" и искать с учётом регистра.<br />
+<font class="purple">16</font> - режим кальки, поиск по кальке до "|", вставляться будет то что после "|"<br />
+<font class="purple">32</font> - фрагменты, он же - снипсеты. Обычный список имён или аббревиатур, а вставка из файла с таким же именем<br />
+<font class="purple">64</font> - поиск в 2 прохода, "от начала" потом "не от начала", чтобы релевантное было наверху списка<br />
+<font class="purple">128</font> - поиск от начала слова без учётом регистра, предполагается от начала строки или пробела или другого разделителя<br />
+<!-- вставка префикса, суффикса, подмена CRLF -->
+<br />
+Поиск в любом месте на самом деле не включает параметры внутри скобок. То есть если строка содержит параметры Asc(s), то поиск происходит только по имени Asc и не затрагивает (s), аналогично для режима кальки поиск выполняется до вертикальной черты, то есть в "Глобал|Global " поиск происходит по "Глобал", но не происходит по "|Global ", а вставляется "Global "<br /><br />
+
+Поведение для флага 2: если выделен текст, где первая буква в нижнем регистре, то поиск нечувствителен к регистру, а если первая буква в верхнем регистре, то с учётом регистра, т.е. если выделено Ga, то не будут найдены ga, это полезно, так как функции имеют заглавные буквы в частях слов SetActiveGadget.<br /><br />
+
+Поведение для флага 8: если выделен текст, например "компи", то он преобразуется в "Компи" и будет найден с учётом регистра.<br /><br />
+
+<h4 class='blue'>Список</h4>
+Собственно после 6 зарезервированных строк идёт сам список функций, ключевых слов, констант и т.д.<br />
+Списки разного вида и имеют разные настройки.<br /><br />
+
+<b>Фрагменты</b>
+Список содержит имена фрагментов, это могут быть названия функций или аббревиатуры. Для каждого элемента списка должен быть файл находящийся в папке с таким же именем как и сам файл списка, то есть если файл "Snippets.lst" то имя папки "Snippets", если имя элемента списка "Func", то файл должен быть Snippets\Func.pb.<br /><br />
+
+<b>Калька</b>
+Список позволяет искать простые слова, например элемент списка "Глобал|Global ", чтобы не делать их через "фрагменты". Поиск производится по слову "Глобал", а вставляться будет слово "Global". Также можно делать многострочные конструкции указав символ подмены CRLF в 6 строке. Но это лучше сделать для циклов и условий, где пара ключевых слов, сложные конструкции делать через "фрагменты". В этом списке удобно указывать русские (точнее не англоязычные) имена для англоязычных функций, аббревиатуры.<br /><br />
+
+<b>Константы</b>
+Здесь ничего особенного, кроме возможности добавлять префикс и суффикс при вставке. Для WinAPI функций (без параметров) можно автоматически добавлять "_()" в конце, чтобы заполнять параметры в скобках.<br /><br />
+
+<b>Функции</b>
+Здесь ничего особенного, кроме того, что при поиске не учитывается текст, который идёт после скобки, например в Func(var) поиск будет по имени "Func", но не затрагивать "var", это как в кальке поиск до вертикальной черты, но в отличии от кальки при вставке функций будет вставлены и параметры в скобках.<br /><br />
+
+<b>Ключевые слова</b>
+Здесь ничего особенного, то что отображается то и вставляется и поиск по всей строке. Здесь могут быть элементарные условные операторы, имена функций. Но это не является особым списком, т.е. если в элементе появится открывающая скобка или вертикальная черта, то поиск будет выполнятся до этого разделительного символа, который обычно не используется в именах функций, ключевых словах и константах.
+
+<h4 class='blue'>Сортировка списка</h4>
+Изначально элементы сортированы по алфавиту. Если вы замечаете, что необходимо много нажатий стрелки вниз/влево для сдвига курсора, чтобы выбрать часто используемый элемент, то можно поменять местами списки и поменять местами элементы в списке, то есть сделать часто используемое наверху списка, тогда вставка будет мгновенной. Например очень часто требуется вставить MessageRequester() или Debug с разными вариантами вывода, переменных, чисел, текста, или часто используемые фрагменты, например GUI, чтение файла, в ключевых словах часто используется конструкция "If" и т.д. Чтобы выбрать достаточно ввести "me", получаем первым в списке "MemorySize", находим его в lst-файле и над ним вставляем "MessageRequester", теперь при вызове поиска "me" необходимая функция будет первой и достаточно нажать <span class="shortcut">Enter</span> ничего не выбирая.<br /><br />
+
+<h4 class='blue'>Цвета</h4>
+Можно использовать следующие цвета в BGR<br /><br />
+Для белой темы:<br />
+
+<table class="param" cellspacing="15" cellpadding="3" style="background-color:#FFF">
+<tr>
+<td><font color="#7A76AB">AB767A</font><br />
+<font color="#0099FF">FF9900</font><br />
+<font color="#A08D52">528DA0</font><br />
+<font color="#FF00FF">FF00FF</font><br />
+<font color="#7D8AE6">E68A7D</font><br />
+</tr>
+</table>
+<br />
+Для чёрной темы:<br />
+
+<table class="param" cellspacing="15" cellpadding="3" style="background-color:#3F3F3F">
+<tr>
+<td><font color="#AAA6DB">DBA6AA</font><br />
+<font color="#0099FF">FF9900</font><br />
+<font color="#C0AD72">72ADC0</font><br />
+<font color="#D998DE">DE98D9</font><br />
+<font color="#7D8AE6">E68A7D</font><br />
+<font color="#FF66FF">FF66FF</font></td>
+</tr>
+</table>
+
+
+
+<br /><br /><br />
+
+
+<h1>Настройка</h1>
+
+<br /><br />
+<p><B class='blue'>ini-файл</b></p>
+<br />
+
+
+
+<p class="codebox"><br />
+<font class="blue">[set]</font> ; <font class="comm">секция настроек<br />
+<font class="key1">paste</font><font class="red">=</font><font class="purple">1</font> ; <font class="comm">автоматическая вставка</font><br />
+<font class="key1">strpaste</font><font class="red">=</font><font class="vstr">xdotool key ctrl+v</font> ; <font class="comm">строка используемая для эмуляции клавиш вставки из буфера обмена (только в Linux)</font><br />
+<font class="key1">strcopy</font><font class="red">=</font><font class="vstr">xdotool key ctrl+c</font> ; <font class="comm">строка используемая для эмуляции клавиш копирования в буфера обмена (только в Linux)</font><br />
+<font class="key1">Width</font><font class="red">=</font><font class="purple">880</font> ; <font class="comm">ширина окна, -1 - на весь экран</font><br />
+<font class="key1">Height</font><font class="red">=</font><font class="purple">500</font> ; <font class="comm">высота окна, -1 - на весь экран</font><br />
+<font class="key1">WinClose</font><font class="red">=</font><font class="purple">0</font> ; <font class="comm">закрывать окно при потере фокуса</font><br />
+<font class="key1">RightClick</font><font class="red">=</font><font class="purple">1</font> ; <font class="comm">вставка правым кликом также позволяет стрелками выбирать пункт и Enter. Иначе только левым кликом</font><br />
+<font class="key1">SpaceTab</font><font class="red">=</font><font class="purple">0</font> ; <font class="comm">если у вас пробелы вместо отступа, то укажите 1</font><br />
+<font class="key1">FullScreen</font><font class="red">=</font><font class="purple">1</font> ; <font class="comm">развернуть окно на весь экран после запуска</font><br />
+<font class="key1">ColorAct</font><font class="red">=</font><font class="hex">F4FFF4</font> ; <font class="comm">цвет активного списка, для чёрной темы Linux цвет 99EE99</font><br />
+<font class="key1">ColorNotAct</font><font class="red">=</font><font class="hex">FFFFFF</font> ; <font class="comm">цвет неактивного списка, для чёрной темы Linux цвет AAAAAA</font><br />
+<font class="key1">TitleIDE</font><font class="red">=</font><font class="vstr">PureBasic</font> ; <font class="comm">текст в заголовке окна для идентификации окна (только в Windows)</font><br />
+<font class="key1">ClassIDE</font><font class="red">=</font><font class="vstr">WindowClass_2</font> ; <font class="comm">класс окна для точной идентификации окна (только в Windows)</font><br />
+<font class="key1">ClassEdit</font><font class="red">=</font><font class="vstr">Scintilla</font> ; <font class="comm">класс элемента редактирования внутри окна, то есть элемент в который будет производится вставка (только в Windows)</font><br />
+<font class="key1">Ext</font><font class="red">=</font><font class="vstr">pb</font> ; <font class="comm">расширение файлов для фрагментов</font><br />
+
+<br />
+<font class="blue">[link]</font> ; <font class="comm">секция ссылок для меню поиска в интернете</font><br />
+<font class="key1">google</font><font class="red">=</font><font class="clr6">https://www.google.com/search?source=hp&amp;q=%s&amp;oq=%s</a></font></font><br />
+<font class="key1">google_domain_fr</font><font class="red">=</font><font class="clr6">https://www.google.com/search?source=hp&amp;q=%s+site%3Apurebasic.fr&amp;oq=%s+site%3Apurebasic.fr</font></font><br />
+<font class="key1">yandex</font><font class="red">=</font><font class="clr6">https://yandex.ru/search/?text=%s</font></font><br />
+<font class="key1">yandex_domain_fr</font><font class="red">=</font><font class="clr6">https://yandex.ru/search/?text=%s+site%3Apurebasic.fr</font></font><br />
+</font><br /></p>
+Здесь %s это то что вставлено для поиска, то есть в любой ссылке поиска нужно заменить искомое на %s и ссылка будет правильно сформирована.
+
+
+Если ini отсутствует, то настройки по умолчанию, для окна PureBasic.<br />
+<br /><br /><br />
+
+
+<h1>Настройки редактора</h1>
+<br /><br />
+
+<p><B class='blue'>PureBasic</b></p>
+<br />
+
+в ini-файле по умолчанию, т.е.
+<p class="codebox">
+<font class="key1">TitleIDE</font><font class="red">=</font><font class="vstr">PureBasic</font><br />
+<font class="key1">ClassIDE</font><font class="red">=</font><font class="vstr">WindowClass_2</font><br />
+<font class="key1">ClassEdit</font><font class="red">=</font><font class="vstr">Scintilla</font></p>
+<br /><br />
+Добавить инструмент в "Инструменты &rarr; Настройка инструментов... &rarr; Новый". Указать путь, параметры:<br />
+<p class="comline">-w:%WORD %CURSOR</p>
+
+<br /><br />
+<p><B class='blue'>Notepad++</b></p>
+<br />
+<p class="codebox">
+<font class="key1">TitleIDE</font><font class="red">=</font><font class="vstr">Notepad++</font><br />
+<font class="key1">ClassIDE</font><font class="red">=</font><font class="vstr">Notepad++</font><br />
+<font class="key1">ClassEdit</font><font class="red">=</font><font class="vstr">Scintilla</font></p>
+<br /><br />
+
+
+В файле "AppData\Roaming\Notepad++\shortcuts.xml", то есть <span class="shortcut">Alt+F2</span><br />
+<p class="codebox">
+<font class="TAG">&lt;Command</font> <font class="ATTR">name=</font><font class="VAL"><i>&quot;AutoCompletionIDE&quot;</i></font><font class="ATTR"> Ctrl=</font><font class="VAL"><i>&quot;no&quot;</i></font> <font class="ATTR">Alt=</font><font class="VAL"><i>&quot;yes&quot;</i></font><font class="ATTR"> Shift=</font><font class="VAL"><i>&quot;no&quot;</i></font><font class="ATTR"> Key=</font><font class="VAL"><i>&quot;113&quot;</i></font><font class="TAG">&gt;</font><font class="PSE">&amp;quot;</font><font class="VAR">$(NPP_DIRECTORY)</font><font class="STR">\Tools\AutoCompletionIDE.exe</font><font class="PSE">&amp;quot;</font> <font class="PSE">&amp;quot;</font>-w:<font class="VAR">$(CURRENT_WORD)</font><font class="PSE">&amp;quot;</font><font class="TAG">&lt;/Command&gt;</font></p>
+
+
+<br /><br />
+<p><B class='blue'>AkelPad</b></p>
+<br />
+<p class="codebox">
+<font class="key1">TitleIDE</font><font class="red">=</font><font class="vstr">AkelPad</font><br />
+<font class="key1">ClassIDE</font><font class="red">=</font><font class="vstr">AkelPad4</font><br />
+<font class="key1">ClassEdit</font><font class="red">=</font><font class="vstr">AkelEditW</font> (или <font class="vstr">RichEdit20</font>)</p>
+<br /><br />
+
+В меню добавить строку:<br />
+<p class="comline"><font class="key1">&quot;AutoCompletionIDE&quot;</font> <font class="blue"><b>Exec</b></font><font class="red">(</font><font class="pth">`&quot;%a\AkelFiles\Tools\AutoCompletionIDE\AutoCompletionIDE.exe&quot;</font><font class="red">`</font><font class="STR">, <i>&quot;-w:%d&quot;</i></font><font class="red">)</font> <font class="blue"><b>Icon</b></font><font class="red">(</font><font class="vstr">&quot;%a\AkelFiles\Tools\AutoCompletionIDE\AutoCompletionIDE.exe&quot;</font><font class="red">)</font>
+</p>
+
+
+<br /><br />
+<p><B class='blue'>Geany</b></p>
+<br />
+открыть "Настройки &rarr; Инструменты &rarr; Контекстное действие" и в поле ввести команду:
+<p class='comline'>AutoCompletionIDE -w:%s</p>
+где %s - выделенный текст. Открывается пункт в контекстном меню, последний (или в "Правка"). Также в настройках горячих клавиш:  "Правка &rarr; Настройки &rarr; Сочетание клавиш &rarr; Редактор &rarr; Контекстное действие" назначить например Alt+1, в файле /home/user/.config/geany/keybindings.conf появится запись popup_contextaction=&lt;Alt&gt;1, то есть можно просто добавить эту запись в файл перед запуском Geany.
+
+<br /><br />
+
+<br /><br /><br /><br />
+</body></html>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>chmViewer</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">chmViewer</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Просмотр CHM-файлов. Подключить к редактору используя ком-строку, выделить слово и вызвать горячую клавишу.</p><br />
+<img src='img/chmViewer.png' border="0"><br /><br />
+<p class="funcdesc">В Linux.</p><br />
+<img src='img/chmViewerL.gif' border="0"><br /><br />
+
+<br /><br /><h1>Работа с программой</h1>
+<br />
+<br />
+
+<h4 class='blue'>Параметры в файле chmViewer.ini</h4>
+
+<div class="codebox">
+<span class='blue'><b>[set]</b></span><br />
+<span class='key1'>width</span><span class="red">=</span><span class="purple">660</span> <font class="comm"> ; ширина окна</font><br />
+<span class='key1'>height</span><span class="red">=</span><span class="purple">560</span> <font class="comm"> ; высота окна</font><br />
+<span class='key1'>splitter</span><span class="red">=</span><span class="purple">300</span> <font class="comm"> ; позиция разделителя между деревом и веб-контентом</font><br />
+<span class='key1'>winbg</span><span class="red">=</span><span class="purple">3F</span> <font class="comm"> ; цвет окна (hex-формат), если 0 то игнор.</font><br />
+<span class='key1'>background</span><span class="red">=</span><span class="purple">30</span> <font class="comm"> ; цвет фона окна содержания (hex-формат), если 0 то игнор.</font><br />
+<span class='key1'>foreground</span><span class="red">=</span><span class="purple">a</span> <font class="comm"> ; цвет текста окна содержания (hex-формат), если 0 то игнор.</font><br />
+<span class='key1'>select</span><span class="red">=</span><span class="purple">1</span> <font class="comm"> ; выбор справки по номеру пункта в меню, начиная с 1 (из секции [chm] для существующих)</font><br />
+<span class='key1'>flgfind</span><span class="red">=</span><span class="purple">4</span> <font class="comm"> ; Устанавливает флаги в окне поиска: 1 - учитывать реигстр, 2 - целое слово, 4 - искать от начала слова.</font><br />
+<span class='key1'>editor</span><span class="red">=</span><span class="vstr">C:\Windows\System32\notepad.exe</span> <font class="comm"> ; путь к редактору для открытия ini-файла, TOC и страниц из дерева. В Windows для блокнота параметр не нужен, он по умолчанию если не указано. В Linux например geany</font><br />
+<br />
+
+<span class='blue'><b>[chm]</b></span><br />
+<span class='key1'>PureBasic.chm|6237657</span><span class="red">=</span><span class="vstr">C:\PureBasic_Help_Compile\TOC.hhc</span> <font class="comm"> ; путь к hhc ранее открытой справки (создаётся автоматически программой).</font><br /><br />
+
+<span class='blue'><b>[last]</b></span><br />
+<span class='key1'>PureBasic.chm|6237657</span><span class="red">=</span><span class="vstr">Break</span> <font class="comm"> ; последняя страница (это план на будущее)</font><br /><br />
+
+</div><br />
+Цвет в шестнадцатеричном формате, может быть задан упрощённо, например "F" означает "FFFFFF", "3F" = "3F3F3F", "F95" = ""FF9955"<br /><br />
+
+
+<h4 class='blue'>Меню обработки</h4>
+<span class='bor'>Исправить DOCTYPE</span> - в Linux это может стать проблемой отображения html-файлов. Этот тег в первой строке html-файла.<br />
+<span class='bor'>Преобразовать HTML из ANSI в UTF-8</span> - Linux по умолчанию воспринимает файлы как UTF-8 и не понимает ANSI-кодировки Windows.<br />
+<span class='bor'>Исправить псевдокод в дереве</span> - если в содержании символы выглядят как псевдокод, например для кавычек это <span class='bor'>&</span><span class='bor'>quot;</span> , то исправляет, заменяя на явные символы.<br />
+<!-- <span class='bor'>Исправить пути в html-файлах</span> - В Linux учитывается регистр имён файлов, в отличии от Windows, а так как CHM создаётся в Windows, то иногда пренебрегают этими свойствами и ссылка в тексте может отличатся регистром от имени файла, что создаёт проблему открытия файла в Linux. Чтобы исключить это создан функционал исправления, который создаёт список html-файлов, а потом если файл на html-странице не существует, то сравниваются копии имён в нижнем регистре и если копия существует, то берётся её оригинал существующего файла.<br /><br /> -->
+Меню обработки действует для открытой справки. После обработки переоткрыть.
+
+<h4 class='blue'>Окно поиска</h4>
+Поиск по дереву и по странице быстр.<br />
+Поиск по всем страницам выполняет поиск во всех html-файлах, и те, в которых найдено будут выведены в результирующий список. Скорость поиска зависит от числа html-файлов. Поиск русских слов (в Linux) можно проводить пока только если справка переведена в формат UTF-8 (см. меню обработки).<br />
+Поиск по странице подсвечивает искомое слово. Нет проверки, что текст не является тегом html, поэтому результат поиска тегов выдаст неожиданный результат.<br />
+Кнопка "Подсчёт" и "Далее" (в виде стрелки) работают только с деревом.<br />
+Получив список результатов и нажимая на ссылки и делая поиск по странице всегда можно вернуться к списку результатов нажимая кнопку-стрелку "Назад".<br />
+При поисках создаются временные файлы "chmViewerFind.htm", которые кешируются в текущей сессии, а при закрытии программы все они будут удалены. Создаваемые списки хранятся в корне справки, а страницы с подсветкой в папках рядом с оригиналами, тем самым не нарушая внутренние относительные пути к css и png файлам.
+
+
+<h4 class='blue'>Командная строка</h4>
+Утилита удобна для вызова из редактора:<br />
+<span class='bor'><b>pathfile.chm</b></span> - если параметр единственный и является путём CHM-файл, то будет открыт.<br />
+<span class='bor'><b>/w:</b></span><span class='blue'><b>word</b></span> - чтобы передать ключевое слово, которое будет открыто в дереве справки (если найдено).<br />
+<span class='bor'><b>/h:</b></span><span class='blue'><b>pathfile</b></span> - путь к файлу hhc, вместо параметров "/p:" и "/t:", куда распакован chm-файл (предварительно открыть CHM-файл в chmViewer).<br />
+<span class='bor'><b>/p:</b></span><span class='blue'><b>path</b></span> - путь к папке, куда распакован chm-файл (предварительно открыть CHM-файл в chmViewer).<br />
+<span class='bor'><b>/t:</b></span><span class='blue'><b>toc-file</b></span> - имя файла содержания без расширения.<br />
+<span class='bor'><b>/f:</b></span><span class='blue'><b>flag</b></span> - при поиске комбинация флагов: 1 - учитывать регистр, 2 - целое слово, 4 - искать от начала слова.<br /><br />
+Порядок параметров не имеет значения, префиксы определяют назначение. Параметры имеют приоритет над ini-файлом.<br />
+В Linux префикс "-", то есть -p:path, что помогает отличать от пути начинающегося с "/"<br />
+
+
+<h4 class='blue'>Использование в PureBasic</h4>
+в Windows:
+<p class="comline"><font class="blue">chmViewer.exe</font> /w:%WORD /p:"C:\PureBasic_Help\" /t:"Table of Contents" /f:4</p>
+в Linux:
+<p class="comline"><font class="blue">chmViewer</font> -w:%WORD -p:"/home/user/Apps/purebasic/tools/chmViewer/" -t:"Table of Contents" /f:4</p>
+
+<h4 class='blue'>Использование в AkelPad</h4>
+<p class="comline"><font class="html">&quot;Справка&quot;</font> <font class="s5"><b>Exec</b></font><font class="s8">(</font><font class="key1">`&quot;%a\AkelFiles\Tools\chmViewer.exe&quot;</font><font class="clr6"> <i>/p:&quot;C:\PureBasic_Help\&quot; /t:&quot;Table of Contents&quot;</i></font><font class="s8">`)</font> <font class="s5"><b>Icon</b></font><font class="s8">(</font><font class="key1">&quot;%a\AkelFiles\Tools\chmViewer.exe&quot;</font><font class="s8">)</font></p>
+
+<h4 class='blue'>Использование в Linux</h4>
+Необходимо установить 7zip. Пакеты могут называться по разному, главное чтобы в папке "/usr/bin" появился файл "7z"<br />
+в Arch пакеты "7zip"<br />
+в Mint либо пакет "7zip", либо "P7zip-full"<br />
+в MX пакеты "7zip", "p7zip-full", "p7zip"<br />
+в Fedora установил "p7zip-gui.x86_64"<br />
+Также необходим пакет xdg-utils для запуска файлов в браузере или редакторе. При этом в ini-файле необходимо задать редактор, например editor=geany, иначе при выборе пункта "открыть в редакторе" в отсутствии параметра editor= будет использоваться команда xdg-open и откроет файл в браузере.
+
+
+
+<h4 class='blue'>Проблемы</h4>
+1. В Linux имеется регистро-зависимость имён файлов, что может создать проблему открытия html-страниц.<br />
+2. Дерево содержания может иметь псевдокод символов, требуется преобразование в явный текст.<br />
+3. В Linux не поддерживается ANSI в файле содержания (Table of Contents.hhc), поэтому преобразовывается в UTF-8.<br />
+4. Необходим запуск одного экземпляра программы при повторном открытии того-же chm-файла.<br />
+5. Нужна горячая клавиша мыши (боковая) для возврата на предыдущую страницу.<br />
+
+
+
+<br /><br /><br /><br />
+</body></html>
