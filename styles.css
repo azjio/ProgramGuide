@@ -1,0 +1,325 @@
+﻿html
+{
+	font-family: Verdana, Arial, 'Segoe UI', 'Lucida Grande', Helvetica, sans-serif;
+	font-size: 0.8em;
+}
+
+pre
+{
+	font-family: Verdana, Arial, 'Segoe UI', 'Lucida Grande', Helvetica, sans-serif;
+	font-size: 0.8em;
+}
+
+/* Общий стиль */
+body
+{
+	color:#000;
+	background-color:#F1F1EF;
+    font-family: Arial Cyr, Geneva;
+	font-weight:normal;
+	font-size: 1.0em;
+}
+
+ /* Таблицы без border */
+table
+{
+	border-collapse: collapse;
+	font-size: 1.0em;
+}
+
+th
+{
+	color:#444;
+	background-color:#FFCC99;
+	padding:4px;
+}
+
+ /* Таблицы с border и наследование */
+table.param
+{
+	border-collapse: collapse;
+	border: #c0c0c0 1px solid;
+}
+
+table.param th
+{
+	color:#444;
+	background-color:#FFCC99;
+	padding:4px;
+	border: #c0c0c0 1px solid;
+}
+
+table.param tr, table.param td
+{
+	border: #c0c0c0 1px solid;
+}
+
+.seltr /* Выделенная строка в таблице */
+{
+	background-color: #FFFF99;
+}
+
+b
+{
+	font-weight:bold;
+}
+p{
+	line-height: normal;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+ 
+ 
+.aligncenter {
+    text-align: center;
+}
+
+a{text-decoration:none;}
+
+/* Ссылки внутри справки */
+a:link, a:visited, a:active
+{text-decoration:none;color:#009;}
+
+a:hover
+{text-decoration:underline;color:#66C;}
+
+/* Ссылки на интернет страницы */
+a.ext:link, a.ext:visited, a.ext:active
+{text-decoration:underline;color:#900;}
+
+a.ext:hover
+{text-decoration:underline;color:#C66;}
+
+/* Ссылки в примерах */
+/* a.le:link, a.le:visited, a.le:active, a.le:hover {text-decoration:none;} */
+
+/* Этикетки в виде ссылок */
+a.bgw:link, a.bgw:visited, a.bgw:active
+{text-decoration:none;color:#009;padding-left: 2px;padding-right: 2px;background-color:#fff;}
+
+a.bgw:hover
+{text-decoration:none;color:#f00;padding-left: 2px;padding-right: 2px;background-color:#fff;}
+
+ /* Заголовки страниц в приложении и т.д. */
+H1 {
+	color: #3A6A7E;
+	font-family:Arial, Verdana, 'Segoe UI', 'Lucida Grande', Helvetica, 'MS sans serif';
+	font-size: 1.7em;
+	font-weight:700;
+	margin:0;
+	padding-bottom:5px;
+	padding-top:5px;
+}
+
+H2 {
+	color: #000080;
+	font-size: 1.25em;
+	font-weight: bold;
+	line-height: normal;
+}
+
+H3 {
+	color: #000080;
+	font-size: 1.0em;
+	font-weight: bold;
+	line-height: normal;
+}
+
+h4
+ {
+	text-indent: 2em;
+	font-size: 1.3em;
+ }
+
+.header /* текст: Описание функций / ключевого слова */
+{
+	color:#707070;
+	font-family:'Segoe UI', Arial, 'Lucida Grande', Verdana, Helvetica, sans-serif;
+	font-weight:400;
+	margin-bottom:-5;
+	margin-top:-10;
+	padding-bottom:0px;
+	padding-top:0px;
+}
+
+.funcname /* Название функции */
+{
+	color:#444;
+	font-family:'Segoe UI', Arial, 'Lucida Grande', Verdana, Helvetica, sans-serif;
+	font-size: 2.25em;
+}
+
+.funcdesc /* Описание функции */
+{
+	font-family:'Segoe UI', Arial, 'Lucida Grande', Verdana, Helvetica, sans-serif;
+	font-size: 1.25em;
+}
+
+.section /* заголовки "Параметры", "Возвращаемое значение", "См. также", "Пример" */
+{
+	color:#db7100;
+	padding-top:18px;
+}
+
+/* =============================
+вспомогательные цвета для выделения текстов*/
+
+.red  /* красный */
+{
+	color: #f00;
+}
+.aqua  /* лазурный */
+{
+	color: #0080FF;
+}
+.green  /* зелёный */
+{
+	color: #00b000;
+}
+.navyblue  /* тёмно-синий */
+{
+	color: #0000ff;
+}
+.yellow  /* жёлтый */
+{
+	color: #bbbb00;
+}
+.orange  /* оранжевый */
+{
+	color: #db7100;
+}
+
+.bledni  /* бледный */
+{
+	color: #999;
+}
+
+
+
+/* Бордовый */.bor
+{
+	color: #aa0000;
+}
+
+/* синий */
+.blue {
+	color: #0373FE;
+}
+
+
+.bg_red  /* красный фон */
+{
+	background-color: #f66;
+}
+.bg_green  /* зелёный фон */
+{
+	background-color: #8f8;
+}
+.bg_orange  /* оранжевый фон */
+{
+	background-color: #fdb;
+}
+.bg_blue  /* синий фон */
+{
+	background-color: #def;
+}
+.bg_navyblue  /* тёмно синий фон */
+{
+	background-color: #48f;
+}
+
+
+.bbrd {
+	color:#942603;
+	font-weight: bold;
+}
+
+
+.trele {
+	color:#f00;
+	font-weight: bold;
+}
+
+.tprv {
+	color:#090;
+}
+
+
+.go {
+	border: 0px;
+	margin: 0px 9px 0px 9px;
+}
+
+
+
+ 
+.comline  /* форматированная ком-строка */
+{
+	color: #000;
+	background-color: #fff5c5;
+	border: #aaa 1px solid;
+	padding: 6px;
+	font-size: 1.0em;
+	font-family:  Consolas, 'Courier New';
+	white-space: normal;
+    text-indent: 0pt;
+}
+
+.codebox  /* фрагменты кода */
+{
+	background-color: #FFF;
+	border: #aaa 1px solid;
+	padding: 6px;
+	font-size: 1.0em;
+	font-family: Consolas, Arial, 'Courier New';
+	white-space: normal;
+}
+
+.key1 {color: #858;}
+.comm {color: #71AE71;}
+.purple {color: #ff00ff;}
+.vstr {color: #970;}
+.hex {color: #6588f7;}
+.me1 {color: #4E8A52}
+
+.clr6 {color: #48c;}
+
+
+
+ /* Терминал */
+.terminal {
+	color: #fff;
+	background-color: #555;
+	border: 1px solid #111;
+	white-space: nowrap;
+	padding: 0px 3px 0px 3px;
+}
+
+.path {
+	color:#920;
+	background-color: #ffffd0;
+	border: 1px solid #eec;
+	white-space: nowrap;
+	padding: 0px 3px 0px 3px;
+}
+
+
+.s2 /* Комментарии */
+{
+	color: #093;
+}
+
+.s9   /* Ключевые слова */
+{
+	color: #AC00A9;
+}
+.s5  /* Секции */
+{
+	color: #04F;
+}
+
+.s8 /* Операторы */
+{
+	color: #F00;
+	font-weight: bold;
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>RegExp</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">RegExp</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Тест регулярных выражений.</p><br />
+<img src='img/RegExpP.png' border="0"><br /><br />
+<p class="section">Взаимосвязанные</p>
+<a href="RegExp.htm">RegExp</a><br />
+<a href="RegExpDescription.htm">Синтаксис регулярных выражений</a><br />
+
+<br />
+<h1>Описание</h1>
+<br />
+
+
+<h4 class='blue'>Кнопка Старт</h4>
+Выполняет поиск/замену и т.д. с помощью регулярного выражения<br /><br />
+
+
+<h4 class='blue'>Библиотека</h4>
+При запуске программа проверяет файлы в папке "Library" и добавляет их в список библиотек. Библиотека содержит регулярные выражения, флаги и текст обработки. Содержимое библиотеки отображается в правой части окна. Клик на элементе библиотеки вставляет данные в поля. Две кнопки (Добавить и Удалить) предназначены для добавления (перезаписи) и удаления пунктов. По умолчанию используется имя выбранного пункта, что позволяет перезаписать, т.е. обновить данные пункта. Если надо добавить новый, то указать новое имя пункта. Библиотека позволяет не потерять важные регулярные выражения и всегда иметь к ним доступ.<br /><br />
+
+<h4 class='blue'>Вывод результата</h4>
+Результат выводится в нижнее слева окно. Результат зависит от режима поиска. Это может быть текстом найдено-ненайдено или результатом замены или списком элементов, а также предупреждением об ошибке в регулярном выражении на англ. языке.<br /><br />
+
+<h4 class='blue'>Режимы</h4>
+<ul>
+<li><font class="bor">Поиск</font> - возвращает "Найдено" или "Не найдено".</li>
+<li><font class="bor">Замена</font> - возвращает текст, в котором выполнена замена.<br />
+&nbsp; &nbsp; Рядом имеются две галки: поддержка Unescape-символов (\r\n\t) и поддержка групп (\1...\9).</li>
+<li><font class="bor">Массив</font> - возвращает целиком найденные элементы соответствующие регулярному выражению.</li>
+<li><font class="bor">Группы</font> - возвращает элементы регулярного выражения находящиеся в скобках.</li>
+<li><font class="bor">Пошаговый</font> - возвращает позицию, длину и найденный текст регулярного выражения.</li>
+</ul>
+
+Флаг "<font class="bor">С разметкой</font>" позволяет сделать вывод результатов более наглядным, с номерами найденных элементов.<br /><br />
+
+<h4 class='blue'>Скорость выполнения</h4>
+Под кнопкой "Старт" есть два поля. Нижнее показывает время выполнения текущего регулярного выражения на текущем тексте. Верхнее - время предыдущего теста. Это необходимо для сравнения скорости. Если текущий тест выполнен быстрее предыдущего, то нижнее поле подсвечивается зелёным цветом, иначе красным.<br /><br />
+
+<h4 class='blue'>Стиль оформления</h4>
+В ini можно задать цвет элементов окна и цвет подсветки метасимволов в поле регулярного выражения. Стиль выбирается так: style=style1, при этом в ini-файле должна быть секция [style1] с настройками цвета. Для примера ini-файл содержит несколько готовых стилей.<br /><br />
+
+<h4 class='blue'>Вставка метасимволов</h4>
+Некоторые комбинации можно вставить с помощью кнопки "звёздочка" - "*", меню которого можно сделать самостоятельно в Menu.ini.<br /><br />
+
+<h4 class='blue'>История</h4>
+Кнопка истории сохраняет 30 элементов последнего использования регулярных выражений. Регулируется параметром maxhistor=30.<br /><br />
+
+
+<h4 class='blue'>Командная строка</h4>
+В качестве инструмента в PureBasic можно добавить с ком-строкой:<br />
+
+<div class="codebox">-l:PureBasic -nu -i:4 "%TEMPFILE"</div><br />
+Здесь ключи имеют следующее значение:<br />
+<font class="bor">-l:PureBasic</font> - выбор библиотеки<br />
+<font class="bor">-nu</font> - не обновлять (или заморозить обрабатываемый текст, чтобы не изменялось при нажатии других пунктов)<br />
+<font class="bor">-i:4</font> - выбор 4-го пункта, отсчёт от 0. Параметр обязательно должен быть после ключа -l: иначе отработает когда библиотека не открыта<br />
+<font class="bor">"%TEMPFILE"</font> путь в кавычках открываемого файла в окно обрабатываемого текста.<br />
+Данный функционал позволяет автоматически открывать RegExpPB с нужными настройками и искать или обрабатывать исходник с помощью регулярных выражений.<br /><br />
+
+<h4 class='blue'>Флаги</h4>
+<b>OnTop</b> - короткое название "Поверх всех окон"<br />
+<b>Не обновлять</b> - при вставки из библиотеки не заменяется текст для обработки. Допустим нужно обрабатывать свой текст разными регулярными выражениями.<br />
+Также 5 включаемых флагов, которые можно включать в самом регулярном выражении методом (?s) и т.д.
+<br /><br />
+
+<h4 class='blue'>Кнопки</h4>
+<ul>
+<li><img src="icons/folder.gif" width="" height="" alt=""> <font class="bor">Открыть</font> - Открыть текстовый файл для обработки.</li>
+<li><img src="icons/clear.gif" width="" height="" alt=""> <font class="bor">Очистить</font> - Очищает 4 поля ввода.</li>
+<li><img src="icons/plus.gif" width="" height="" alt=""> <font class="bor">Добавить</font> - Добавить семпл в библиотеку.</li>
+<li><img src="icons/Del.gif" width="" height="" alt=""> <font class="bor">Удалить</font> - Удалить выбранный пункт библиотеки.</li>
+<li><img src="icons/meta.gif" width="" height="" alt=""> <font class="bor">Метасимволы</font> - выбор готовых комбинаций для вставки в шаблон регулярного выражения.</li>
+<li><img src="icons/up.gif" width="" height="" alt=""> <font class="bor">Переместить вверх</font> - Перемещает текст из результатов в окно для обработки. Полезно если некий текст надо прогнать через десяток регулярных выражений. После каждого применения нажимать кнопку, чтобы перемещать обработанный текст в результатах наверх для обработки следующим регулярным выражением.</li>
+<li><img src="icons/range.gif" width="" height="" alt=""> <font class="bor">Показать диапазон</font> - тест диапазонов полезен для новичков.</li>
+
+<li><font class="bor">Copy</font> - копирует в буфер обмена готовую конструкцию для вставки в код. Для этого в папке "template" есть одноимённые готовые шаблоны, в которых переменные подменяются соответствующими полями. Чтобы программа была универсальна есть параметр copysel=0, если поменять его на copysel=1, то вместо использования одноименных шаблонов откроется папка с возможностью выбора файла-шаблона, таким образом можно даже для одного режима сделать несколько шаблонов, не говоря уже о разных языках программирования.</li>
+</ul>
+
+<h4 class='blue'>Описание ini-файла</h4>
+<div class="codebox">
+<font class='blue'>[Set]</font> - <font class="comm">секция основных параметров</font><br />
+<font class='key1'>width </font><font class="red">=</font> <font  class="purple">800</font> - <font class="comm">ширина окна</font><br />
+<font class='key1'>height </font><font class="red">=</font> <font  class="purple">600</font> - <font class="comm">высота окна</font><br />
+<font class='key1'>fontsize </font><font class="red">=</font> <font  class="purple">11</font> - <font class="comm">размер шрифта</font><br />
+<font class='key1'>maxhistor </font><font class="red">=</font> <font  class="purple">30</font> - <font class="comm">максимальное число пунктов истории</font><br />
+<font class='key1'>topmost </font><font class="red">=</font> <font  class="purple">0</font> - <font class="comm">поверх всех окно</font><br />
+<font class='key1'>lastlib </font><font class="red">=</font> <font class="vstr">PureBasic</font> - <font class="comm">последняя библиотека, выбираемая при запуске программы</font><br />
+<font class='key1'>copysel </font><font class="red">=</font> <font  class="purple">0</font> - <font class="comm">Флаг переключения выбора шаблона методом открытия файла</font><br />
+<font class='key1'>style </font><font class="red">=</font> <font class="vstr">style1</font> - <font class="comm">выбор секции стиля</font><br />
+<br />
+<font class='blue'>[regexp]</font> - <font class="comm">история регулярных выражений</font><br />
+<font class='key1'>1 </font><font class="red">=</font> <font class="vstr">[А-Яа-яЁё]+</font> - <font class="comm">один из элементов истории</font><br />
+<font class='key1'>2 </font><font class="red">=</font> <font class="vstr">(\r\n|\r|\n){2,}</font><br />
+<br />
+<font class='blue'>[style1]</font> - <font class="comm">секция стиля</font><br />
+<font class='key1'>gui </font><font class="red">=</font> <font class="me1">f</font> - <font class="comm">цвет окна (только Windows)</font><br />
+<font class='key1'>gadget </font><font class="red">=</font> <font class="me1">f</font> - <font class="comm">цвет гаджетов (поле ввода) (только Windows)</font><br />
+<font class='key1'>gadgetfont </font><font class="red">=</font> <font class="me1">f</font> - <font class="comm">цвет шрифта (тексты окна, чекбоксы, надписи) (только Windows)</font><br />
+<font class='key1'>type </font><font class="red">=</font> <font  class="purple">1</font> - <font class="comm">тип цвета, фон или шрифт (для регулярных выражений)</font><br />
+<font class='key1'>background </font><font class="red">=</font> <font class="me1">f</font> - <font class="comm">цвет фона</font><br />
+<font class='key1'>default </font><font class="red">=</font> <font  class="purple">0</font> - <font class="comm">цвет шрифта</font><br />
+<font class='key1'>select_bg </font><font class="red">=</font> <font class="me1">f99</font> - <font class="comm">цвет фона выделенного текста</font><br />
+<font class='key1'>select_fnt </font><font class="red">=</font> <font  class="purple">0</font> - <font class="comm">цвет шрифта выделенного текста</font><br />
+<font class='key1'>caret </font><font class="red">=</font> <font  class="purple">0</font> - <font class="comm">цвет курсора</font><br />
+<font class='key1'>re_Repeat </font><font class="red">=</font> <font class="me1">BFFFBD</font> - <font class="comm">цвет повтора {n,m}</font><br />
+<font class='key1'>re_SqBrackets </font><font class="red">=</font> <font class="me1">BDF7FF</font> - <font class="comm">цвет квадратных скобок []</font><br />
+<font class='key1'>re_RndBrackets </font><font class="red">=</font> <font class="me1">FFBDBD</font> - <font class="comm">цвет круглых скобок ()</font><br />
+<font class='key1'>re_AnyText </font><font class="red">=</font> <font class="me1">E6DDFF</font> - <font class="comm">цвет любого текста .*?</font><br />
+<font class='key1'>re_Meta </font><font class="red">=</font> <font class="me1">FFFFA5</font> - <font class="comm">цвет метасимволов \w и т.д.</font><br />
+<font class='key1'>re_Borders </font><font class="red">=</font> <font class="me1">FFDFA5</font> - <font class="comm">цвет границ \A \b и т.д.</font><br />
+<font class='key1'>re_ChrH </font><font class="red">=</font> <font class="me1">FFC1F7</font> - <font class="comm">цвет кода символа \x01 \x{01}</font><br />
+</div>
+Цвет может быть задан упрощённо, например "F" означает "FFFFFF", "3F" = "3F3F3F", "F95" = ""FF9955"
+
+
+<br /><br /><br /><br />
+</body></html>

@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>My_Notepad_Sci</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">My_Notepad_Sci</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Редактор текстов с поддержкой подсветки кода и автозавершения.</p><br />
+<img src='img/My_Notepad_Sci.png' border="0"><br /><br />
+<p class="funcdesc">В Linux.</p><br />
+<img src='img/My_Notepad_Sci_L.png' border="0"><br /><br />
+
+<br /><br />
+<h1>Работа с программой</h1>
+<br />
+<h4 class='blue'>Работа с программой</h4>
+<ul>
+<li>Работа как с обычным блокнотом.</li>
+<li>Ctrl+D - дублирование строки или выделенного - функционал поддерживается Scintilla, как и многие другие горячие клавиши.</li>
+<li>Работает "перетащить и бросить" файл.</li>
+</ul>
+
+
+<h4 class='blue'>Параметры в файле My_Notepad_Sci.ini</h4>
+
+<div class="codebox">
+<span class='blue'><b>[Set]</b></span><br />
+<span class='key1'>ww</span><span class="red">=</span><span class="purple">800</span> - <font class="comm">Ширина окна</font><br />
+<span class='key1'>wh</span><span class="red">=</span><span class="purple">600</span> - <font class="comm">Высота окна</font><br />
+<!-- <span class='key1'>wm</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">Флаг развёрнутости окна на весь экран (пока отсутствует)</font><br /> -->
+<span class='key1'>fontsize</span><span class="red">=</span><span class="purple">11</span> - <font class="comm">размер шрифта</font><br />
+<span class='key1'>selttransp</span><span class="red">=</span><span class="purple">100</span> - <font class="comm">Прозрачность выделения</font><br />
+<span class='key1'>font</span><span class="red">=</span><span class="vstr">NanumGothic</span> - <font class="comm">имя шрифта</font><br />
+<span class='key1'>numfield</span><span class="red">=</span><span class="purple">4</span> - <font class="comm">Ширина поля для номеров строк</font><br />
+<span class='key1'>AutoComplete</span><span class="red">=</span><span class="purple">1</span> - <font class="comm">Автозавершение для языков программирования</font><br />
+<span class='key1'>auto866</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">Автоматической включение кодировки 866 для cmd, bat файлов</font><br />
+
+<br />
+<span class='blue'><b>[Color]</b></span><br />
+<span class='key1'>color</span><span class="red">=</span><span class="purple">a</span> - <font class="comm">Цвет текста</font><br />
+<span class='key1'>bg</span><span class="red">=</span><span class="purple">3f</span> - <font class="comm">Цвет фона</font><br />
+<span class='key1'>sel</span><span class="red">=</span><span class="purple">a0</span> - <font class="comm">Цвет выделенного</font><br />
+<span class='key1'>caret</span><span class="red">=</span><span class="purple">f</span> - <font class="comm">Цвет каретки</font><br />
+<span class='key1'>caretline</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">Цвет строки с кареткой</font><br />
+<span class='key1'>indic</span><span class="red">=</span><span class="purple">f00</span> - <font class="comm">Цвет индикатора "Подсветка" в поиск/замена</font><br />
+<span class='key1'>marksel</span><span class="red">=</span><span class="purple">f0f</span> - <font class="comm">Цвет выделенного слова по тексту</font><br />
+</div>
+<br />
+Цвет указывается 6-значным шестнадцатеричным числом, при этом сокращённые варианты расшифровываются следующим образом:<br />
+"a"="aaaaaa"<br />
+"3f"="3f3f3f"<br />
+"f80"="ff8800"<br /><br />
+
+
+<h4 class='blue'>Цвета подсветки в файле My_Notepad_Sci_Color.ini</h4>
+
+<div class="codebox">
+<span class='blue'><b>[txt,log]</b></span> - расширения файлов, для которых применится эта подсветка<br />
+<span class='key1'>FDCEAE|2</span><span class="red">=</span><span class="vstr">\d</span> - <font class="comm">Цвет и регулярное выражение для подсветки</font><br />
+<span class='key1'>CEDF99|1</span><span class="red">=</span><span class="vstr">"[^"]+?"</span> - <font class="comm">Цвет и регулярное выражение для подсветки</font><br />
+</div>
+<br /><br />
+
+<h4 class='blue'>Регулярные выражения</h4>
+На данный момент в ini-файле подсветки и в диалоге "Поиск и замена" поддерживаются регулярные выражения движка Scintilla с большими ограничениями в возможностях. Для оценки возможностей смотреть регулярные выражения My_Notepad_Sci_Color.ini. Вместо \b используется "\<" и "\>" (граница слов). Вместо диапазона [а-яёА-ЯЁ]+ нужно использовать [ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]+<br />
+Так как нет предпросмотра вперёд и назад (?<=...) и (?=...), то используется метод наложения, то есть сначала подсвечивается большая часть строки, а потом внутри неё поверх подсвечиваются другие элементы. Нет знака ИЛИ "|" чтобы подсветить набор ключевых слов, надо каждый указывать отдельно (в будущем функционал будет упрощен добавлением ini-файла с наборами ключевых слов и внутренним движком их подсветки). Индекс после цвета CEDF99|<b>1</b> пока не используется, но добавлен на будущее для указания режима: регулярное выражение или отсылка к набору ключевых слов.
+
+<br /><br />
+
+
+
+<h4 class='blue'>Ком-строка</h4>
+Путь к файлу для открытия<br />
+
+
+<h4 class='blue'>Linux</h4>
+В Linux проблема с прокруткой документа. После изменения размера окна колесом мыши прокручивается, а ползунок справа неработающий и не соответствует размеру высоты документа. Если над окном пронести файл из файлового менеджера, то прокрутка восстанавливается. Иногда после прокрутки вниз невозможно прокрутить вверх.
+
+
+<h4 class='blue'>Запуск</h4>
+Это меню берётся из конфигурационного файла Start.ini.<br />
+"exe" - исполняемый файл, ссылка, обычный файл<br />
+"arg" - параметры передаваемые исполняемому файлу.<br />
+"hotkey" - горячая клавиша. В Windows не переназначается если уже существует, в Linux наоборот переназначается.<br /><br />
+
+В параметрах "exe" могут использоваться переменные:<br />
+<b class=bor>${ProgDir}</b> - папка программы<br />
+<b class=bor>${Word}</b> - выделенное слово или слово под курсором<br /><br />
+
+В параметрах "arg" могут использоваться переменные:<br />
+<b class=bor>${ProgDir}</b> - папка программы<br />
+<b class=bor>${hSci}</b> - дескриптор Scintilla<br />
+<b class=bor>${Word}</b> - выделенное слово или слово под курсором<br />
+<b class=bor>${Path}</b> - путь открытого файла<br />
+<b class=bor>${Name}</b> - имя открытого файла без расширения<br />
+<b class=bor>${Ext}</b> - расширение открытого файла<br /><br />
+
+В Linux в качестве "exe" можно использовать xdg-open для запуска не исполняемых файлов и ссылок.<br /><br />
+
+Пример путей для Windows<br />
+exe=<b class=bor>${ProgDir}</b>\Tools\Help.exe - путь от папки программы<br />
+exe=\Tools\Help.exe - относительный путь от папки конфигов "...\Roaming\My_Notepad_Sci\". Если конфиг в папке программы, то от неё. Символ "\" является критерием, с проверкой что файл существует.<br />
+exe=cmd.exe - поиск исполняемого файла в переменных среды %PATH%.
+
+
+
+
+<br /><br /><br />
+<h1>Автозавершение</h1>
+<br />
+<h4 class='blue'>Автозавершение</h4>
+<ul>
+<li>Смысл функционала автозавершения ускорить набор текста напечатав 1-2 буквы и нажав Enter, чтобы вставить первое по списку предлагаемое слово, либо выбрать кликом мышкой в списке, либо перемещая выделение клавишей "стрелка вниз".</li>
+<li>При вводе латинской буквы показывается меню предлагаемых элементов для вставки взамен части набранного.</li>
+<li>Если в папке AutoComplete есть папка с расширением файла и при выборе элемента автозавершения в папке есть одноимённый файл, то будет вставлено содержимое этого файла, это работает как вставка фрагментов кода (он же snippets -снипсеты).</li>
+</ul>
+
+
+<h4 class='blue'>Формат списка</h4>
+
+<ul>
+<li>Список в начале и в конце имеет пустые строки. Это упрощает функцию поиска элементов. Если этих пустых строк не оставить, то первый и последний элемент никогда не будут найдены и не будут предлагаться для вставки.</li>
+<li>Список должен быть сортированный. Это исключает необходимость сортировать списки при старте программы или при открытии файлов. Если список не сортированный, то функция поиска найдя первый элемент удовлетворяющий условию не будет искать до конца списка, а только ближайшие к найденному элементы.</li>
+<li>Список состоит из элементов в каждой строке, но разделён не Windows разделителем CRLF, а Unix разделителем LF. Это сделано для кросплатформенности. Если не соблюсти это условие, то при вставке будет добавляться CR, так как это будет не разделитель, а часть вставляемого слова.</li>
+</ul>
+
+
+<h4 class='blue'>Формат фрагментов</h4>
+
+<ul>
+<li>Фрагменты вставляются как есть, поэтому если отступы или переносы строк не соответствуют общему формату, это уже не проблема редактора.</li>
+<li>Полезно в конце конструкции добавлять перенос на следующую строку, чтобы при вставке фрагмента в код можно было писать дальше на новой строке.</li>
+</ul>
+
+
+
+<br /><br /><br /><br />
+</body></html>

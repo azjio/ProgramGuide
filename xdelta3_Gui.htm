@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>xdelta3_Gui</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">AutoIt3</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">xdelta3_Gui</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Оболочка для утилиты xdelta3.</p><br />
+<img src='au3/xdelta3_Gui.png' border="0"><br /><br />
+
+
+Gui_xdelta3 - оболочка для консольной утилиты xdelta3.exe<br />
+Для создания патча на основе двух файлов и патча указанного файла с сохранением нового<br />
+Сжатие указывается от 0 до 9, только при создании патча<br />
+Строка состояния отображает результат выполнения (успешное или неудачное выполнение операции)<br /><br />
+
+Gui_xdelta3.ini - файл настроек позволяет оформить утилиту для своих нужд<br />
+1. Пути. Здесь всё просто, указанные пути будут вставлены при запуске. Если указанный путь не полный, то вставляется относительно текущего каталога<br />
+2. Title - Заголовок окна<br />
+3. icon - иконка окна. Это может быть dll с номером иконки, например "shell32.dll,25" или ico-файл без номера иконки. Полный или относительный путь.<br />
+4. Compressing - уровень сжатия<br />
+5. Параметры с суффиксом Hide позволяют скрыть элемент, кнопку или выбор сжатия. При этом сжатие всё равно учитывается в параметре Compressing<br />
+6. Параметры Comm_Patch, Comm_Create позволяют добавить ключи к xdelta3.exe, например "-S djw". По умолчанию при создании используется обязательный ключ -e, а при патче обязательный ключ -d и ключ сжатия, если указано в ini или в gui. Полезно добавить ключ -f, (Comm_Patch=-f) чтобы принудительно перезаписывать существующий файл при патче, аналогично для Comm_Create.<br /><br />
+
+Скачать xdelta3.exe можно отсюда: http://code.google.com/p/xdelta/downloads/list<br />
+Например файл xdelta3.0z.x86-32.exe и потом переименуйте его в xdelta3.exe<br /><br />
+
+Официальный сайт xdelta3.exe : http://xdelta.org/
+
+<br /><br /><br /><br />
+</body></html>

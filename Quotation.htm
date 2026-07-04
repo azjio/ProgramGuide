@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Quotation</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">Quotation</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Цитатник - быстро сохраняет выделенные тексты.</p><br />
+
+
+<h1>Работа с программой</h1>
+<br />
+<p><font class="funcname">Выделить текст и вызвать горячую клавишу Ctrl+J (по умолчанию). Выделенное сохранится.</font></p>
+<br />
+
+<h4 class='blue'>Параметры ini-файла</h4>
+
+<div class="codebox">
+<span class='blue'><b>[set]</b></span><br />
+<span class='key1'>HotkeyCode</span><span class="red">=</span><span class="purple">586</span> <font class="comm"> ; код горячей клавиши</font><br />
+<span class='key1'>MaxSize</span><span class="red">=</span><span class="purple">500</span> <font class="comm"> ; максимальный размер файла в кб. Если превысит то старое копируется в новый файл с датой, а текущий очищается и пишется снова</font><br />
+<span class='key1'>Preview</span><span class="red">=</span><span class="purple">1</span> <font class="comm"> ; предпоказ фрагмента перед сохранением и выбор секции сохранения.</font><br />
+<span class='key1'>Clipboard</span><span class="red">=</span><span class="purple">0</span> <font class="comm"> ; если 0 то захват выделенного, если 1, то захват буфера обмена.</font><br />
+<span class='key1'>ClrFnt</span><span class="red">=</span><span class="hex">AAAAAA</span> <font class="comm"> ; Цвет текста в предпросмотре. Можно указывать 1, 2, 3, 6 шестнадцатеричных символа.</font><br />
+<span class='key1'>ClrBG</span><span class="red">=</span><span class="hex">3F3F3F</span> <font class="comm"> ; Цвет фона в предпросмотре</font><br />
+<span class='key1'>Signal</span><span class="red">=</span><span class="vstr">C:\Windows\media\Windows - восклицание.wav</span> <font class="comm"> ; сигнал успешного сохранения записи</font><br /><br />
+
+<span class='blue'><b>[Quote]</b></span> <font class="comm"> ; все секции кроме [set] являются разделом сохранения показываемый в предпоказе для выбора сохранения. То есть здесь задаётся имя.</font><br /> 
+<span class='key1'>mode</span><span class="red">=</span><span class="purple">1</span> <font class="comm"> ; режим сохранения. "=1" - сохранения в один файл</font><br />
+<span class='key1'>path</span><span class="red">=</span><span class="vstr">Text\Quotation.txt</span> <font class="comm"> ; путь к файлу сохранения цитат. Путь может быть пустым (создаётся в корне), относительным (от корня) и абсолютным.</font><br />
+<span class='key1'>separator</span><span class="red">=</span><span class="vstr">\r\n\r\n=== %d %t ====\r\n\r\n</span> <font class="comm"> ; разделитель между цитатами при добавлении новой цитаты. Здесь используются escape-последовательности, где \r\n - перенос, а также переменные даты %d и времени %t</font><br />
+<span class='key1'>wstr</span><span class="red">=</span><span class="purple">0</span> <font class="comm"> ; кодировка файла, 0 - UTF-8, 1 - Ascii, 2 - Unicode</font><br />
+<span class='key1'>bom</span><span class="red">=</span><span class="purple">1</span> <font class="comm"> ; Добавляет метку BOM.</font><br />
+<span class='key1'>edit</span><span class="red">=</span><span class="purple">0</span> <font class="comm"> ; Если 1, то при использовании предпросмотра можно редактировать текст и сохранятся будет из окна редактора. Флаг индивидуальный.</font><br />
+<span class='key1'>TitleBtwn</span><span class="red">=</span><span class="vstr">&lt;title&gt;_|_&lt;\title&gt;_|_\r\n\r\n</span> <font class="comm"> ; Добавляет заголовок взяв из содержимого между тегами. Здесь _|_ является разделителем полей.</font><br /><br />
+
+<span class='blue'><b>[PureBasic]</b></span><br />
+<span class='key1'>mode</span><span class="red">=</span><span class="purple">2</span> <font class="comm"> ; режим сохранения. "=2" - сохранения в отдельные файлы</font><br />
+<span class='key1'>folder</span><span class="red">=</span><span class="vstr">%yyyy.%mm</span> <font class="comm"> ; это способ задания папки, в данном случае год и месяц. Если будет указан день, то будут создаваться папки каждый день. Также можно указывать часы, минуты (ii, так как mm это месяцы), секунды</font><br />
+<span class='key1'>path</span><span class="red">=</span><span class="vstr">PureBasic</span> <font class="comm"> ; путь где будут генерироваться папки и в них файлы. Путь может быть пустым (создаётся в корне), относительным (от корня) и абсолютным.</font><br />
+<span class='key1'>Ext</span><span class="red">=</span><span class="vstr">pb</span> <font class="comm"> ; расширения файлов, чтобы удобно было открывать, если это куски кода. </font><br />
+<span class='key1'>wstr</span><span class="red">=</span><span class="purple">0</span> <font class="comm"> ; кодировка файла, 0 - UTF-8, 1 - Ascii, 2 - Unicode</font><br />
+<span class='key1'>bom</span><span class="red">=</span><span class="purple">1</span> <font class="comm"> ; Добавляет метку BOM. Например для html-файлов метка BOM не нужна, при этом кодировка UTF-8 и указывается в html-файле.</font><br />
+<span class='key1'>edit</span><span class="red">=</span><span class="purple">0</span> <font class="comm"> ; Если 1, то при использовании предпросмотра можно редактировать текст и сохранятся будет из окна редактора. Флаг индивидуальный.</font><br />
+<span class='key1'>genname</span><span class="red">=</span><span class="purple">0</span> <font class="comm"> ; генератор имени файла. 0 - запрос имени, 1 - дата и время является именем файла, 2 - счётчик от 1 и далее. Если указано имя уже существующего файла при =0, то будет добавлен индекс, например name_1, name_2 и т.д.</font>
+</div><br />
+Чтобы применить настройки после редактировании ini-файла нужно перезапустить программу.<br />
+В режиме <span class='key1'>mode</span><span class="red">=</span><span class="purple">2</span> имя файла указывается в окне ввода имени, а в будущем можно придумать генератор имён по правилам, например по тексту из контента или по времени создания или счётчик 1, 2, и т.д. ввести переменную счётчика %i<br /><br />
+Можно создать несколько секций с режимами 1 и 2, но со своими путями, расширениями файлов и т.д. Например можно сделать ещё раздел для AutoIt3 или CMD с режимом 2 и тогда фрагменты кода AutoIt3, CMD и PureBasic будут сохранятся в свои папки, а не в общую кучу.<br />
+
+<h4 class='blue'>Работа с программой</h4>
+Имеется 2 способа сохранения текстовых фрагментов:<br />
+1) в один файл каждый раз добавляя в конец.<br />
+2) каждый фрагмент в отдельный файл.<br />
+За это отвечает параметр <span class='key1'>mode</span><span class="red">=</span><br /><br />
+
+В ini-файле можно создавать сколько угодно секций, каждая из которых будет являться индивидуальной настройкой сохранения файла. Исключение - секция <span class='blue'><b>[set]</b></span>, которая содержит общие настройки для программы. Взависимости от режима <span class='key1'>mode</span><span class="red">=</span> секция имеет разный набор параметров. Так как <span class='key1'>mode</span><span class="red">=</span><span class="purple">2</span> является способом сохранения в отдельные файлы, то она имеет параметры <span class='key1'>folder</span> для маски генерируемой папки по дате, а параметр <span class='key1'>path</span> является папкой, в которой будут генерироваться папки <span class='key1'>folder</span>, а в них файлы-фрагменты. Режим <span class='key1'>mode</span><span class="red">=</span><span class="purple">1</span> имеет основной параметр <span class='key1'>path</span>, который указывает путь к файлу, в который будут сохраняться фрагменты. Остальные параметры по умолчанию выбраны наилучшим образом и в большинстве добавлять не обязательно.<br /><br />
+
+<h4 class='blue'>Предпросмотр</h4>
+Параметр <span class='key1'>Preview</span><span class="red">=</span><span class="purple">1</span> определяет предпросмотр фрагмента перед его сохранением и выбор секции сохранения. В этом окне работают горячие клавиши Enter (ОК) и Esc (Отмена), а стрелками вверх/вниз выбрать секцию сохранения. После первого выбора секции выбор остаётся всегда на этой секции и достаточно нажимать только Enter. Если нет необходимости в предпросмотре, то задаём флаг 0 в параметре и сохранение будет происходить в первую секцию всегда. При этом чтобы контролировать успешное сохранение добавлен параметр <span class='key1'>Signal</span><span class="red">=</span>, чтобы воспроизводить указанный звук при успешном сохранении фрагмента. Эта функция работает в любых режимах, даже с предпросмотром. Если используется файл из папки "C:\Windows\media\" это может оказаться жёсткой ссылкой и тогда нужно открыть свойства файла и на вкладке "Свойства ссылки" копировать другой путь.<br />
+Для удобства добавлены цвета текста (<span class='key1'>ClrFnt</span><span class="red">=</span>) и фона (<span class='key1'>ClrBG</span><span class="red">=</span>) в окне предпросмотра. Можно указывать цвета сокращённо, например "A" преобразуется в "AAAAAA", "3F" преобразуется в "3F3F3F", "F98" преобразуется в "FF9988"<br /><br />
+
+
+<h4 class='blue'>Прочее</h4>
+Пункт меню "Показать настройки" в трее позволяет изменить горячую клавишу.<br /><br />
+
+При вызове горячей клавиши имитируется нажатие <span class="red">Ctrl+Insert</span> (аналог <span class="red">Ctrl+C</span>), то есть выделенный текст попадает в буфер обмена, а потом считывается из него и сохраняется в файл. Если возникает проблема с <span class="red">Ctrl+Insert</span> и по какой то причине выделенное не попадает в буфер обмена, то использовать <span class='key1'>Clipboard</span><span class="red">=</span><span class="purple">1</span>, в этом режиме не имитируется <span class="red">Ctrl+Insert</span>, то есть нужно вручную вызвать <span class="red">Ctrl+C</span>, а потом горячую клавишу захвата фрагмента.<br /><br />
+
+Параметр <span class='key1'>separator</span><span class="red">=</span> индивидуальный и для больших фрагментов текста можно использовать многократный перенос строк, а для однострочных фрагментов можно использовать однократный перенос, понимая, что каждая строка это новый фрагмент.<br /><br />
+
+Параметр <span class='key1'>edit</span><span class="red">=</span> индивидуальный, позволяет править текст в окне предпросмотра, точнее править текст можно всегда, но использовать отредактированный будет секция с флагом <span class='key1'>edit</span><span class="red">=</span><span class="purple">1</span>. Например при сохранении ссылок можно дополнять их комментариями. Чтобы не путаться нужно добавить к имени пункта суффикс (W) или (E), например "Link (E)", то есть секция, которая берёт текст из окна редактора.<br /><br />
+
+Параметр <span class='key1'>TitleBtwn</span><span class="red">=</span><span class="vstr">&lt;title&gt;_|_&lt;\title&gt;_|_\r\n\r\n</span> Означает что будет найден текст между тегами &lt;title&gt; и &lt;\title&gt; в выделенном фрагменте и добавлен как заголовок сразу после разделителя, указанного в <span class='key1'>separator</span><span class="red">=</span>. При этом после заголовка будет добавлено \r\n\r\n (третий элемент строки). В этом поле можно использовать переменные дат (см. ниже %yy и т.д.). В параметре <span class='key1'>TitleBtwn</span> можно указывать escape-последовательности (\r\n и т.д.). Пробелы и переносы строк в начале и конце захваченного заголовка будут удалены. Если захваченный заголовок имеет перенос строки, то это не будет добавлено, текст захватывается только на одной строке.<br />
+Этот параметр полезен, если происходит целенаправленное копирование текстов определённого формата, где в содержимом находится, например, путь к файлу или другая исключительная информация, которую желательно выставить заголовком в первой строке. Причём с помощью <span class='key1'>separator</span> и третьего элемента параметра <span class='key1'>TitleBtwn</span> можно задать что будет до и после заголовка.
+<br /><br />
+
+Параметр <span class='key1'>wstr</span><span class="red">=</span><span class="purple">0</span> и <span class='key1'>bom</span><span class="red">=</span><span class="purple">1</span> определяют кодировку файла. Некоторые файлы, особенно в режиме <span class='key1'>mode</span><span class="red">=</span><span class="purple">2</span> требуют конкретной кодировки, чтобы в последствии не пришлось перекодировать каждый файл. Символы греческого алфавита или другого языка кроме латинских букв невозможно сохранить в ANSI, поэтому по умолчанию используется UTF-8 с BOM.<br />
+Если файл был уже создан в одной из кодировок (в режиме <span class='key1'>mode</span><span class="red">=</span><span class="purple">1</span>), то не нужно переключать на другой формат, иначе данные будут испорчены. Чтобы исправить такую проблему нужно сначала открыть файл цитат в каком нибудь редакторе и преобразовать его в нужную кодировку, а уж потом изменять настройки кодировки в ini-файле и запускать программу.
+
+<h4 class='blue'>Формат дат</h4>
+Параметр <span class='key1'>folder</span><span class="red">=</span><span class="vstr">%yyyy.%mm</span> использует нативную функцию FormatDate() из PureBasic, где:<br /><br />
+<span class='key1'>%yyyy</span>: год из 4-х цифр.<br />
+<span class='key1'>%yy</span>: год из 2-х цифр.<br />
+<span class='key1'>%mm</span>: месяц из 2-х цифр.<br />
+<span class='key1'>%dd</span>: день из 2-х цифр.<br />
+<span class='key1'>%hh</span>: час из 2-х цифр.<br />
+<span class='key1'>%ii</span>: минут из 2-х цифр.<br />
+<span class='key1'>%ss</span>: секунд из 2-х цифр.<br />
+
+
+<br /><br /><br /><br />
+</body></html>

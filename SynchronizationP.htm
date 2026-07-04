@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Synchronization</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">Synchronization</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Синхронизация файлов в двух папках.</p><br />
+<img src='img/SynchronizationP.png' border="0">
+<br /><br />
+
+
+<br />
+<h1>Работа с программой</h1>
+<br />
+<h4 class='blue'>Работа с программой</h4>
+<ul>
+<li>Перетащить папки для сравнения в окно программы и нажать поиск.</li>
+<li>Выбрать критерии сравнения в раскрывающемся списке.</li>
+<li>Кнопками-стрелками в окне программы можно переместить файлы (зелёные стрелки) или удалить (красные стрелки), но перед этим поставить галки напротив файлов, для которых нужно выполнить операцию. Все файлы можно выбрать одним кликом флажком под списком.</li>
+<li>Если программа выдала список файлов, которые не удалось копировать/удалить, то проверьте, что диск доступен для записи. Если операция копирования не удалась по причине атрибута файла "только чтение", то выполнить операцию удаления в окне назначения для этих же файлов, так как операция имеет флаг "принудительно" и удаляет  файлы "только для чтения". В будущем возможно появится флаг снятия атрибутов в папке назначения перед копированием, проблема что в Linux флаги атрибутов другие, а  операция требуется одинаковая по смыслу.</li>
+<li>Задать маску перечислением расширений, это заметно ускоряет поиск.</li>
+<li>Строка состояния покажет за какое время выполнена операция и сколько файлов отображается в списках.</li>
+<li>Кнопка поиска пустых папок выводит их в окно результатов и позволяет удалить. Пустые папки могут появится в результате синхронизации при удалении лишних файлов.</li>
+<li>Чтобы посмотреть различия в файлах, вызвать ПКМ и выбрать "Сравнить парные", при этом 2 файла с одинаковым относительным путём откроются в программе сравнения, если она указана в ini-файле (<span class='key1'>Compare</span><span class="red">=</span>).</li>
+</ul>
+
+
+<h4 class='blue'>Параметры ini-файла</h4>
+
+<div class="codebox">
+<span class='blue'><b>[Set]</b></span><br />
+<span class='key1'>ww</span><span class="red">=</span><span class="purple">800</span> - <font class="comm">Ширина окна</font><br />
+<span class='key1'>wh</span><span class="red">=</span><span class="purple">600</span> - <font class="comm">Высота окна</font><br />
+<span class='key1'>wm</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">Флаг развёрнутости окна на весь экран</font><br />
+<span class='key1'>Compare</span><span class="red">=</span><span class="vstr">C:\Program Files\WinMerge\WinMergeU.exe</span> - <font class="comm">Программа сравнения файлов, для Lunux значение может быть </font><span class="vstr">/usr/bin/meld</span>
+</div>
+
+
+<h4 class='blue'>Семплы</h4>
+
+<div class="codebox">
+<span class='blue'><b>[Default]</b></span><br />
+<span class='key1'>Path1</span><span class="red">=</span> - <font class="comm">Путь слева</font><br />
+<span class='key1'>Path2</span><span class="red">=</span> - <font class="comm">Путь справа</font><br />
+<span class='key1'>Mode</span><span class="red">=</span><span class="purple">3</span> - <font class="comm">номер пункта в раскрывающемся списке, критерии сравнения</font><br />
+<span class='key1'>Mask</span><span class="red">=</span><span class="vstr">txt,ini,cfg</span> - <font class="comm">перечисление расширений, которые обрабатываются при поиске. Пустая строка - файлы без расширений.</font><br />
+<span class='key1'>Tmask</span><span class="red">=</span><span class="purple">0</span> - <font class="comm">тип маски: 0 - все файлы, 1 - указанные в маске, -1 - кроме указанных в маске.</font>
+</div>
+Семплы это секции ini-файла заготовленные для поиска. Все секции кроме <span class='blue'><b>[Set]</b></span> являются семплами для поиска. Они отображаются в меню выбора семплов. Там же есть пункты меню: "Открыть ini-файл" и "Добавить в ini-файл", чтобы выполнить ручную правку или добавить текущие настройки окна в семпл.
+
+<h4 class='blue'>Ком-строка</h4>
+Ком-строка принимает 1 или 2 папки, чтобы вставить их в правое и левое поле программы. Использовать контекстное меню "Отправить", положив в папку "%AppData%\Microsoft\Windows\SendTo" ярлык программы. Также можно через реестр добавив раздел "HKEY_CLASSES_ROOT\Directory\shell\Synchronization\command" с командой "путь_проги" "%1", но добавляет путь только в левое поле, а в правое перетаскивать из проводника.
+
+<div class="codebox">
+<span class='purple'>Windows Registry Editor Version 5.00</span><br /><br />
+<span class='red'>[</span><span class='purple'>HKEY_CLASSES_ROOT</span><span class="blue">\Directory\shell\Synchronization\command</span><span class='red'>]</span><br />
+<span class="vstr">@</span><span class="red">=</span><span class="me1">"\"C:\\Users\\User\\AppData\\Roaming\\AZJIO_Soft\\Synchronization\\Synchronization.exe\" \"%1\""</span>
+</div>
+<br /></p>
+
+
+<h4 class='blue'>Linux</h4>
+В Linux появляется галочка "find" предназначенная для использования пакета "findutils" для поиска файлов, это работает немного быстрее.
+Для большей гибкости, которая позволяет "find" в режиме "Все файлы" добавлено следующей поведение:
+
+<ul>
+<li>Если маска пуста "" или "*.*", то поиск всех файлов.</li>
+<li>Если маска пуста или "*", то поиск файлов без расширений (в имени файла нет точки).</li>
+<li>В ином случае используется Wildcard, то есть "*.jpg" или "IMG*.jpg", то есть маска с подстановочными символами "*?".</li>
+</ul>
+Во первых Wildcard не работает ни в каких других режимах, только здесь. Во вторых файлы без расширений, если без "find" то надо указать пустую маску в режиме "Маска ext1,ext2", а с галкой "find" выше указанным способом. "find" игнорирует символьные ссылки.
+
+
+<h4 class='blue'>Дополнительные возможности</h4>
+Можно выполнить сравнение двух каталогов, но изменить путь папки назначения, тогда копируемые файлы будут перемещаться в отдельный каталог, не тот с которым производилось сравнение.
+
+
+
+
+
+<br /><br /><br /><br />
+</body></html>

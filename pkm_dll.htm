@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>pkm_dll</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+<p class="header">PureBasic</p>
+<hr style="height:0px">
+<p><font class="funcname" size="+1">pkm_dll</font></p>
+<p class="section">Назначение</p>
+<p class="funcdesc">Получает список выделенных файлов из активного окна эксплорера.</p>
+<p class="section">Взаимосвязанные</p>
+<a href="Com2Selfiles.htm">Com2Selfiles</a>
+
+
+
+<br />
+<br />
+<h1>Работа с программой</h1>
+<br />
+<p><font class="funcname">Кратко: сформировать ini-файл, зарегистрировать dll, пользоваться.</font></p>
+<br />
+
+<h4 class='blue'>Параметры ini-файла</h4>
+
+<div class="codebox">
+<span class='blue'><b>[set]</b></span> ; <font class="comm">секция настроек</font><br />
+<span class='key1'>HotReadINI</span><span class="red">=</span><span class="purple">0</span> ; <font class="comm">предназначен для теста dll. При регистрации dll установить в 1, тогда каждый клик пункта меню сопровождается чтением ini-файла, что позволяет на лету менять параметры пункта (кроме NamePlag, Text и Bitmap). Когда пункт протестирован перейдите HotReadINI = 0 и горячее чтение прекратится. Чтобы начать тест заново надо перевести в 1 и сделать перелогин аккаунта.</font><br />
+<span class='key1'>Path</span><span class="red">=</span><span class="vstr">pkm.bat</span> ; <font class="comm">любой исполняемый файл, абсолютный путь, относительный от папки DLL и имя файла с поиском в %Path% или в папке DLL</font><br />
+<span class='key1'>Arg</span><span class="red">=</span><span class="vstr">/i</span> ; <font class="comm">дополнительные аргументы, кроме путей к выделенным файлам. Аргумент вставляется перед файлами.</font><br />
+<span class='key1'>ModeWorkDir</span><span class="red">=</span><span class="purple">1</span> ; <font class="comm">определяет рабочую папку. 0 - рабочая папка там где выбранные файлы, 1 - рабочая папка исполняемого файла</font><br />
+<span class='key1'>Text</span><span class="red">=</span><span class="vstr">My Item</span> ; <font class="comm">текст пункта, то что будет отображаться в меню. На любом языке, с пробелами.</font><br />
+<span class='key1'>Bitmap</span><span class="red">=</span><span class="purple">1</span> ; <font class="comm">если 1 то показывать значок пункта. Это bmp-файл (icon.bmp), размером 16x16 пиксел в папке DLL. 0 - не отображать.</font><br />
+<span class='key1'>Select</span><span class="red">=</span><span class="purple">1</span> ; <font class="comm">что выбрать. 1 - файлы, 2 - папки, 3 - файлы и папки. Остальные будут игнорироваться.</font><br />
+<span class='key1'>Separator</span><span class="red">=</span><span class="purple">|</span> ; <font class="comm">задаёт разделитель между файлами. Например в батнике можно задать разделитель в цикле, чтобы не использовать пробел, являющийся частью имени файла. Тогда %1 является вся строка с файлами.</font><br />
+<span class='key1'>Quotes</span><span class="red">=</span><span class="vstr">"</span> ; <font class="comm">задаёт символ вокруг строки файлов, чтобы bat-файл воспринимал строку как 1 параметр, не разделяя на пробелы. Но иногда нужен вывод без них.</font><br />
+<span class='key1'>Charset</span><span class="red">=</span><span class="purple">0</span> ; <font class="comm">Кодировка файла 24 - Ascii, 25 - UTF-16 с BOM, что либо иное - UTF-8 с BOM.</font><br />
+<span class='key1'>Debug</span><span class="red">=</span><span class="purple">0</span> ; <font class="comm">режим отладки или вывода. 1, 2, 4, 8, 16, 32, 64.<br />
+&nbsp; &nbsp; 1 и 4 выдают сообщение, причём  4 выдаёт только имена, а 1 исполняемый файл и рабочий каталог<br />
+&nbsp; &nbsp; 2 и 8 - буфер обмена, но 8 выдаёт только имена, а 2 исполняемый файл и рабочий каталог. Причём если в сообщении нажать ОК, то выполнится команда, получается контроль файлов и согласие выполнения, а вариант с буфером обмена не запускает исполняемый файл поэтому этот вариант можно использовать чтобы получить имена в буфер обмена для использования списка файлов на форуме и т.д.<br />
+&nbsp; &nbsp; 16 - при 1 и 2 создаёт список файлов без путей. 1 и 2 выдаёт многострочный список вне зависимости от разделителя и кавычек.<br />
+&nbsp; &nbsp; 32 - сохраняет список файлов в файле %TEMP%\pkm_dll.txt (зависит от имени pkm_dll.dll файла)<br />
+&nbsp; &nbsp; 64 - пустая ком-строка для запуска программ, которым нежелательно передавать ком-строку, полезно совместно с флагом 32.</font><br /><br />
+
+<span class='blue'><b>[dllreg]</b></span> ; <font class="comm">секция регистрации DLL</font><br />
+<span class='key1'>NamePlag</span><span class="red">=</span><span class="vstr">MyPlag1</span> ; <font class="comm">внутреннее имя плага, не особо важно, но если DLL регистрируется более одного раза, то имя плага всегда должно быть другое, иначе это перезапишет секцию в реестре. Использовать латинские буквы и цифры без пробелов.</font><br />
+<span class='key1'>WhereAssoc</span><span class="red">=</span><span class="purple">1</span> ; <font class="comm">где регистрировать пункт: 1 - файлы, 2 - папки, 4 - диски. Сумма флагов даёт комбинации вариантов, например 1+2+4 = 7, то есть флаг 7 регистрирует пункт во всех.</font><br />
+
+</div><br />
+
+
+
+<h4 class='blue'>Регистрация DLL</h4>
+<ol>
+<li>Положить папку с dll например в системную папку. Для начала путь к dll без пробела для надёжности.</li>
+<li>Указать параметры в ini-файле, подробнее см. выше.</li>
+<li>Зарегистрировать dll с правами админа (zRegister_DLL.cmd). (чтобы перерегистрировать нужно выполнить zUnregister_DLL.cmd, сделать выход из аккаунта, чтобы подменить dll новой версией и снова зарегистрировать)</li>
+</ol>
+
+
+<h4 class='blue'>Использование</h4>
+<ol>
+<li>Выделить несколько файлов, нажать правую кнопку мыши, вызвать пункт меню.</li>
+<li>Выполняется файл, указанный в "Path = "</li>
+<li>Файлы передаются исполняемому файлу в виде ком-строки.</li>
+<li>Повторить выше описанное, чтобы создать сколько угодно пунктов. Создать новую папку с копией dll с новыми параметрами ini-файла с созданием нового пункта меню.</li>
+</ol>
+
+
+<h4 class='blue'>Прочее</h4>
+ini-файл читается только при регистрации и входе в аккаунт (при старте ОС). Это значит, что если необходимо поменять параметры в ini-файле, например пункт меню или исполняемый файл, или иконку (но не имя плагина), то это применится только после перезапуска эксплорера, аналогично после Выход -> Вход в аккаунт или перезагрузки. Но для теста введён параметр <span class='key1'>HotReadINI</span><span class="red">=</span><span class="purple">0</span>, если <span class='key1'>HotReadINI</span><span class="red">=</span><span class="purple">1</span>, то чтение ini-файла производится при каждом клике на пункте, это режим тестирования пункта без необходимости каждый раз делать перевыход, чтобы протестировать рабочую папку (ModeWorkDir), параметры запуска (Arg). После завершения теста переключить в <span class='key1'>HotReadINI</span><span class="red">=</span><span class="purple">0</span>. начать тест снова горячим переключением в <span class='key1'>HotReadINI</span><span class="red">=</span><span class="purple">1</span> не получится, надо делать перелогин.<br /><br />
+
+Bitmap не имеет прозрачных пикселов (хотя не тестировал розовую маску), поэтому весь квадрат значка должен быть заполнен, чтобы в белой и чёрной теме это выглядело одинаково.<br /><br />
+
+Программу можно использовать для получения списка файлов включив <span class='key1'>Debug</span><span class="red">=</span><span class="purple">8</span> или 8+16=24 чтобы имена были без путей.<br /><br />
+
+При использовании <span class='key1'>Debug</span><span class="red">=</span><span class="purple">4</span> можно контролировать имена файлов получив сообщение перед запуском, чтобы знать, что передаётся необходимый набор файлов.<br /><br />
+
+Использовать совместно с <a target="_blank" href="https://usbtor.ru/viewtopic.php?t=2182">LauncherPB</a>, что позволит сделать запуск в разных программах.<br /><br />
+
+
+<h4 class='blue'>Сбой</h4>
+При вызове контекстного меню в дереве папок возникает падение эксплорера при WhereAssoc = больше 2, то есть регистрация пункта меню для папок.<br />
+
+
+
+<br /><br /><br /><br />
+</body></html>
